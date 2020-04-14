@@ -10,12 +10,15 @@ public class MapTests {
     @Before
     public void setup() {
         map = new Map();
+        map.initMapCount();
     }
 
     @After
     public void tearDown() {
         map = null;
     }
+
+/********** map.setMapSize() tests **********/
 
     @Test
     public void testSetMapSize_GreaterThanMinSize() {
