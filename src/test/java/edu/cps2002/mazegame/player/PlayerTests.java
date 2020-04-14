@@ -6,24 +6,63 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class PlayerTests {
-    public Player p;
-    public Position pn;
+    public Player p1;
+    public Position pos;
+
     @Before
     public void setup() {
-        p = new Player();
-        pn = new Position(4,5);
+        p1 = new Player();
+        pos = new Position(4,5);
     }
     @After
     public void tearDown() {
-        p = null;
-        pn= null;
+        p1 = null;
+        pos= null;
     }
 
     //testing SetPosition
     @Test
     public void testSetPosition(){
-        p.setPosition(pn);
-        assertEquals(pn, p.getPosition());
+        p1.setPosition(pos);
+        assertEquals(pos, p1.getPosition());
     }
+
+    @Test
+    public void testDirectionD(){
+        Player.move('D');
+        assertEquals(4, pos.getY());
+    }
+
+    @Test
+    public void testDirectionU(){
+        Player.move('U');
+        assertEquals(6, pos.getY());
+    }
+
+    @Test
+    public void testDirectionL(){
+        Player.move('L');
+        assertEquals(3, pos.getX());
+    }
+
+    @Test
+    public void testDirectionR(){
+        Player.move('R');
+        assertEquals(5, pos.getX());
+    }
+
+    @Test
+    public void testDirectionUNKNOWN1(){
+        Player.move('P');
+        assertEquals(5, pos.getY());
+    }
+
+    @Test
+    public void testDirectionUNKNOWN2(){
+        Player.move('P');
+        assertEquals(4, pos.getX());
+    }
+
+
 
 }
