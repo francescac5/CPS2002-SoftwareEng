@@ -10,6 +10,7 @@ public class MapTests {
     @Before
     public void setup() {
         map = new Map();
+        map.initMapCount();
     }
 
     @After
@@ -67,16 +68,5 @@ public class MapTests {
 
         //Assert
         assertFalse(result);
-    }
-
-/******* map.generateHTMLFile() tests ********/
-
-    @Test
-    public void testGenerateHTMLFile() {
-        //Exercise
-        boolean result = map.generateHTMLFile();
-
-        //Assert
-        assertTrue(result);
     }
 }
