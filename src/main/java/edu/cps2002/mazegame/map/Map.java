@@ -14,4 +14,8 @@ public class Map {
         }
 
     }
+
+    protected boolean generateHTMLFile() {
+        return true;
+    }
 }

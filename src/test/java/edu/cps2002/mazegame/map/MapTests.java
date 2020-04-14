@@ -17,6 +17,8 @@ public class MapTests {
         map = null;
     }
 
+/********** map.setMapSize() tests **********/
+
     @Test
     public void testSetMapSize_GreaterThanMinSize() {
         //Exercise
@@ -65,5 +67,16 @@ public class MapTests {
 
         //Assert
         assertFalse(result);
+    }
+
+/******* map.generateHTMLFile() tests ********/
+
+    @Test
+    public void testGenerateHTMLFile() {
+        //Exercise
+        boolean result = map.generateHTMLFile();
+
+        //Assert
+        assertTrue(result);
     }
 }
