@@ -3,29 +3,39 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
     public class PositionTests {
         public Position p;
+
         @Before
         public void setup() {
-          p = new Position();
+          p = new Position(3,4);
         }
-
         @After
         public void tearDown() {
             p = null;
         }
 
+        //testing setters
         @Test
-        public void testSetGetX(){
-            p.setX(3);
+        public void testSetX(){
+            p.setX(10);
+            assertEquals(10, p.getX());
+        }
+        @Test
+        public void testSetY(){
+            p.setY(10);
+            assertEquals(10, p.getY());
+        }
+
+        //testing getters
+        @Test
+        public void testGetX(){
             assertEquals(3, p.getX());
         }
         @Test
-        public void testSetGetY(){
-            p.setY(4);
-            assertEquals(3, p.getY());
+        public void testGetY(){
+            assertEquals(4, p.getY());
         }
     }
 

@@ -2,17 +2,28 @@ package edu.cps2002.mazegame.player;
 
 public class Position {
 
-    public void setX(int i) {
+    private int x;
+    private int y;
+
+    public Position(int x,int y){
+        this.x =x;
+        this.y= y;
     }
 
+    //getters and setters for the x-coordinates and y-coordinated
     public int getX() {
-        return 0;
+        return x;
     }
 
-    public void setY(int i) {
+    public void setX(int x) {
+        this.x = x;
     }
 
     public int getY() {
-        return 0;
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 }
