@@ -1,9 +1,11 @@
 package edu.cps2002.mazegame.map;
 
+import edu.cps2002.utils.MapUtils;
+
 import java.io.File;
-import java.io.IOException;
 
 public class Map {
+
     private int size;
     private static int mapCount;
 
@@ -27,4 +29,23 @@ public class Map {
         }
 
     }
+
+    public void generate(){
+        MapUtils util = new MapUtils();
+        File mapFile1 = util.generateHTMLFile(mapCount);
+        util.generateMap(mapFile1, size, mapCount);
+        mapCount++;
+        File mapFile2 = util.generateHTMLFile(mapCount);
+        util.generateMap(mapFile2, size, mapCount);
+        mapCount++;
+
+        util.deleteHTMLFiles();
+    }
+
+    //used temporarily to test utility map files
+    public static void main(String[]args){
+        Map map = new Map();
+        map.generate();
+    }
 }
+

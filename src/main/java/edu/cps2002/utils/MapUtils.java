@@ -1,18 +1,20 @@
 package edu.cps2002.utils;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class MapUtils {
 
-    protected boolean generateHTMLFile(int mapCount) {
+     public File generateHTMLFile(int mapCount) {
         try {
-            File mapFile = new File("src\\main\\java\\edu\\cps2002\\mazegame\\gameMap\\map"+mapCount+".html");
+            File mapFile = new File("src\\main\\java\\edu\\cps2002\\mazegame\\gameMaps\\map"+mapCount+".html");
             if (mapFile.createNewFile()) {
                 System.out.println("File created: " + mapFile.getName());
                 //mapCount++;
 
-                return true;
+                return mapFile;
             } else {
                 System.out.println("File already exists.");
             }
@@ -21,6 +23,53 @@ public class MapUtils {
             e.printStackTrace();
         }
 
-        return false;
+        return null;
+    }
+
+    public boolean generateMap(File mapFile, int size, int mapCount) {
+        FileWriter fWriter;
+        BufferedWriter writer;
+        try {
+            fWriter = new FileWriter(mapFile);
+            writer = new BufferedWriter(fWriter);
+            writer.write("<html>" +
+                    "<body>" +
+                    "<table border ='1'>" +
+                    "<thead>" +
+                    "<tr>" +
+                    "<th colspan=\"" + size + "\">Player " + mapCount + "</th>" +
+                    "</tr>" +
+                    "<tbody>");
+
+            //inputting grid according to map size
+            for (int i = 0; i < size; i++) {
+                writer.write("<tr>");
+                for (int j = 0; j < size; j++) {
+                    writer.write("<td height=\"50\" width=\"50\" style=\"background-color:grey;\"></td>");
+                }
+                writer.write("</tr>");
+            }
+
+            writer.write("</tbody>" +
+                    "</thead>" +
+                    "</table>");
+            writer.newLine();
+            writer.close();
+            return true;
+        }
+        catch (Exception e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public void deleteHTMLFiles(){
+        File mapFolder = new File("src\\main\\java\\edu\\cps2002\\mazegame\\gameMaps")   ;
+
+        File[] maps = mapFolder.listFiles();
+        for(File map: maps){
+            map.delete();
+        }
     }
 }
