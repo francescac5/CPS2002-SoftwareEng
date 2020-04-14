@@ -7,12 +7,12 @@ import static org.junit.Assert.assertEquals;
 
 public class PlayerTests {
     public Player p1;
-    public Position pos;
+    Position pos = new Position (4,5);
 
     @Before
     public void setup() {
+        Position pos = new Position (4,5);
         p1 = new Player();
-        pos = new Position(4,5);
     }
     @After
     public void tearDown() {
@@ -29,40 +29,38 @@ public class PlayerTests {
 
     @Test
     public void testDirectionD(){
-        Player.move('D');
+        p1.move('D');
         assertEquals(4, pos.getY());
     }
 
     @Test
     public void testDirectionU(){
-        Player.move('U');
+        p1.move('U');
         assertEquals(6, pos.getY());
     }
 
     @Test
     public void testDirectionL(){
-        Player.move('L');
+        p1.move('L');
         assertEquals(3, pos.getX());
     }
 
     @Test
     public void testDirectionR(){
-        Player.move('R');
+        p1.move('R');
         assertEquals(5, pos.getX());
     }
 
     @Test
     public void testDirectionUNKNOWN1(){
-        Player.move('P');
+        p1.move('P');
         assertEquals(5, pos.getY());
     }
 
     @Test
     public void testDirectionUNKNOWN2(){
-        Player.move('P');
+        p1.move('K');
         assertEquals(4, pos.getX());
     }
-
-
 
 }
