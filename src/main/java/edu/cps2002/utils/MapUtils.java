@@ -1,6 +1,8 @@
 package edu.cps2002.utils;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class MapUtils {
 
@@ -23,7 +25,11 @@ public class MapUtils {
         return null;
     }
 
-    public void generateMap(File mapFile, int size, int mapCount) {
+    public void generateMap(File mapFile, int size, int mapCount, ArrayList<Integer> grassTiles) {
+        Collections.shuffle(grassTiles);
+        int initTile = grassTiles.get(0);
+        int tileCount = 0;
+
         FileWriter fWriter;
         BufferedWriter writer;
         try {
@@ -42,7 +48,13 @@ public class MapUtils {
             for (int i = 0; i < size; i++) {
                 writer.write("<tr>");
                 for (int j = 0; j < size; j++) {
-                    writer.write("<td height=\"50\" width=\"50\" style=\"background-color:grey;\"></td>");
+                    if(tileCount == initTile){
+                        writer.write("<td height=\"50\" width=\"50\" style=\"background-color:green;\"><img src=\"/Assignment/src/main/resources/detective.png\" height=\"50\" width=\"50\"></td>");
+                        tileCount++;
+                    }else {
+                        writer.write("<td height=\"50\" width=\"50\" style=\"background-color:grey;\"></td>");
+                        tileCount++;
+                    }
                 }
                 writer.write("</tr>");
             }
@@ -58,8 +70,6 @@ public class MapUtils {
             e.printStackTrace();
         }
     }
-
-
 
     public void deleteHTMLFiles(){
         File mapFolder = new File("src\\main\\java\\edu\\cps2002\\mazegame\\gameMaps")   ;

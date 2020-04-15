@@ -16,8 +16,8 @@ public class MapTests {
 
     @After
     public void tearDown() {
-        MapUtils utils = new MapUtils();
-        utils.deleteHTMLFiles();
+      // MapUtils utils = new MapUtils();
+      //  utils.deleteHTMLFiles();
         map = null;
     }
 

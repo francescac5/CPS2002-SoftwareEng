@@ -20,6 +20,7 @@ public class Map {
     private static int mapCount;
     private Tiles[][] mapTiles;
     private boolean tilesGenerated = false;
+    private ArrayList<Integer> grassTiles = new ArrayList<Integer>();
 
     public void initMapCount(){
         mapCount = 0;
@@ -55,7 +56,7 @@ public class Map {
 
         mapCount++;
         File mapFile1 = util.generateHTMLFile(mapCount);
-        util.generateMap(mapFile1, size, mapCount);
+        util.generateMap(mapFile1, size, mapCount, grassTiles);
     }
 
     //used temporarily to test utility map files
@@ -64,7 +65,7 @@ public class Map {
         map.setMapSize(5);
         map.generate();
         map.generate();
-        map.deleteMaps();
+       // map.deleteMaps();
     }
 
     private void deleteMaps() {
@@ -76,13 +77,13 @@ public class Map {
         int tileCount = 1;
 
         //generate grass tiles
-        ArrayList<Integer> grass = generateGrassTiles(amountTiles);
+        generateGrassTiles(amountTiles);
 
         //generate treasure tile
-        int treasure = generateTreasureTile(amountTiles, grass);
+        int treasure = generateTreasureTile(amountTiles);
 
         //generate water tiles
-        ArrayList<Integer> water = generateWaterTiles(amountTiles, grass, treasure);
+        ArrayList<Integer> water = generateWaterTiles(amountTiles, treasure);
 
         mapTiles = new Tiles[size][size];
         for (int y = 0; y < size; y++) {
@@ -90,7 +91,7 @@ public class Map {
                 if(tileCount == treasure){
                     mapTiles[x][y] = Tiles.TREASURE;
                 }
-                else if(grass.contains(tileCount)){
+                else if(this.grassTiles.contains(tileCount)){
                     mapTiles[x][y] = Tiles.GRASS;
                 }
                 else if(water.contains(tileCount)){
@@ -105,39 +106,37 @@ public class Map {
         }
     }
 
-    private ArrayList<Integer> generateGrassTiles(int amountTiles) {
-        ArrayList<Integer> grassTiles = new ArrayList<Integer>();
+    private void generateGrassTiles(int amountTiles) {
         Random r = new Random();
         int randNum;
         int amountGrass = (int)Math.ceil(0.85*amountTiles);
 
         randNum = r.nextInt(amountGrass) + 1;
-        grassTiles.add(randNum);
+        this.grassTiles.add(randNum);
 
         for (int i = 1; i < amountGrass; i++) {
             do{
                 randNum = r.nextInt(amountTiles) + 1;
-            }while(grassTiles.contains(randNum));
-            grassTiles.add(randNum);
+            }while(this.grassTiles.contains(randNum));
+            this.grassTiles.add(randNum);
         }
-        return grassTiles;
     }
 
-    private int generateTreasureTile(int amountTiles, ArrayList<Integer> grass) {
+    private int generateTreasureTile(int amountTiles) {
         //set treasure tile to a tile which is not a grass tile
         Random r = new Random();
         int treasure;
         do{
             treasure = r.nextInt(amountTiles) + 1;
-        }while(grass.contains(treasure));
+        }while(this.grassTiles.contains(treasure));
         return treasure;
     }
 
-    private ArrayList<Integer> generateWaterTiles(int amountTiles, ArrayList<Integer> grass, int treasure) {
+    private ArrayList<Integer> generateWaterTiles(int amountTiles, int treasure) {
         ArrayList<Integer> waterTiles = new ArrayList<Integer>();
 
         for (int i = 1; i < amountTiles+1; i++) {
-            if(!grass.contains(i) && i != treasure){
+            if(!this.grassTiles.contains(i) && i != treasure){
                 waterTiles.add(i);
             }
         }
