@@ -6,27 +6,24 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class PlayerTests {
-     public Player p;
+    public Player p;
+    public Position pn;
     @Before
     public void setup() {
         p = new Player();
+        pn = new Position(4,5);
     }
     @After
     public void tearDown() {
         p = null;
+        pn= null;
     }
 
     //testing SetPosition
     @Test
     public void testSetPosition(){
-        p.setPosition(10);
-        assertEquals(10, p.getPosition());
-    }
-
-    //testing GetPosition
-    @Test
-    public void testGetPosition(){
-        assertEquals(3, p.getPosition());
+        p.setPosition(pn);
+        assertEquals(pn, p.getPosition());
     }
 
 }
