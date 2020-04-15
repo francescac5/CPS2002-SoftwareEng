@@ -1,10 +1,13 @@
 package edu.cps2002.mazegame.player;
 
 public class Player {
-    public void setPosition(int i) {
+    private Position position;
+
+    public Position getPosition() {
+        return position;
     }
 
-    public int getPosition() {
-        return 0;
+    public void setPosition(Position position) {
+        this.position = position;
     }
 }
