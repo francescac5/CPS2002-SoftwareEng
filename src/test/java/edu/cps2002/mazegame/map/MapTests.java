@@ -57,6 +57,39 @@ public class MapTests {
     }
 
     @Test
+    public void testSetMapSize_GreaterThanMaxSize() {
+        //Exercise
+        int size = 52;
+        boolean result = map.setMapSize(size);
+
+        //Assert
+        assertTrue(result);
+        assertEquals(-1, map.getMapSize());
+    }
+
+    @Test
+    public void testSetMapSize_MaxSize() {
+        //Exercise
+        int size = 50;
+        boolean result = map.setMapSize(size);
+
+        //Assert
+        assertTrue(result);
+        assertEquals(50, map.getMapSize());
+    }
+
+    @Test
+    public void testSetMapSize_LessThanMaxSize() {
+        //Exercise
+        int size = 49;
+        boolean result = map.setMapSize(size);
+
+        //Assert
+        assertFalse(result);
+        assertEquals(49, map.getMapSize());
+    }
+
+    @Test
     public void testSetMapSize_NegativeSize() {
         //Exercise
         int size = -9;
