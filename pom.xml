@@ -26,6 +26,7 @@
                 <configuration>
                     <excludes>
                         <exclude>**/utils/**</exclude>
+                        <exclude>**/resources/**</exclude>
                     </excludes>
                 </configuration>
 
