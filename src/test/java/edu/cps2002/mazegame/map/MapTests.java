@@ -124,7 +124,6 @@ public class MapTests {
 
         //Assert
         assertEquals(5, tiles.length);
-        assertEquals(1, map.getMapCount());
     }
 
     @Test
@@ -139,6 +138,5 @@ public class MapTests {
 
         //Assert
         assertEquals(50, tiles.length);
-        assertEquals(1, map.getMapCount());
     }
 }
