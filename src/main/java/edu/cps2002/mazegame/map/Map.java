@@ -12,7 +12,7 @@ public class Map {
         TREASURE //1 tile
     }
 
-    private int size;
+    private int size = -1;
     private static int mapCount;
     private Tiles[][] mapTiles;
 
@@ -34,7 +34,10 @@ public class Map {
             this.size = size;
             return true;
         }
+    }
 
+    public int getMapSize() {
+        return size;
     }
 
     public void generate(){

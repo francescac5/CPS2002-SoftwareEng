@@ -31,6 +31,7 @@ public class MapTests {
 
         //Assert
         assertTrue(result);
+        assertEquals(8, map.getMapSize());
     }
 
     @Test
@@ -41,6 +42,7 @@ public class MapTests {
 
         //Assert
         assertTrue(result);
+        assertEquals(5, map.getMapSize());
     }
 
     @Test
@@ -51,6 +53,7 @@ public class MapTests {
 
         //Assert
         assertFalse(result);
+        assertEquals(-1, map.getMapSize());
     }
 
     @Test
@@ -61,6 +64,7 @@ public class MapTests {
 
         //Assert
         assertFalse(result);
+        assertEquals(-1, map.getMapSize());
     }
 
     @Test
@@ -71,6 +75,7 @@ public class MapTests {
 
         //Assert
         assertFalse(result);
+        assertEquals(-1, map.getMapSize());
     }
 
 //******** map.generateTileTypes() tests ********\\
