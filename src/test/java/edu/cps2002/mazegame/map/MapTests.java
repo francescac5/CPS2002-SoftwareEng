@@ -85,8 +85,7 @@ public class MapTests {
         //Exercise
         map.setMapSize(5);
 
-        //generates map_player_0.html file
-        map.generate();
+        map.generateTileTypes();
 
         Map.Tiles[][] tiles = map.getTiles();
 
@@ -101,7 +100,7 @@ public class MapTests {
         map.setMapSize(50);
 
         //generates map_player_0.html file
-        map.generate();
+        map.generateTileTypes();
 
         Map.Tiles[][] tiles = map.getTiles();
 

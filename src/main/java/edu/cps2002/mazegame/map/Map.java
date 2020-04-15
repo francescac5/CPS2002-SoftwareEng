@@ -60,8 +60,11 @@ public class Map {
         map.generate();
     }
 
-    public Tiles[][] getTiles() {
-        return mapTiles;
+    protected void generateTileTypes() {
+    }
+
+    protected Tiles[][] getTiles() {
+        return this.mapTiles;
     }
 }
 
