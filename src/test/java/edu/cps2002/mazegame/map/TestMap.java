@@ -4,7 +4,7 @@ import edu.cps2002.utils.MapUtils;
 import org.junit.*;
 import static org.junit.Assert.*;
 
-public class MapTests {
+public class TestMap {
 
     public Map map;
 
