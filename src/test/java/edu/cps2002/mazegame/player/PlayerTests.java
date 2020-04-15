@@ -11,8 +11,7 @@ public class PlayerTests {
 
     @Before
     public void setup() {
-        Position pos = new Position (4,5);
-        p1 = new Player();
+        p1 = new Player(4,5);
     }
     @After
     public void tearDown() {
@@ -30,37 +29,39 @@ public class PlayerTests {
     @Test
     public void testDirectionD(){
         p1.move('D');
-        assertEquals(4, pos.getY());
+        assertEquals(4, p1.getPosition().y);
     }
 
     @Test
     public void testDirectionU(){
         p1.move('U');
-        assertEquals(6, pos.getY());
+        assertEquals(6, p1.getPosition().y);
     }
 
     @Test
     public void testDirectionL(){
         p1.move('L');
-        assertEquals(3, pos.getX());
+        assertEquals(3, p1.getPosition().x);
     }
 
     @Test
     public void testDirectionR(){
         p1.move('R');
-        assertEquals(5, pos.getX());
+        assertEquals(5, p1.getPosition().x);
     }
 
     @Test
     public void testDirectionUNKNOWN1(){
         p1.move('P');
-        assertEquals(5, pos.getY());
+        assertEquals(5, p1.getPosition().y);
+        assertEquals(4, p1.getPosition().x);
     }
 
     @Test
     public void testDirectionUNKNOWN2(){
         p1.move('K');
-        assertEquals(4, pos.getX());
+        assertEquals(5, p1.getPosition().y);
+        assertEquals(4, p1.getPosition().x);
     }
 
 }
