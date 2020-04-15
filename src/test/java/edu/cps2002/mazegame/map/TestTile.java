@@ -60,6 +60,6 @@ public class TestTile {
         String result = tile.getTileHTML();
 
         //Assert
-        assertTrue(result.contains(colour));
+        assertEquals("", result);
     }
 }
