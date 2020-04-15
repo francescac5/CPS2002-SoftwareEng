@@ -12,6 +12,10 @@ public class Player {
         setPosition(p);
     }
 
+    public enum DIRECTION{
+        UP,DOWN,RIGHT,LEFT
+    }
+
     public void setPosition(Position position) {
         this.position = position;
     }
