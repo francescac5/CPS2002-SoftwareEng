@@ -1,5 +1,6 @@
 package edu.cps2002.mazegame.map;
 
+import edu.cps2002.utils.MapUtils;
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -15,6 +16,8 @@ public class MapTests {
 
     @After
     public void tearDown() {
+      // MapUtils utils = new MapUtils();
+      //  utils.deleteHTMLFiles();
         map = null;
     }
 
@@ -28,6 +31,7 @@ public class MapTests {
 
         //Assert
         assertTrue(result);
+        assertEquals(8, map.getMapSize());
     }
 
     @Test
@@ -38,6 +42,7 @@ public class MapTests {
 
         //Assert
         assertTrue(result);
+        assertEquals(5, map.getMapSize());
     }
 
     @Test
@@ -48,6 +53,40 @@ public class MapTests {
 
         //Assert
         assertFalse(result);
+        assertEquals(-1, map.getMapSize());
+    }
+
+    @Test
+    public void testSetMapSize_GreaterThanMaxSize() {
+        //Exercise
+        int size = 52;
+        boolean result = map.setMapSize(size);
+
+        //Assert
+        assertFalse(result);
+        assertEquals(-1, map.getMapSize());
+    }
+
+    @Test
+    public void testSetMapSize_MaxSize() {
+        //Exercise
+        int size = 50;
+        boolean result = map.setMapSize(size);
+
+        //Assert
+        assertTrue(result);
+        assertEquals(50, map.getMapSize());
+    }
+
+    @Test
+    public void testSetMapSize_LessThanMaxSize() {
+        //Exercise
+        int size = 49;
+        boolean result = map.setMapSize(size);
+
+        //Assert
+        assertTrue(result);
+        assertEquals(49, map.getMapSize());
     }
 
     @Test
@@ -58,6 +97,7 @@ public class MapTests {
 
         //Assert
         assertFalse(result);
+        assertEquals(-1, map.getMapSize());
     }
 
     @Test
@@ -68,5 +108,35 @@ public class MapTests {
 
         //Assert
         assertFalse(result);
+        assertEquals(-1, map.getMapSize());
+    }
+
+//******** map.generateTileTypes() tests ********\\
+
+    @Test
+    public void testGenerateTileTypes_MinSize() {
+        //Exercise
+        map.setMapSize(5);
+
+        map.generateTileTypes();
+
+        Map.Tiles[][] tiles = map.getTiles();
+
+        //Assert
+        assertEquals(5, tiles.length);
+    }
+
+    @Test
+    public void testGenerateTileTypes_MaxSize() {
+        //Exercise
+        map.setMapSize(50);
+
+        //generates map_player_0.html file
+        map.generateTileTypes();
+
+        Map.Tiles[][] tiles = map.getTiles();
+
+        //Assert
+        assertEquals(50, tiles.length);
     }
 }
