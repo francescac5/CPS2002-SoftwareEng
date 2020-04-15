@@ -27,7 +27,7 @@ public class Map {
 
     public boolean setMapSize(int size) {
         //if inputted size is less than minimum of 5
-        if(size < 5){
+        if(size < 5 || size > 50){
             return false;
         }
         else{

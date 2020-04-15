@@ -63,7 +63,7 @@ public class MapTests {
         boolean result = map.setMapSize(size);
 
         //Assert
-        assertTrue(result);
+        assertFalse(result);
         assertEquals(-1, map.getMapSize());
     }
 
@@ -85,7 +85,7 @@ public class MapTests {
         boolean result = map.setMapSize(size);
 
         //Assert
-        assertFalse(result);
+        assertTrue(result);
         assertEquals(49, map.getMapSize());
     }
 
