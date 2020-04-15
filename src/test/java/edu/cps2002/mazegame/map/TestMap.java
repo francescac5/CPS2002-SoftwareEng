@@ -3,7 +3,7 @@ package edu.cps2002.mazegame.map;
 import org.junit.*;
 import static org.junit.Assert.*;
 
-public class MapTests {
+public class TestMap {
 
     public Map map;
 
