@@ -1,5 +1,7 @@
 package edu.cps2002.utils;
 
+import javafx.util.Pair;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,10 +27,9 @@ public class MapUtils {
         return null;
     }
 
-    public void generateMap(File mapFile, int size, int mapCount, ArrayList<Integer> grassTiles) {
+    public void generateMap(File mapFile, int size, int mapCount, ArrayList<Pair<Integer,Integer>> grassTiles) {
         Collections.shuffle(grassTiles);
-        int initTile = grassTiles.get(0);
-        int tileCount = 0;
+        Pair<Integer, Integer> initTile = grassTiles.get(0);
 
         FileWriter fWriter;
         BufferedWriter writer;
@@ -48,12 +49,10 @@ public class MapUtils {
             for (int i = 0; i < size; i++) {
                 writer.write("<tr>");
                 for (int j = 0; j < size; j++) {
-                    if(tileCount == initTile){
+                    if(initTile.getKey() == j && initTile.getValue() == i){
                         writer.write("<td height=\"50\" width=\"50\" style=\"background-color:green;\"><img src=\"/Assignment/src/main/resources/detective.png\" height=\"50\" width=\"50\"></td>");
-                        tileCount++;
                     }else {
                         writer.write("<td height=\"50\" width=\"50\" style=\"background-color:grey;\"></td>");
-                        tileCount++;
                     }
                 }
                 writer.write("</tr>");

@@ -22,9 +22,6 @@ class Tile {
         if(!this.colours.contains(this.tileColour)){
             return "";
         }
-        else if(this.tileColour.equals("green")) {
-            return "<td height=\"50\" width=\"50\" style=\"background-color:green;\"><img src=\"/Assignment/src/main/resources/detective.png\" height=\"50\" width=\"50\"></td>";
-        }
         else{
             return "<td height=\"50\" width=\"50\" style=\"background-color:"+this.tileColour+";\"></td>";
         }
