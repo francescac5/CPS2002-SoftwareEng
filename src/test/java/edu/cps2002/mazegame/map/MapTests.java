@@ -1,5 +1,6 @@
 package edu.cps2002.mazegame.map;
 
+import edu.cps2002.utils.MapUtils;
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -15,6 +16,8 @@ public class MapTests {
 
     @After
     public void tearDown() {
+        MapUtils utils = new MapUtils();
+        utils.deleteHTMLFiles();
         map = null;
     }
 
@@ -68,5 +71,37 @@ public class MapTests {
 
         //Assert
         assertFalse(result);
+    }
+
+//******** map.generateTileTypes() tests ********\\
+
+    @Test
+    public void testGenerateTileTypes_MinSize() {
+        //Exercise
+        map.setMapSize(5);
+
+        //generates map_player_0.html file
+        map.generate();
+
+        Map.Tiles[][] tiles = map.getTiles();
+
+        //Assert
+        assertEquals(5, tiles.length);
+        assertEquals(1, map.getMapCount());
+    }
+
+    @Test
+    public void testGenerateTileTypes_MaxSize() {
+        //Exercise
+        map.setMapSize(50);
+
+        //generates map_player_0.html file
+        map.generate();
+
+        Map.Tiles[][] tiles = map.getTiles();
+
+        //Assert
+        assertEquals(50, tiles.length);
+        assertEquals(1, map.getMapCount());
     }
 }

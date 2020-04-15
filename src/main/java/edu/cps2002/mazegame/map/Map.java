@@ -6,8 +6,15 @@ import java.io.File;
 
 public class Map {
 
+    enum Tiles{
+        GRASS,
+        WATER,
+        TREASURE //1 tile
+    }
+
     private int size;
     private static int mapCount;
+    private Tiles[][] mapTiles;
 
     public void initMapCount(){
         mapCount = 0;
@@ -32,20 +39,26 @@ public class Map {
 
     public void generate(){
         MapUtils util = new MapUtils();
+
+        mapCount++;
         File mapFile1 = util.generateHTMLFile(mapCount);
         util.generateMap(mapFile1, size, mapCount);
         mapCount++;
         File mapFile2 = util.generateHTMLFile(mapCount);
         util.generateMap(mapFile2, size, mapCount);
-        mapCount++;
 
-        util.deleteHTMLFiles();
+        //util.deleteHTMLFiles();
     }
 
     //used temporarily to test utility map files
     public static void main(String[]args){
         Map map = new Map();
+        map.setMapSize(5);
         map.generate();
+    }
+
+    public Tiles[][] getTiles() {
+        return mapTiles;
     }
 }
 

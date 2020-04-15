@@ -1,17 +1,14 @@
 package edu.cps2002.utils;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 public class MapUtils {
 
      public File generateHTMLFile(int mapCount) {
         try {
-            File mapFile = new File("src\\main\\java\\edu\\cps2002\\mazegame\\gameMaps\\map"+mapCount+".html");
+            File mapFile = new File("src\\main\\java\\edu\\cps2002\\mazegame\\gameMaps\\map_player_"+mapCount+".html");
             if (mapFile.createNewFile()) {
-                System.out.println("File created: " + mapFile.getName());
+                System.out.println("File created: "+ mapFile.getName());
                 //mapCount++;
 
                 return mapFile;
@@ -26,7 +23,7 @@ public class MapUtils {
         return null;
     }
 
-    public boolean generateMap(File mapFile, int size, int mapCount) {
+    public void generateMap(File mapFile, int size, int mapCount) {
         FileWriter fWriter;
         BufferedWriter writer;
         try {
@@ -55,14 +52,14 @@ public class MapUtils {
                     "</table>");
             writer.newLine();
             writer.close();
-            return true;
         }
         catch (Exception e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
-            return false;
         }
     }
+
+
 
     public void deleteHTMLFiles(){
         File mapFolder = new File("src\\main\\java\\edu\\cps2002\\mazegame\\gameMaps")   ;
