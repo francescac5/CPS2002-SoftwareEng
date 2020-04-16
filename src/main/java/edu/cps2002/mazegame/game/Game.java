@@ -33,6 +33,15 @@ public class Game {
         }
     }
 
+    public static boolean validityofMapSize(int numPlayers,int size){
+        if(size <= maxMapSize && (( numPlayers <= 4 && size >= 5 ) || size >= 8 ) ) {
+            return true;
+        }else if(numPlayers <= 4) {
+            return false;
+        }
+        return false;
+    }
+
     //method to get the number of players from the user
     public static int getNumPlayers(){
         int numPlayers = 0;
@@ -54,16 +63,30 @@ public class Game {
         } while(true);
     }
 
-    public static void main(String[] args) {
-        getNumPlayers();
+    static int chooseMapSize(int numPlayers){
+        int size = 0;
+        Scanner sc = new Scanner (System.in);
+        do {
+            System.out.print("Enter map size:\n");
+            try {
+                size = sc.nextInt();
+            } catch (Exception e) {
+                sc.next();
+            } finally {
+                if(validityofMapSize(numPlayers, size)){
+                    return size;
+                }else{
+                    System.out.println("The map size should be larger for the number of players inputted");
+                }
+            }
+        } while (true);
     }
 
-    public static boolean validityofMapSize(int numPlayers,int size){
-        if(size <= maxMapSize && (( numPlayers <= 4 && size >= 5 ) || size >= 8 ) ) {
-            return true;
-        }else if(numPlayers <= 4) {
-            return false;
-        }
-        return false;
+
+    public static void main(String[] args) {
+        int x= getNumPlayers();
+        chooseMapSize(x);
+
     }
+
 }
