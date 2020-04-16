@@ -18,4 +18,8 @@ public class Game {
             }
         }
     }
+
+    public static boolean validityofPlayers(int i) {
+        return false;
+    }
 }

@@ -53,4 +53,52 @@ public class TestGame {
         assertEquals(Player.DIRECTION.RIGHT, Game.chooseDirection("R"));
 
     }
+
+    @Test
+    public void validityofPlayersTest1(){
+        boolean result= Game.validityofPlayers(2);
+        boolean actual= true;
+        assertEquals(result, actual);
+
+    }
+    @Test
+    public void validityofPlayersTest2(){
+        boolean result= Game.validityofPlayers(4);
+        boolean actual= true;
+        assertEquals(result, actual);
+
+    }
+
+    @Test
+    public void validityofPlayersTest3(){
+        boolean result= Game.validityofPlayers(5);
+        boolean actual= true;
+        assertEquals(result, actual);
+
+    }
+
+    @Test
+    public void validityofPlayersTest4(){
+        boolean result= Game.validityofPlayers(8);
+        boolean actual= true;
+        assertEquals(result, actual);
+
+    }
+
+    @Test
+    public void validityofPlayersTest5(){
+        boolean result= Game.validityofPlayers(1);
+        boolean actual= false;
+        assertEquals(result, actual);
+
+    }
+
+    @Test
+    public void validityofPlayersTest6(){
+        boolean result= Game.validityofPlayers(9);
+        boolean actual= false;
+        assertEquals(result, actual);
+
+    }
+
 }
