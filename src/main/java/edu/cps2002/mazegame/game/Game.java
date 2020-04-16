@@ -56,4 +56,8 @@ public class Game {
     public static void main(String[] args) {
         getNumPlayers();
     }
+
+    public static boolean validityofMapSize(int i, int i1) {
+        return false;
+    }
 }

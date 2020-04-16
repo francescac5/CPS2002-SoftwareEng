@@ -100,5 +100,52 @@ public class TestGame {
         assertEquals(result, actual);
 
     }
+    @Test
+    public void validityofMapSizeTest1(){
+        boolean result= Game.validityofMapSize(2,5);
+        boolean actual= true;
+        assertEquals(result, actual);
+
+    }
+
+    @Test
+    public void validityofMapSizeTest2(){
+        boolean result= Game.validityofMapSize(2,4);
+        boolean actual= false;
+        assertEquals(result, actual);
+
+    }
+
+    @Test
+    public void validityofMapSizeTest3(){
+        boolean result= Game.validityofMapSize(2,8);
+        boolean actual= true;
+        assertEquals(result, actual);
+
+    }
+
+    @Test
+    public void validityofMapSizeTest4(){
+        boolean result= Game.validityofMapSize(5,5);
+        boolean actual= false;
+        assertEquals(result, actual);
+
+    }
+
+    @Test
+    public void validityofMapSizeTest5(){
+        boolean result= Game.validityofMapSize(8,5);
+        boolean actual= false;
+        assertEquals(result, actual);
+
+    }
+
+    @Test
+    public void validityofMapSizeTest6(){
+        boolean result= Game.validityofMapSize(8,50);
+        boolean actual= true;
+        assertEquals(result, actual);
+
+    }
 
 }
