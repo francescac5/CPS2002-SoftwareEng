@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class Game {
     static int minPlayers = 2;
     static int maxPlayers = 8;
+    static int maxMapSize = 50;
 
     public static Player.DIRECTION chooseDirection(String input) {
         while (true) {
@@ -57,7 +58,12 @@ public class Game {
         getNumPlayers();
     }
 
-    public static boolean validityofMapSize(int i, int i1) {
+    public static boolean validityofMapSize(int numPlayers,int size){
+        if(size <= maxMapSize && (( numPlayers <= 4 && size >= 5 ) || size >= 8 ) ) {
+            return true;
+        }else if(numPlayers <= 4) {
+            return false;
+        }
         return false;
     }
 }
