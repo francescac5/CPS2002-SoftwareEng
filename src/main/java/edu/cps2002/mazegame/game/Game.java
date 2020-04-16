@@ -3,6 +3,9 @@ package edu.cps2002.mazegame.game;
 import edu.cps2002.mazegame.player.Player;
 
 public class Game {
+    static int minPlayers = 2;
+    static int maxPlayers = 8;
+
     public static Player.DIRECTION chooseDirection(String input) {
         while (true) {
             if (input.equalsIgnoreCase("U")) {
@@ -19,7 +22,11 @@ public class Game {
         }
     }
 
-    public static boolean validityofPlayers(int i) {
-        return false;
+    public static boolean validityofPlayers(int numPlayers){
+        if(numPlayers >= minPlayers && numPlayers <= maxPlayers){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
