@@ -22,44 +22,27 @@ public class TestTile {
     @Test
     public void testGetTileHTML_Valid_Green() {
         //Exercise
-        String colour = "green";
-        tile.setColour(colour);
-        String result = tile.getTileHTML();
+        String result = tile.getTileHTML("green");
 
         //Assert
-        assertTrue(result.contains(colour));
+        assertTrue(result.contains("green"));
     }
 
     @Test
     public void testGetTileHTML_Valid_Yellow() {
         //Exercise
-        String colour = "yellow";
-        tile.setColour(colour);
-        String result = tile.getTileHTML();
+        String result = tile.getTileHTML("yellow");
 
         //Assert
-        assertTrue(result.contains(colour));
+        assertTrue(result.contains("yellow"));
     }
 
     @Test
     public void testGetTileHTML_Valid_Blue() {
         //Exercise
-        String colour = "blue";
-        tile.setColour(colour);
-        String result = tile.getTileHTML();
+        String result = tile.getTileHTML("blue");
 
         //Assert
-        assertTrue(result.contains(colour));
-    }
-
-    @Test
-    public void testGetTileHTML_Invalid() {
-        //Exercise
-        String colour = "purple";
-        tile.setColour(colour);
-        String result = tile.getTileHTML();
-
-        //Assert
-        assertEquals("", result);
+        assertTrue(result.contains("blue"));
     }
 }

@@ -91,7 +91,7 @@ public class Map {
         }
         return initMap;
     }
-    
+
     private void deleteMaps() {
         util.deleteHTMLFiles();
     }
@@ -131,11 +131,7 @@ public class Map {
                     waterTiles.add(temp);
                 }
                 tileCount++;
-
-                //to display map tile types
-                //System.out.print(tiles[x][y]+"\t");
             }
-            //System.out.println();
         }
     }
 

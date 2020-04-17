@@ -1,6 +1,9 @@
 package edu.cps2002.utils;
 
 import edu.cps2002.mazegame.map.Map;
+import edu.cps2002.mazegame.map.PlayerTile;
+import edu.cps2002.mazegame.map.Tile;
+
 import java.io.*;
 
 public class MapUtils {
@@ -58,19 +61,19 @@ public class MapUtils {
             mapHTML.append("<tr>");
             for (int x = 0; x < playerMap.length; x++) {
                 if(playerMap[x][y] == Map.Tiles.GRASS){
-                    mapHTML.append("<td height=\"50\" width=\"50\" style=\"background-color:green;\"></td>\n");
+                    mapHTML.append(new Tile().getTileHTML("green"));
                 }
                 else if(playerMap[x][y] == Map.Tiles.GRASS_PLAYER || playerMap[x][y] == Map.Tiles.GRASS_INIT) {
-                    mapHTML.append("<td height=\"50\" width=\"50\" style=\"background-color:green;\"><img src=\"/Assignment/src/main/resources/detective.png\" height=\"50\" width=\"50\"></td>\n");
+                    mapHTML.append(new PlayerTile().getTileHTML("green"));
                 }
                 else if(playerMap[x][y] == Map.Tiles.WATER) {
-                    mapHTML.append("<td height=\"50\" width=\"50\" style=\"background-color:blue;\"></td>\n");
+                    mapHTML.append(new Tile().getTileHTML("blue"));
                 }
                 else if(playerMap[x][y] == Map.Tiles.TREASURE) {
-                    mapHTML.append("<td height=\"50\" width=\"50\" style=\"background-color:yellow;\"><img src=\"/Assignment/src/main/resources/detective.png\" height=\"50\" width=\"50\"></td>\n");
+                    mapHTML.append(new PlayerTile().getTileHTML("yellow"));
                 }
                 else if(playerMap[x][y] == Map.Tiles.GREY) {
-                    mapHTML.append("<td height=\"50\" width=\"50\" style=\"background-color:grey;\"></td>\n");
+                    mapHTML.append(new Tile().getTileHTML("grey"));
                 }
             }
             mapHTML.append("</tr>");
