@@ -92,10 +92,6 @@ public class Map {
         return initMap;
     }
 
-    private void deleteMaps() {
-        util.deleteHTMLFiles();
-    }
-
     protected void generateTileTypes() {
         Pair<Integer, Integer> temp;
         int amountTiles = size * size;
@@ -215,5 +211,18 @@ public class Map {
         }
         return type;
     }
+
+    public void updateMap(int x, int y, int playerNum){
+
+    }
+
+    protected Tiles[][] getPlayerMap(int playerNum){
+        return playerMaps.get(playerNum-1);
+    }
+
+    private void deleteMaps() {
+        util.deleteHTMLFiles();
+    }
+
 }
 

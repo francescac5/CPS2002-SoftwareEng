@@ -20,8 +20,8 @@ public class TestMap {
 
     @After
     public void tearDown() {
-      // MapUtils utils = new MapUtils();
-      //  utils.deleteHTMLFiles();
+        MapUtils utils = new MapUtils();
+        utils.deleteHTMLFiles();
         map = null;
     }
 
@@ -147,7 +147,7 @@ public class TestMap {
 //******** map.getTileType() tests ********\\
 
     @Test
-    public  void testGetTileType_Grass(){
+    public void testGetTileType_Grass(){
         //Exercise
         int size = 5;
         map.setMapSize(size);
@@ -158,12 +158,13 @@ public class TestMap {
         int x = greenTile.getKey();
         int y = greenTile.getValue();
 
+        //Assert
         char type = map.getTileType(x, y);
         assertEquals('G', type);
     }
 
     @Test
-    public  void testGetTileType_Water(){
+    public void testGetTileType_Water(){
         //Exercise
         int size = 5;
         map.setMapSize(size);
@@ -174,12 +175,13 @@ public class TestMap {
         int x = waterTile.getKey();
         int y = waterTile.getValue();
 
+        //Assert
         char type = map.getTileType(x, y);
         assertEquals('W', type);
     }
 
     @Test
-    public  void testGetTileType_Treasure(){
+    public void testGetTileType_Treasure(){
         //Exercise
         int size = 5;
         map.setMapSize(size);
@@ -189,12 +191,13 @@ public class TestMap {
         int x = treasureTile.getKey();
         int y = treasureTile.getValue();
 
+        //Assert
         char type = map.getTileType(x, y);
         assertEquals('T', type);
     }
 
     @Test
-    public  void testGetTileType_Invalid(){
+    public void testGetTileType_Invalid(){
         //Exercise
         int size = 5;
         map.setMapSize(size);
@@ -203,7 +206,31 @@ public class TestMap {
         int x = size+3;
         int y = size+4;
 
+        //Assert
         char type = map.getTileType(x, y);
         assertEquals('E', type);
+    }
+
+//******** map.updateMap tests ********\\
+
+    @Test
+    public void testUpdateMap(){
+        map.setMapSize(5);
+        map.generate();
+
+        int playerNum = map.getMapCount();
+        int x = 4;
+        int y = 2;
+
+        Map.Tiles[][] prevTiles = map.getPlayerMap(playerNum);
+        map.updateMap(x, y, playerNum);
+        Map.Tiles[][] postTiles = map.getPlayerMap(playerNum);
+
+        Map.Tiles[][] tiles = map.getTiles();
+
+        //Assert
+        assertTrue(prevTiles[x][y] == Map.Tiles.GREY || prevTiles[x][y] == Map.Tiles.GRASS_INIT);
+        assertFalse(postTiles[x][y] == Map.Tiles.GREY || postTiles[x][y] == Map.Tiles.GRASS_INIT);
+        assertEquals(postTiles[x][y], tiles[x][y]);
     }
 }
