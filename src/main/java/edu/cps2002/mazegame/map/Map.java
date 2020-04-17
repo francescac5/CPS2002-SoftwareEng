@@ -91,17 +91,7 @@ public class Map {
         }
         return initMap;
     }
-
-    //used temporarily to test utility map files
-    public static void main(String[]args){
-        Map map = new Map();
-        map.setMapSize(5);
-        map.generate();
-        map.generate();
-        map.getTileType(4, 3);
-       // map.deleteMaps();
-    }
-
+    
     private void deleteMaps() {
         util.deleteHTMLFiles();
     }
