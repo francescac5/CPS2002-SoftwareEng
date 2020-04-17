@@ -117,32 +117,32 @@ public class TestMap {
 
 //******** map.generateTileTypes() tests ********\\
 
-//    @Test
-//    public void testGenerateTileTypes_MinSize() {
-//        //Exercise
-//        map.setMapSize(5);
-//
-//        map.generateTileTypes();
-//
-//        Map.Tiles[][] tiles = map.getTiles();
-//
-//        //Assert
-//        assertEquals(5, tiles.length);
-//    }
-//
-//    @Test
-//    public void testGenerateTileTypes_MaxSize() {
-//        //Exercise
-//        map.setMapSize(50);
-//
-//        //generates map_player_0.html file
-//        map.generateTileTypes();
-//
-//        Map.Tiles[][] tiles = map.getTiles();
-//
-//        //Assert
-//        assertEquals(50, tiles.length);
-//    }
+    @Test
+    public void testGenerateTileTypes_MinSize() {
+        //Exercise
+        map.setMapSize(5);
+
+        map.generateTileTypes();
+
+        Map.Tiles[][] tiles = map.getTiles();
+
+        //Assert
+        assertEquals(5, tiles.length);
+    }
+
+    @Test
+    public void testGenerateTileTypes_MaxSize() {
+        //Exercise
+        map.setMapSize(50);
+
+        //generates map_player_0.html file
+        map.generateTileTypes();
+
+        Map.Tiles[][] tiles = map.getTiles();
+
+        //Assert
+        assertEquals(50, tiles.length);
+    }
 
 //******** map.getTileType() tests ********\\
 

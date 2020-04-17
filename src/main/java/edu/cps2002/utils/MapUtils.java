@@ -1,73 +1,86 @@
 package edu.cps2002.utils;
 
-import javafx.util.Pair;
-
+import edu.cps2002.mazegame.map.Map;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
 
 public class MapUtils {
 
-     public File generateHTMLFile(int mapCount) {
+    public void writeToFile(String path, String content){
         try {
-            File mapFile = new File("src\\main\\java\\edu\\cps2002\\mazegame\\gameMaps\\map_player_"+mapCount+".html");
-            if (mapFile.createNewFile()) {
-                System.out.println("File created: "+ mapFile.getName());
-                //mapCount++;
-
-                return mapFile;
+            File file = new File(path);
+            if (file.createNewFile()) {
+                System.out.println("File created: "+ file.getName());
             } else {
-                System.out.println("File already exists.");
+                System.out.println("File "+ file.getName()+" already exists.");
+            }
+
+            FileWriter fWriter;
+            BufferedWriter writer;
+            try {
+                fWriter = new FileWriter(file);
+                writer = new BufferedWriter(fWriter);
+
+                writer.write(content);
+
+                writer.newLine();
+                writer.close();
+            }
+            catch (Exception e) {
+                System.out.println("An error occurred.");
+                e.printStackTrace();
             }
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
-
-        return null;
     }
 
-    public void generateMap(File mapFile, int size, int mapCount, ArrayList<Pair<Integer,Integer>> grassTiles) {
-        Collections.shuffle(grassTiles);
-        Pair<Integer, Integer> initTile = grassTiles.get(0);
+    public void generateMapHTML(int mapCount, Map.Tiles[][] playerMap) {
+        String path = "src\\main\\java\\edu\\cps2002\\mazegame\\gameMaps\\map_player_"+mapCount+".html";
 
-        FileWriter fWriter;
-        BufferedWriter writer;
-        try {
-            fWriter = new FileWriter(mapFile);
-            writer = new BufferedWriter(fWriter);
-            writer.write("<html>" +
-                    "<body>" +
-                    "<table border ='1'>" +
-                    "<thead>" +
-                    "<tr>" +
-                    "<th colspan=\"" + size + "\">Player " + mapCount + "</th>" +
-                    "</tr>" +
-                    "<tbody>");
+        StringBuilder mapHTML = new StringBuilder();
 
-            //inputting grid according to map size
-            for (int i = 0; i < size; i++) {
-                writer.write("<tr>");
-                for (int j = 0; j < size; j++) {
-                    if(initTile.getKey() == j && initTile.getValue() == i){
-                        writer.write("<td height=\"50\" width=\"50\" style=\"background-color:green;\"><img src=\"/Assignment/src/main/resources/detective.png\" height=\"50\" width=\"50\"></td>");
-                    }else {
-                        writer.write("<td height=\"50\" width=\"50\" style=\"background-color:grey;\"></td>");
-                    }
+        mapHTML.append("<html>\n");
+        mapHTML.append("<body>\n");
+        mapHTML.append("<table border ='1'>\n");
+        mapHTML.append("<thead>\n");
+        mapHTML.append("<tr>\n");
+        mapHTML.append("<th colspan=\"");
+            mapHTML.append(playerMap.length);
+            mapHTML.append("\">Player ");
+            mapHTML.append(mapCount);
+            mapHTML.append("</th>\n");
+        mapHTML.append("</tr>\n");
+        mapHTML.append("<tbody>\n");
+
+        //inputting grid according to map size
+        for (int y = 0; y < playerMap.length; y++) {
+            mapHTML.append("<tr>");
+            for (int x = 0; x < playerMap.length; x++) {
+                if(playerMap[x][y] == Map.Tiles.GRASS){
+                    mapHTML.append("<td height=\"50\" width=\"50\" style=\"background-color:green;\"></td>\n");
                 }
-                writer.write("</tr>");
+                else if(playerMap[x][y] == Map.Tiles.GRASS_PLAYER || playerMap[x][y] == Map.Tiles.GRASS_INIT) {
+                    mapHTML.append("<td height=\"50\" width=\"50\" style=\"background-color:green;\"><img src=\"/Assignment/src/main/resources/detective.png\" height=\"50\" width=\"50\"></td>\n");
+                }
+                else if(playerMap[x][y] == Map.Tiles.WATER) {
+                    mapHTML.append("<td height=\"50\" width=\"50\" style=\"background-color:blue;\"></td>\n");
+                }
+                else if(playerMap[x][y] == Map.Tiles.TREASURE) {
+                    mapHTML.append("<td height=\"50\" width=\"50\" style=\"background-color:yellow;\"><img src=\"/Assignment/src/main/resources/detective.png\" height=\"50\" width=\"50\"></td>\n");
+                }
+                else if(playerMap[x][y] == Map.Tiles.GREY) {
+                    mapHTML.append("<td height=\"50\" width=\"50\" style=\"background-color:grey;\"></td>\n");
+                }
             }
+            mapHTML.append("</tr>");
+        }
 
-            writer.write("</tbody>" +
-                    "</thead>" +
-                    "</table>");
-            writer.newLine();
-            writer.close();
-        }
-        catch (Exception e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
+        mapHTML.append("</tbody>\n");
+        mapHTML.append("</thead>\n");
+        mapHTML.append("</table>\n");
+
+        writeToFile(path, mapHTML.toString());
     }
 
     public void deleteHTMLFiles(){

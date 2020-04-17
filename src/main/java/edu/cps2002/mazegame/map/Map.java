@@ -3,16 +3,23 @@ package edu.cps2002.mazegame.map;
 import edu.cps2002.utils.MapUtils;
 import javafx.util.Pair;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class Map {
 
-    enum Tiles{
+    public enum Tiles{
         GRASS,
         WATER,
-        TREASURE //1 tile
+        TREASURE, //1 tile
+        GREY,
+        GRASS_PLAYER,
+        GRASS_INIT
     }
 
     private MapUtils util = new MapUtils();
@@ -26,6 +33,7 @@ public class Map {
     private ArrayList<Pair<Integer,Integer>> waterTiles = new ArrayList<>();
     private Pair<Integer, Integer> treasureTile;
 
+    private ArrayList<Tiles[][]> playerMaps = new ArrayList<>();
 
     public void initMapCount(){
         mapCount = 0;
@@ -60,8 +68,28 @@ public class Map {
         }
 
         mapCount++;
-        File mapFile1 = util.generateHTMLFile(mapCount);
-        util.generateMap(mapFile1, size, mapCount, grassTiles);
+        Tiles [][] playerMap = generateInitMap();
+        playerMaps.add(playerMap);
+
+        util.generateMapHTML(mapCount, playerMap);
+    }
+
+    private Tiles[][] generateInitMap() {
+        Tiles[][] initMap = new Tiles[size][size];
+
+        Collections.shuffle(grassTiles);
+        Pair<Integer, Integer> initTile = grassTiles.get(0);
+
+        for (int y = 0; y < size; y++) {
+            for (int x = 0; x < size; x++) {
+                if(initTile.getKey() == x && initTile.getValue() == y){
+                    initMap[x][y] = Tiles.GRASS_INIT;
+                }else {
+                    initMap[x][y] = Tiles.GREY;
+                }
+            }
+        }
+        return initMap;
     }
 
     //used temporarily to test utility map files
@@ -70,6 +98,7 @@ public class Map {
         map.setMapSize(5);
         map.generate();
         map.generate();
+        map.getTileType(4, 3, 1);
        // map.deleteMaps();
     }
 
@@ -177,8 +206,28 @@ public class Map {
         return treasureTile;
     }
 
-    public char getTileType(int x, int y) {
-        return 'x';
+    public char getTileType(int x, int y, int player_num) {
+        if(x >= size || y >= size){
+            return 'E';
+        }
+
+        char type;
+
+        switch(mapTiles[x][y]){
+            case TREASURE:
+                type = 'T';
+                break;
+            case GRASS:
+                type = 'G';
+                break;
+            case WATER:
+                type = 'W';
+                break;
+            default:
+                type = 'E';
+                break;
+        }
+        return type;
     }
 }
 

@@ -3,12 +3,12 @@ package edu.cps2002.mazegame.map;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-class Tile {
+public class Tile {
 
     private String tileColour;
     private ArrayList<String> colours = new ArrayList<>( Arrays.asList("green", "yellow", "blue") );
 
-    protected Tile(String colour){
+    public Tile(String colour){
         this.tileColour = colour;
     }
 
@@ -18,7 +18,7 @@ class Tile {
         this.tileColour = colour;
     }
 
-    protected String getTileHTML(){
+    public String getTileHTML(){
         if(!this.colours.contains(this.tileColour)){
             return "";
         }
