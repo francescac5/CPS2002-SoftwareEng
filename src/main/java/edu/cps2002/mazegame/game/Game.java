@@ -84,9 +84,8 @@ public class Game {
 
 
     public static void main(String[] args) {
-        int x= getNumPlayers();
-        chooseMapSize(x);
-
+       int x= getNumPlayers();
+       chooseMapSize(x);
     }
 
 }
