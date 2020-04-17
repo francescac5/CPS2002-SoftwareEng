@@ -44,8 +44,17 @@ public class MapUtils {
         StringBuilder mapHTML = new StringBuilder();
 
         mapHTML.append("<html>\n");
+        mapHTML.append("<head>\n");
+        mapHTML.append("<script type=\"text/javascript\">\n");
+        mapHTML.append("window.onload = setUpRefresh;\n");
+        mapHTML.append("function setUpRefresh() {\n");
+        mapHTML.append("setTimeout(\"refreshPage();\",1000); \n}\n");
+        mapHTML.append("function refreshPage() {\n");
+        mapHTML.append("self.window.location = location.href; \n}\n");
+        mapHTML.append("</script>\n");
+        mapHTML.append("</head>\n");
         mapHTML.append("<body>\n");
-        mapHTML.append("<table border ='1'>\n");
+        mapHTML.append("<table border ='1' align = \"center\">\n");
         mapHTML.append("<thead>\n");
         mapHTML.append("<tr>\n");
         mapHTML.append("<th colspan=\"");
