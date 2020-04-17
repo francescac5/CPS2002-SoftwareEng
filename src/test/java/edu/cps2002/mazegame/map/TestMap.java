@@ -158,7 +158,7 @@ public class TestMap {
         int x = greenTile.getKey();
         int y = greenTile.getValue();
 
-        char type = map.getTileType(x, y, 1);
+        char type = map.getTileType(x, y);
         assertEquals('G', type);
     }
 
@@ -174,7 +174,7 @@ public class TestMap {
         int x = waterTile.getKey();
         int y = waterTile.getValue();
 
-        char type = map.getTileType(x, y, 1);
+        char type = map.getTileType(x, y);
         assertEquals('W', type);
     }
 
@@ -189,7 +189,7 @@ public class TestMap {
         int x = treasureTile.getKey();
         int y = treasureTile.getValue();
 
-        char type = map.getTileType(x, y, 1);
+        char type = map.getTileType(x, y);
         assertEquals('T', type);
     }
 
@@ -203,7 +203,7 @@ public class TestMap {
         int x = size+3;
         int y = size+4;
 
-        char type = map.getTileType(x, y, 1);
+        char type = map.getTileType(x, y);
         assertEquals('E', type);
     }
 }
