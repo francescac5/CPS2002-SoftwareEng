@@ -35,44 +35,6 @@ public class Map {
     private ArrayList<Tiles[][]> playerMaps = new ArrayList<>();
     private ArrayList<Pair<Integer,Integer>> initTiles = new ArrayList<>();
 
-    //used temporarily to test utility map files
-    public static void main(String[]args){
-        Map map = new Map();
-        map.setMapSize(5);
-        map.generate();
-        map.generate();
-
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        map.updateMap(1, 3, 1);
-        map.updateMap(2, 4, 2);
-
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        map.updateMap(1, 4, 1);
-        map.updateMap(2, 3, 2);
-
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        map.updateMap(2, 4, 1);
-        map.updateMap(3, 3, 2);
-
-        map.deleteMaps();
-    }
-
-
     public void initMapCount(){
         mapCount = 0;
     }
