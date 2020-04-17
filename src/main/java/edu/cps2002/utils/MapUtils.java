@@ -39,7 +39,7 @@ public class MapUtils {
     }
 
     public void generateMapHTML(int mapCount, Map.Tiles[][] playerMap) {
-        String path = "src\\main\\java\\edu\\cps2002\\mazegame\\gameMaps\\map_player_"+mapCount+".html";
+        String path = "src/main/java/edu/cps2002/mazegame/gameMaps/map_player_"+mapCount+".html";
 
         StringBuilder mapHTML = new StringBuilder();
 
@@ -87,7 +87,7 @@ public class MapUtils {
     }
 
     public void deleteHTMLFiles(){
-        File mapFolder = new File("src\\main\\java\\edu\\cps2002\\mazegame\\gameMaps")   ;
+        File mapFolder = new File("src/main/java/edu/cps2002/mazegame/gameMaps")   ;
 
         File[] maps = mapFolder.listFiles();
         for(File map: maps){

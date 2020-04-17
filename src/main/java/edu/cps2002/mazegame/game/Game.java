@@ -1,14 +1,17 @@
 package edu.cps2002.mazegame.game;
 
+import edu.cps2002.mazegame.map.Map;
 import edu.cps2002.mazegame.player.Player;
 
 import java.util.Scanner;
 
 public class Game {
+   private static Map map = new Map();
     static int minPlayers = 2;
     static int maxPlayers = 8;
     static int maxMapSize = 50;
 
+    //method to get the direction from the player
     public static Player.DIRECTION chooseDirection(String input) {
         while (true) {
             if (input.equalsIgnoreCase("U")) {
@@ -25,6 +28,7 @@ public class Game {
         }
     }
 
+    //checking that the number of players inputted is between 4 and 8
     public static boolean validityofPlayers(int numPlayers){
         if(numPlayers >= minPlayers && numPlayers <= maxPlayers){
             return true;
@@ -33,6 +37,7 @@ public class Game {
         }
     }
 
+    //checking that the Map Size inputted is between 5 and 50
     public static boolean validityofMapSize(int numPlayers,int size){
         if(size <= maxMapSize && (( numPlayers <= 4 && size >= 5 ) || size >= 8 ) ) {
             return true;
@@ -63,6 +68,7 @@ public class Game {
         } while(true);
     }
 
+    //method to get the mapsize from the player
     static int chooseMapSize(int numPlayers){
         int size = 0;
         Scanner sc = new Scanner (System.in);
@@ -82,10 +88,23 @@ public class Game {
         } while (true);
     }
 
+    //method to generate HTML files for every player
+    static void generateHTMLFiles(){
+        int players = getNumPlayers();
+        //setmapsize returns boolean //
+        map.setMapSize(chooseMapSize(players));
+        for (int i =0; i<players;i++){
+            map.generate();
+        }
+    }
+
+    static void startGame(){
+        generateHTMLFiles();
+    }
+
 
     public static void main(String[] args) {
-       int x= getNumPlayers();
-       chooseMapSize(x);
+        startGame();
     }
 
 }
