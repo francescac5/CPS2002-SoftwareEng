@@ -14,7 +14,7 @@ public class MapUtils {
             if (file.createNewFile()) {
                 System.out.println("File created: "+ file.getName());
             } else {
-                System.out.println("File "+ file.getName()+" already exists.");
+                System.out.println("File "+ file.getName()+" updated.");
             }
 
             FileWriter fWriter;
@@ -63,7 +63,7 @@ public class MapUtils {
                 if(playerMap[x][y] == Map.Tiles.GRASS){
                     mapHTML.append(new Tile().getTileHTML("green"));
                 }
-                else if(playerMap[x][y] == Map.Tiles.GRASS_PLAYER || playerMap[x][y] == Map.Tiles.GRASS_INIT) {
+                else if(playerMap[x][y] == Map.Tiles.GRASS_PLAYER) {
                     mapHTML.append(new PlayerTile().getTileHTML("green"));
                 }
                 else if(playerMap[x][y] == Map.Tiles.WATER) {
@@ -87,7 +87,7 @@ public class MapUtils {
     }
 
     public void deleteHTMLFiles(){
-        File mapFolder = new File("src\\main\\java\\edu\\cps2002\\mazegame\\gameMaps")   ;
+        File mapFolder = new File("src\\main\\java\\edu\\cps2002\\mazegame\\gameMaps");
 
         File[] maps = mapFolder.listFiles();
         for(File map: maps){

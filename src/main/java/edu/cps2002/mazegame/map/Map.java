@@ -18,8 +18,7 @@ public class Map {
         WATER,
         TREASURE, //1 tile
         GREY,
-        GRASS_PLAYER,
-        GRASS_INIT
+        GRASS_PLAYER
     }
 
     private MapUtils util = new MapUtils();
@@ -34,6 +33,19 @@ public class Map {
     private Pair<Integer, Integer> treasureTile;
 
     private ArrayList<Tiles[][]> playerMaps = new ArrayList<>();
+    private ArrayList<Pair<Integer,Integer>> initTiles = new ArrayList<>();
+
+    //used temporarily to test utility map files
+    public static void main(String[]args){
+        Map map = new Map();
+        map.setMapSize(5);
+        map.generate();
+        map.generate();
+        map.updateMap(1, 3, 1);
+        map.updateMap(2, 4, 2);
+        // map.deleteMaps();
+    }
+
 
     public void initMapCount(){
         mapCount = 0;
@@ -79,11 +91,12 @@ public class Map {
 
         Collections.shuffle(grassTiles);
         Pair<Integer, Integer> initTile = grassTiles.get(0);
+        this.initTiles.add(initTile);
 
         for (int y = 0; y < size; y++) {
             for (int x = 0; x < size; x++) {
                 if(initTile.getKey() == x && initTile.getValue() == y){
-                    initMap[x][y] = Tiles.GRASS_INIT;
+                    initMap[x][y] = Tiles.GRASS_PLAYER;
                 }else {
                     initMap[x][y] = Tiles.GREY;
                 }
@@ -115,7 +128,7 @@ public class Map {
                     treasureTile = new Pair<>(x, y);
 
                 } else if (grass.contains(tileCount)) {
-                    mapTiles[x][y] = Tiles.GRASS;
+                    mapTiles[x][y] = Tiles.GRASS_PLAYER;
 
                     temp = new Pair<>(x, y);
                     grassTiles.add(temp);
@@ -199,7 +212,7 @@ public class Map {
             case TREASURE:
                 type = 'T';
                 break;
-            case GRASS:
+            case GRASS_PLAYER:
                 type = 'G';
                 break;
             case WATER:
@@ -212,12 +225,42 @@ public class Map {
         return type;
     }
 
-    public void updateMap(int x, int y, int playerNum){
+    public void updateMap(int xNew, int yNew, int playerNum){
+        Tiles[][] playerMap = getPlayerMap(playerNum);
+        Tiles revealedTile = this.mapTiles[xNew][yNew];
 
+        for (int y = 0; y < size; y++) {
+            for (int x = 0; x < size; x++) {
+                if(xNew == x && yNew == y){
+                    playerMap[x][y] = revealedTile;
+                }
+
+                //if grass tile is revealed then remove character from prev tile
+                if(playerMap[x][y] == Tiles.GRASS_PLAYER && (xNew != x || yNew != y)){
+                    playerMap[x][y] = Tiles.GRASS;
+                }
+
+                //if water tile is revealed then remove character from prev tile and place it in init tile
+                if(revealedTile == Tiles.WATER){
+                    int initX = getPlayerInitPositionX(playerNum);
+                    int initY = getPlayerInitPositionY(playerNum);
+                    playerMap[initX][initY] = Tiles.GRASS_PLAYER;
+                }
+            }
+        }
+        util.generateMapHTML(playerNum, playerMap);
     }
 
     protected Tiles[][] getPlayerMap(int playerNum){
         return playerMaps.get(playerNum-1);
+    }
+
+    protected Integer getPlayerInitPositionX(int playerNum){
+        return initTiles.get(playerNum-1).getKey();
+    }
+
+    protected Integer getPlayerInitPositionY(int playerNum){
+        return initTiles.get(playerNum-1).getValue();
     }
 
     private void deleteMaps() {

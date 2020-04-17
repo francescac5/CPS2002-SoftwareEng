@@ -5,6 +5,7 @@ import javafx.util.Pair;
 import org.junit.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import static org.junit.Assert.*;
 
@@ -22,6 +23,7 @@ public class TestMap {
     public void tearDown() {
         MapUtils utils = new MapUtils();
         utils.deleteHTMLFiles();
+
         map = null;
     }
 
@@ -214,23 +216,105 @@ public class TestMap {
 //******** map.updateMap tests ********\\
 
     @Test
-    public void testUpdateMap(){
+    public void testUpdateMap_Grass(){
+        //Exercise
         map.setMapSize(5);
         map.generate();
 
         int playerNum = map.getMapCount();
-        int x = 4;
-        int y = 2;
+
+        ArrayList<Pair<Integer, Integer>> grassTiles = map.getGrassTiles();
+        Collections.shuffle(grassTiles);
+        Pair<Integer, Integer> grassTile = grassTiles.get(0);
+        int x = grassTile.getKey();
+        int y = grassTile.getValue();
+
+        int initX = map.getPlayerInitPositionX(playerNum);
+        int initY = map.getPlayerInitPositionY(playerNum);
 
         Map.Tiles[][] prevTiles = map.getPlayerMap(playerNum);
+
+        //Assert
+        //ensuring position to be revealed is an init position or grey
+        if(x == initX && y == initY){
+            assertEquals(Map.Tiles.GRASS_PLAYER, prevTiles[x][y]);
+        }else {
+            assertEquals(Map.Tiles.GREY, prevTiles[x][y]);
+        }
+
+        //Exercise
         map.updateMap(x, y, playerNum);
         Map.Tiles[][] postTiles = map.getPlayerMap(playerNum);
 
-        Map.Tiles[][] tiles = map.getTiles();
+        //Assert
+        assertEquals(Map.Tiles.GRASS, postTiles[initX][initY]);
+        assertEquals(Map.Tiles.GRASS_PLAYER, postTiles[x][y]);
+    }
+
+    @Test
+    public void testUpdateMap_Water(){
+        //Exercise
+        map.setMapSize(5);
+        map.generate();
+
+        int playerNum = map.getMapCount();
+        ArrayList<Pair<Integer, Integer>> waterTiles = map.getWaterTiles();
+        Pair<Integer, Integer> waterTile = waterTiles.get(0);
+        int x = waterTile.getKey();
+        int y = waterTile.getValue();
+
+        int initX = map.getPlayerInitPositionX(playerNum);
+        int initY = map.getPlayerInitPositionY(playerNum);
+
+        Map.Tiles[][] prevTiles = map.getPlayerMap(playerNum);
 
         //Assert
-        assertTrue(prevTiles[x][y] == Map.Tiles.GREY || prevTiles[x][y] == Map.Tiles.GRASS_INIT);
-        assertFalse(postTiles[x][y] == Map.Tiles.GREY || postTiles[x][y] == Map.Tiles.GRASS_INIT);
-        assertEquals(postTiles[x][y], tiles[x][y]);
+        //ensuring position to be revealed is an init position or grey
+        if(x == initX && y == initY){
+            assertEquals(Map.Tiles.GRASS_PLAYER, prevTiles[x][y]);
+        }else {
+            assertEquals(Map.Tiles.GREY, prevTiles[x][y]);
+        }
+
+        //Exercise
+        map.updateMap(x, y, playerNum);
+        Map.Tiles[][] postTiles = map.getPlayerMap(playerNum);
+
+        //Assert player returned to init position and water tile is revealed
+        assertEquals(Map.Tiles.GRASS_PLAYER, postTiles[initX][initY]);
+        assertEquals(Map.Tiles.WATER, postTiles[x][y]);
+    }
+
+    @Test
+    public void testUpdateMap_Treasure(){
+        //Exercise
+        map.setMapSize(5);
+        map.generate();
+
+        int playerNum = map.getMapCount();
+        Pair<Integer, Integer> treasureTile = map.getTreasureTile();
+        int x = treasureTile.getKey();
+        int y = treasureTile.getValue();
+
+        int initX = map.getPlayerInitPositionX(playerNum);
+        int initY = map.getPlayerInitPositionY(playerNum);
+
+        Map.Tiles[][] prevTiles = map.getPlayerMap(playerNum);
+
+        //Assert
+        //ensuring position to be revealed is an init position or grey
+        if(x == map.getPlayerInitPositionX(playerNum) && y == map.getPlayerInitPositionY(playerNum)){
+            assertEquals(Map.Tiles.GRASS_PLAYER, prevTiles[x][y]);
+        }else {
+            assertEquals(Map.Tiles.GREY, prevTiles[x][y]);
+        }
+
+        //Exercise
+        map.updateMap(x, y, playerNum);
+        Map.Tiles[][] postTiles = map.getPlayerMap(playerNum);
+
+        //Assert
+        assertEquals(Map.Tiles.GRASS, postTiles[initX][initY]);
+        assertEquals(Map.Tiles.TREASURE, postTiles[x][y]);
     }
 }
