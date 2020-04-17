@@ -21,12 +21,12 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.3</version>
+                <version>0.8.2</version>
 
                 <configuration>
                     <excludes>
                         <exclude>**/utils/**</exclude>
-<!--                        <exclude>**/resources/**</exclude>-->
+                        <exclude>**/resources/**</exclude>
                     </excludes>
                 </configuration>
 
