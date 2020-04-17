@@ -1,10 +1,14 @@
 package edu.cps2002.mazegame.map;
 
 import edu.cps2002.utils.MapUtils;
+import javafx.util.Pair;
 import org.junit.*;
+
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 
-public class MapTests {
+public class TestMap {
 
     public Map map;
 
@@ -138,5 +142,68 @@ public class MapTests {
 
         //Assert
         assertEquals(50, tiles.length);
+    }
+
+//******** map.getTileType() tests ********\\
+
+    @Test
+    public  void testGetTileType_Grass(){
+        //Exercise
+        int size = 5;
+        map.setMapSize(size);
+        map.generateTileTypes();
+
+        ArrayList<Pair<Integer, Integer>> tiles = map.getGrassTiles();
+        Pair<Integer, Integer> greenTile = tiles.get(0);
+        int x = greenTile.getKey();
+        int y = greenTile.getValue();
+
+        char type = map.getTileType(x, y);
+        assertEquals('G', type);
+    }
+
+    @Test
+    public  void testGetTileType_Water(){
+        //Exercise
+        int size = 5;
+        map.setMapSize(size);
+        map.generateTileTypes();
+
+        ArrayList<Pair<Integer, Integer>> tiles = map.getWaterTiles();
+        Pair<Integer, Integer> waterTile = tiles.get(0);
+        int x = waterTile.getKey();
+        int y = waterTile.getValue();
+
+        char type = map.getTileType(x, y);
+        assertEquals('W', type);
+    }
+
+    @Test
+    public  void testGetTileType_Treasure(){
+        //Exercise
+        int size = 5;
+        map.setMapSize(size);
+        map.generateTileTypes();
+
+        Pair<Integer, Integer> treasureTile = map.getTreasureTile();
+        int x = treasureTile.getKey();
+        int y = treasureTile.getValue();
+
+        char type = map.getTileType(x, y);
+        assertEquals('T', type);
+    }
+
+    @Test
+    public  void testGetTileType_Invalid(){
+        //Exercise
+        int size = 5;
+        map.setMapSize(size);
+        map.generateTileTypes();
+
+        int x = size+3;
+        int y = size+4;
+
+        char type = map.getTileType(x, y);
+        assertEquals('E', type);
     }
 }

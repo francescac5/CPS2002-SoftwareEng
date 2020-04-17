@@ -1,17 +1,25 @@
 package edu.cps2002.mazegame.map;
 
 import edu.cps2002.utils.MapUtils;
+import javafx.util.Pair;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class Map {
 
-    enum Tiles{
+    public enum Tiles{
         GRASS,
         WATER,
-        TREASURE //1 tile
+        TREASURE, //1 tile
+        GREY,
+        GRASS_PLAYER,
+        GRASS_INIT
     }
 
     private MapUtils util = new MapUtils();
@@ -20,7 +28,12 @@ public class Map {
     private static int mapCount;
     private Tiles[][] mapTiles;
     private boolean tilesGenerated = false;
-    private ArrayList<Integer> grassTiles = new ArrayList<Integer>();
+
+    private ArrayList<Pair<Integer,Integer>> grassTiles = new ArrayList<>();
+    private ArrayList<Pair<Integer,Integer>> waterTiles = new ArrayList<>();
+    private Pair<Integer, Integer> treasureTile;
+
+    private ArrayList<Tiles[][]> playerMaps = new ArrayList<>();
 
     public void initMapCount(){
         mapCount = 0;
@@ -55,17 +68,28 @@ public class Map {
         }
 
         mapCount++;
-        File mapFile1 = util.generateHTMLFile(mapCount);
-        util.generateMap(mapFile1, size, mapCount, grassTiles);
+        Tiles [][] playerMap = generateInitMap();
+        playerMaps.add(playerMap);
+
+        util.generateMapHTML(mapCount, playerMap);
     }
 
-    //used temporarily to test utility map files
-    public static void main(String[]args){
-        Map map = new Map();
-        map.setMapSize(5);
-        map.generate();
-        map.generate();
-       // map.deleteMaps();
+    private Tiles[][] generateInitMap() {
+        Tiles[][] initMap = new Tiles[size][size];
+
+        Collections.shuffle(grassTiles);
+        Pair<Integer, Integer> initTile = grassTiles.get(0);
+
+        for (int y = 0; y < size; y++) {
+            for (int x = 0; x < size; x++) {
+                if(initTile.getKey() == x && initTile.getValue() == y){
+                    initMap[x][y] = Tiles.GRASS_INIT;
+                }else {
+                    initMap[x][y] = Tiles.GREY;
+                }
+            }
+        }
+        return initMap;
     }
 
     private void deleteMaps() {
@@ -73,70 +97,78 @@ public class Map {
     }
 
     protected void generateTileTypes() {
-        int amountTiles = size*size;
+        Pair<Integer, Integer> temp;
+        int amountTiles = size * size;
         int tileCount = 1;
 
         //generate grass tiles
-        generateGrassTiles(amountTiles);
+        ArrayList<Integer> grass = generateGrassTiles(amountTiles);
 
         //generate treasure tile
-        int treasure = generateTreasureTile(amountTiles);
+        int treasure = generateTreasureTile(amountTiles, grass);
 
         //generate water tiles
-        ArrayList<Integer> water = generateWaterTiles(amountTiles, treasure);
+        ArrayList<Integer> water = generateWaterTiles(amountTiles, treasure, grass);
 
         mapTiles = new Tiles[size][size];
         for (int y = 0; y < size; y++) {
             for (int x = 0; x < size; x++) {
-                if(tileCount == treasure){
+                if (tileCount == treasure) {
                     mapTiles[x][y] = Tiles.TREASURE;
-                }
-                else if(this.grassTiles.contains(tileCount)){
+
+                    treasureTile = new Pair<>(x, y);
+
+                } else if (grass.contains(tileCount)) {
                     mapTiles[x][y] = Tiles.GRASS;
-                }
-                else if(water.contains(tileCount)){
+
+                    temp = new Pair<>(x, y);
+                    grassTiles.add(temp);
+
+                } else if (water.contains(tileCount)) {
                     mapTiles[x][y] = Tiles.WATER;
+
+                    temp = new Pair<>(x, y);
+                    waterTiles.add(temp);
                 }
                 tileCount++;
-
-                //to display map tile types
-                //System.out.print(tiles[x][y]+"\t");
             }
-            //System.out.println();
         }
     }
 
-    private void generateGrassTiles(int amountTiles) {
+    private ArrayList<Integer> generateGrassTiles(int amountTiles) {
+        ArrayList<Integer> grassTiles = new ArrayList<Integer>();
+
         Random r = new Random();
         int randNum;
         int amountGrass = (int)Math.ceil(0.85*amountTiles);
 
         randNum = r.nextInt(amountGrass) + 1;
-        this.grassTiles.add(randNum);
+        grassTiles.add(randNum);
 
         for (int i = 1; i < amountGrass; i++) {
             do{
                 randNum = r.nextInt(amountTiles) + 1;
-            }while(this.grassTiles.contains(randNum));
-            this.grassTiles.add(randNum);
+            }while(grassTiles.contains(randNum));
+            grassTiles.add(randNum);
         }
+        return grassTiles;
     }
 
-    private int generateTreasureTile(int amountTiles) {
+    private int generateTreasureTile(int amountTiles, ArrayList<Integer> grassTiles) {
         //set treasure tile to a tile which is not a grass tile
         Random r = new Random();
         int treasure;
         do{
             treasure = r.nextInt(amountTiles) + 1;
-        }while(this.grassTiles.contains(treasure));
+        }while(grassTiles.contains(treasure));
         return treasure;
     }
 
-    private ArrayList<Integer> generateWaterTiles(int amountTiles, int treasure) {
+    private ArrayList<Integer> generateWaterTiles(int amountTiles, int treasure, ArrayList<Integer> grassTiles) {
         ArrayList<Integer> waterTiles = new ArrayList<Integer>();
 
         for (int i = 1; i < amountTiles+1; i++) {
-            if(!this.grassTiles.contains(i) && i != treasure){
+            if(!grassTiles.contains(i) && i != treasure){
                 waterTiles.add(i);
             }
         }
@@ -145,6 +177,43 @@ public class Map {
 
     protected Tiles[][] getTiles() {
         return this.mapTiles;
+    }
+
+    protected ArrayList<Pair<Integer, Integer>> getGrassTiles() {
+        return grassTiles;
+    }
+
+
+    protected ArrayList<Pair<Integer, Integer>> getWaterTiles() {
+        return waterTiles;
+    }
+
+    protected Pair<Integer, Integer> getTreasureTile() {
+        return treasureTile;
+    }
+
+    public char getTileType(int x, int y) {
+        if(x >= size || y >= size){
+            return 'E';
+        }
+
+        char type;
+
+        switch(mapTiles[x][y]){
+            case TREASURE:
+                type = 'T';
+                break;
+            case GRASS:
+                type = 'G';
+                break;
+            case WATER:
+                type = 'W';
+                break;
+            default:
+                type = 'E';
+                break;
+        }
+        return type;
     }
 }
 
