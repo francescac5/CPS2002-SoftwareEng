@@ -98,7 +98,7 @@ public class Map {
         map.setMapSize(5);
         map.generate();
         map.generate();
-        map.getTileType(4, 3, 1);
+        map.getTileType(4, 3);
        // map.deleteMaps();
     }
 
@@ -206,7 +206,7 @@ public class Map {
         return treasureTile;
     }
 
-    public char getTileType(int x, int y, int player_num) {
+    public char getTileType(int x, int y) {
         if(x >= size || y >= size){
             return 'E';
         }
