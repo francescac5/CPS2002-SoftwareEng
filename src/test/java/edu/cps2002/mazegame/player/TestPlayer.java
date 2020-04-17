@@ -5,7 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
-public class PlayerTests {
+public class TestPlayer {
     public Player p;
     public Position pn;
     @Before
@@ -13,6 +13,7 @@ public class PlayerTests {
         p = new Player();
         pn = new Position(4,5);
     }
+
     @After
     public void tearDown() {
         p = null;
