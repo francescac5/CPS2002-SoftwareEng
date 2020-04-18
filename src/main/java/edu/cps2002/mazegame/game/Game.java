@@ -6,28 +6,46 @@ import edu.cps2002.mazegame.player.Player;
 import java.util.Scanner;
 
 public class Game {
-   private static Map map = new Map();
+    private static Map map = new Map();
     static int minPlayers = 2;
     static int maxPlayers = 8;
     static int maxMapSize = 50;
 
     //method to get the direction from the player
     public static Player.DIRECTION chooseDirection(String input) {
+while(true) {
+    if (input.equalsIgnoreCase("U")) {
+        return Player.DIRECTION.UP;
+    } else if (input.equalsIgnoreCase("D")) {
+        return Player.DIRECTION.DOWN;
+    } else if (input.equalsIgnoreCase("L")) {
+        return Player.DIRECTION.LEFT;
+    } else if (input.equalsIgnoreCase("R")) {
+        return Player.DIRECTION.RIGHT;
+    }
+}
+    }
+
+    static Player.DIRECTION chooseMove() {
+        Scanner sc= new Scanner(System.in);
+        String answer = "";
         while (true) {
-            if (input.equalsIgnoreCase("U")) {
-                return Player.DIRECTION.UP;
-            } else if (input.equalsIgnoreCase("D")) {
-                return Player.DIRECTION.DOWN;
-            } else if (input.equalsIgnoreCase("L")) {
-                return Player.DIRECTION.LEFT;
-            } else if (input.equalsIgnoreCase("R")) {
-                return Player.DIRECTION.RIGHT;
-            } else {
-                System.out.println("ERROR: Enter a valid direction");
+            System.out.print("===Choose where to move  L = LEFT, R = RIGHT, D = DOWN, U = UP===");
+            try {
+                answer = sc.next();
+            } catch (Exception e) {
+                sc.next();
+            }finally{
+                if(answer.equalsIgnoreCase("L") ||answer.equalsIgnoreCase("R") ||
+                        answer.equalsIgnoreCase("D") || answer.equalsIgnoreCase("U")  ){
+                    Player.DIRECTION x =chooseDirection(answer);
+                    return x;
+                }else{
+                    System.out.println("Error");
+                }
             }
         }
     }
-
     //checking that the number of players inputted is between 4 and 8
     public static boolean validityofPlayers(int numPlayers){
         if(numPlayers >= minPlayers && numPlayers <= maxPlayers){
@@ -104,12 +122,20 @@ public class Game {
         move_player();
     }
 
+    static void doOneTurnForAllPlayers(int players) {
+        Player p1 = new Player(5,4);
+        for(int i = 0; i < players; ++i){
+            System.out.println("Player " + (i+1) + "'s turn");
+            Scanner sc = new Scanner(System.in);
+            String input= sc.nextLine();
+            p1.move( chooseDirection(input));
+        }
+    }
+
     static void move_player(){
          Player p1 = new Player(5,4);
-        Scanner sc = new Scanner(System.in);
-        String input= sc.nextLine();
-         Player.DIRECTION x=chooseDirection(input);
-          p1.move(x);
+         Player.DIRECTION x= chooseMove();
+         p1.move(x);
     }
 
 
