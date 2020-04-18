@@ -1,7 +1,8 @@
 package edu.cps2002.mazegame.player;
 
 public class Player {
-    private Position position;
+    private static Position position;
+
 
     public Position getPosition() {
         return position;
@@ -20,18 +21,18 @@ public class Player {
         this.position = position;
     }
 
-    public void move(char direction) {
-        switch (direction) {
-            case 'U':
+    public static void move(DIRECTION Direction) {
+        switch (Direction) {
+            case UP:
                 position.setY(position.getY()+1);
                 break;
-            case 'D':
+            case DOWN:
                 position.setY(position.getY()-1);
                 break;
-            case 'L':
+            case LEFT:
                 position.setX(position.getX()-1);
                 break;
-            case 'R':
+            case RIGHT:
                 position.setX(position.getX()+1);
                 break;
             default:

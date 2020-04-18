@@ -28,40 +28,40 @@ public class TestPlayer {
 
     @Test
     public void testDirectionD(){
-        p1.move('D');
+        p1.move(Player.DIRECTION.DOWN);
         assertEquals(4, p1.getPosition().y);
     }
 
     @Test
     public void testDirectionU(){
-        p1.move('U');
+        p1.move(Player.DIRECTION.UP);
         assertEquals(6, p1.getPosition().y);
     }
 
     @Test
     public void testDirectionL(){
-        p1.move('L');
+        p1.move(Player.DIRECTION.LEFT);
         assertEquals(3, p1.getPosition().x);
     }
 
     @Test
     public void testDirectionR(){
-        p1.move('R');
+        p1.move(Player.DIRECTION.RIGHT);
         assertEquals(5, p1.getPosition().x);
     }
 
-    @Test
-    public void testDirectionUNKNOWN1(){
-        p1.move('P');
-        assertEquals(5, p1.getPosition().y);
-        assertEquals(4, p1.getPosition().x);
-    }
-
-    @Test
-    public void testDirectionUNKNOWN2(){
-        p1.move('K');
-        assertEquals(5, p1.getPosition().y);
-        assertEquals(4, p1.getPosition().x);
-    }
+//    @Test
+//    public void testDirectionUNKNOWN1(){
+//        p1.move(Player.DIRECTION.RIGHTT);
+//        assertEquals(5, p1.getPosition().y);
+//        assertEquals(4, p1.getPosition().x);
+//    }
+//
+//    @Test
+//    public void testDirectionUNKNOWN2(){
+//        p1.move('K');
+//        assertEquals(5, p1.getPosition().y);
+//        assertEquals(4, p1.getPosition().x);
+//    }
 
 }
