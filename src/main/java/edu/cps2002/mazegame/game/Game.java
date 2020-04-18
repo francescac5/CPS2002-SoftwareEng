@@ -100,15 +100,16 @@ public class Game {
 
     static void startGame(){
         generateHTMLFiles();
-        //getposition and move player in turns -- to be modified 
+        //getposition and move player in turns -- to be modified
         move_player();
     }
 
     static void move_player(){
+         Player p1 = new Player(5,4);
         Scanner sc = new Scanner(System.in);
         String input= sc.nextLine();
          Player.DIRECTION x=chooseDirection(input);
-         Player.move(x);
+          p1.move(x);
     }
 
 
