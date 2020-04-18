@@ -30,7 +30,7 @@ while(true) {
         Scanner sc= new Scanner(System.in);
         String answer = "";
         while (true) {
-            System.out.print("===Choose where to move  L = LEFT, R = RIGHT, D = DOWN, U = UP===");
+            System.out.print("===Choose where to move  L = LEFT, R = RIGHT, D = DOWN, U = UP===\n");
             try {
                 answer = sc.next();
             } catch (Exception e) {
@@ -100,43 +100,38 @@ while(true) {
                 if(validityofMapSize(numPlayers, size)){
                     return size;
                 }else{
-                    System.out.println("The map size should be larger for the number of players inputted");
+                    System.out.println("The map size should be larger for the number of players inputted\n");
                 }
             }
         } while (true);
     }
 
     //method to generate HTML files for every player
-    static void generateHTMLFiles(){
+    static int generateHTMLFiles(){
         int players = getNumPlayers();
         //setmapsize returns boolean //
         map.setMapSize(chooseMapSize(players));
         for (int i =0; i<players;i++){
             map.generate();
         }
+        return players;
     }
 
     static void startGame(){
-        generateHTMLFiles();
+        int players =generateHTMLFiles();
         //getposition and move player in turns -- to be modified
-        move_player();
+       giveoneturntoeachPlayer(players);
     }
 
-    static void doOneTurnForAllPlayers(int players) {
+    static void giveoneturntoeachPlayer(int players) {
         Player p1 = new Player(5,4);
         for(int i = 0; i < players; ++i){
             System.out.println("Player " + (i+1) + "'s turn");
-            Scanner sc = new Scanner(System.in);
-            String input= sc.nextLine();
-            p1.move( chooseDirection(input));
+            Player.DIRECTION x= chooseMove();
+            p1.move(x);;
         }
     }
 
-    static void move_player(){
-         Player p1 = new Player(5,4);
-         Player.DIRECTION x= chooseMove();
-         p1.move(x);
-    }
 
 
     public static void main(String[] args) {
