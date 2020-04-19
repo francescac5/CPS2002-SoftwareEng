@@ -120,19 +120,19 @@ while(true) {
     static void startGame(){
         int players =generateHTMLFiles();
         //getposition and move player in turns -- to be modified
-       giveoneturntoeachPlayer(players);
+        for(int i=0; i<10;i++) {
+            giveoneturntoeachPlayer(players);
+        }
     }
 
     static void giveoneturntoeachPlayer(int players) {
         Player p1 = new Player(5,4);
-        for(int i = 0; i < players; ++i){
+        for(int i = 0; i < players; i++){
             System.out.println("Player " + (i+1) + "'s turn");
             Player.DIRECTION x= chooseMove();
             p1.move(x);;
         }
     }
-
-
 
     public static void main(String[] args) {
         startGame();
