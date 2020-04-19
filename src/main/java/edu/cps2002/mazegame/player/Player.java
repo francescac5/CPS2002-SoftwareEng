@@ -3,27 +3,37 @@ package edu.cps2002.mazegame.player;
 public class Player {
     private Position position;
 
+
     public Position getPosition() {
         return position;
+    }
+
+    public Player(int x, int y){
+        Position p = new Position(x,y);
+        setPosition(p);
+    }
+
+    public enum DIRECTION{
+        UP,DOWN,RIGHT,LEFT
     }
 
     public void setPosition(Position position) {
         this.position = position;
     }
 
-    public void move(char direction) {
-        switch (direction) {
-            case 'U':
-                Position.setY(Position.getY()+1);
+    public void move(DIRECTION Direction) {
+        switch (Direction) {
+            case UP:
+                position.setY(position.getY()+1);
                 break;
-            case 'D':
-                Position.setY(Position.getY()-1);
+            case DOWN:
+                position.setY(position.getY()-1);
                 break;
-            case 'L':
-                Position.setX(Position.getX()-1);
+            case LEFT:
+                position.setX(position.getX()-1);
                 break;
-            case 'R':
-                Position.setX(Position.getX()+1);
+            case RIGHT:
+                position.setX(position.getX()+1);
                 break;
             default:
 

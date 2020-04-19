@@ -1,13 +1,12 @@
 package edu.cps2002.mazegame.map;
 
+import edu.cps2002.utils.MapUtils;
+import javafx.util.Pair;
 import org.junit.*;
-<<<<<<< HEAD
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-=======
->>>>>>> 8c7be396bd8b14abf793ded269034aa56b40773a
 import static org.junit.Assert.*;
 
 public class TestMap {
@@ -21,14 +20,13 @@ public class TestMap {
 
     @After
     public void tearDown() {
-<<<<<<< HEAD
         MapUtils utils = new MapUtils();
         utils.deleteHTMLFiles();
 
-=======
->>>>>>> 8c7be396bd8b14abf793ded269034aa56b40773a
         map = null;
     }
+
+//******** map.setMapSize() tests ********\\
 
     @Test
     public void testSetMapSize_GreaterThanMinSize() {
@@ -38,6 +36,7 @@ public class TestMap {
 
         //Assert
         assertTrue(result);
+        assertEquals(size, map.getMapSize());
     }
 
     @Test
@@ -48,6 +47,7 @@ public class TestMap {
 
         //Assert
         assertTrue(result);
+        assertEquals(size, map.getMapSize());
     }
 
     @Test
@@ -58,6 +58,7 @@ public class TestMap {
 
         //Assert
         assertFalse(result);
+        assertEquals(-1, map.getMapSize());
     }
 
     @Test
@@ -68,6 +69,7 @@ public class TestMap {
 
         //Assert
         assertFalse(result);
+        assertEquals(-1, map.getMapSize());
     }
 
     @Test
@@ -78,7 +80,6 @@ public class TestMap {
 
         //Assert
         assertFalse(result);
-<<<<<<< HEAD
         assertEquals(-1, map.getMapSize());
     }
 
@@ -176,8 +177,6 @@ public class TestMap {
         //Assert
         char type = map.getTileType(x, y);
         assertEquals('E', type);
-=======
->>>>>>> 8c7be396bd8b14abf793ded269034aa56b40773a
     }
 
 //******** map.updateMap tests ********\\
