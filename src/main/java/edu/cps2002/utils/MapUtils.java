@@ -14,7 +14,7 @@ public class MapUtils {
             if (file.createNewFile()) {
                 System.out.println("File created: "+ file.getName());
             } else {
-                System.out.println("File "+ file.getName()+" already exists.");
+                System.out.println("File "+ file.getName()+" updated.");
             }
 
             FileWriter fWriter;
@@ -39,13 +39,22 @@ public class MapUtils {
     }
 
     public void generateMapHTML(int mapCount, Map.Tiles[][] playerMap) {
-        String path = "src/main/java/edu/cps2002/mazegame/gameMaps/map_player_"+mapCount+".html";
+        String path = "src\\main\\java\\edu\\cps2002\\mazegame\\gameMaps\\map_player_"+mapCount+".html";
 
         StringBuilder mapHTML = new StringBuilder();
 
         mapHTML.append("<html>\n");
+        mapHTML.append("<head>\n");
+        mapHTML.append("<script type=\"text/javascript\">\n");
+        mapHTML.append("window.onload = setUpRefresh;\n");
+        mapHTML.append("function setUpRefresh() {\n");
+        mapHTML.append("setTimeout(\"refreshPage();\",1000); \n}\n");
+        mapHTML.append("function refreshPage() {\n");
+        mapHTML.append("self.window.location = location.href; \n}\n");
+        mapHTML.append("</script>\n");
+        mapHTML.append("</head>\n");
         mapHTML.append("<body>\n");
-        mapHTML.append("<table border ='1'>\n");
+        mapHTML.append("<table border ='1' align = \"center\">\n");
         mapHTML.append("<thead>\n");
         mapHTML.append("<tr>\n");
         mapHTML.append("<th colspan=\"");
@@ -63,7 +72,7 @@ public class MapUtils {
                 if(playerMap[x][y] == Map.Tiles.GRASS){
                     mapHTML.append(new Tile().getTileHTML("green"));
                 }
-                else if(playerMap[x][y] == Map.Tiles.GRASS_PLAYER || playerMap[x][y] == Map.Tiles.GRASS_INIT) {
+                else if(playerMap[x][y] == Map.Tiles.GRASS_PLAYER) {
                     mapHTML.append(new PlayerTile().getTileHTML("green"));
                 }
                 else if(playerMap[x][y] == Map.Tiles.WATER) {
@@ -87,7 +96,7 @@ public class MapUtils {
     }
 
     public void deleteHTMLFiles(){
-        File mapFolder = new File("src/main/java/edu/cps2002/mazegame/gameMaps")   ;
+        File mapFolder = new File("src\\main\\java\\edu\\cps2002\\mazegame\\gameMaps");
 
         File[] maps = mapFolder.listFiles();
         for(File map: maps){
