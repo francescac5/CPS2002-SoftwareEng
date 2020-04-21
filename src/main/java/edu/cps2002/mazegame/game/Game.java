@@ -2,10 +2,13 @@ package edu.cps2002.mazegame.game;
 
 import edu.cps2002.mazegame.map.Map;
 import edu.cps2002.mazegame.player.Player;
+import jdk.nashorn.api.scripting.ScriptObjectMirror;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game {
+    static ArrayList<Player> playerList = new ArrayList<Player>();
     private static Map map = new Map();
     static int minPlayers = 2;
     static int maxPlayers = 8;
@@ -107,18 +110,15 @@ while(true) {
     }
 
     //method to generate HTML files for every player
-    static int generateHTMLFiles(){
-        int players = getNumPlayers();
-        //setmapsize returns boolean //
-        map.setMapSize(chooseMapSize(players));
+    static void generateHTMLFiles(int players){
         for (int i =0; i<players;i++){
             map.generate();
         }
-        return players;
     }
 
     static void startGame(){
-        int players =generateHTMLFiles();
+        int players = getNumPlayers();
+        generateHTMLFiles(players);
         //getposition and move player in turns -- to be modified
         for(int i=0; i<10;i++) {
             giveoneturntoeachPlayer(players);
@@ -138,4 +138,6 @@ while(true) {
         startGame();
     }
 
+    public static void initialisePlayers(int players) {
+    }
 }

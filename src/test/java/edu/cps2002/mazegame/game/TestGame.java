@@ -1,5 +1,6 @@
 package edu.cps2002.mazegame.game;
 
+import edu.cps2002.mazegame.map.Map;
 import edu.cps2002.mazegame.player.Player;
 import edu.cps2002.mazegame.player.Position;
 
@@ -145,6 +146,32 @@ public class TestGame {
         boolean result= Game.validityofMapSize(8,50);
         boolean actual= true;
         assertEquals(result, actual);
+
+    }
+
+    @Test
+    public void initialisePlayersTest1(){
+        int players =3;
+        Map map = new Map();
+        map.setMapSize(5);
+        Game.generateHTMLFiles(3);
+        int sizeBefore = Game.playerList.size();
+        Game.initialisePlayers(players);
+        int sizeAfter = Game.playerList.size();
+        assertEquals(sizeBefore+3, sizeAfter);
+
+    }
+
+    @Test
+    public void initialisePlayersTest2(){
+        int players =10;
+        Map map = new Map();
+        map.setMapSize(10);
+        Game.generateHTMLFiles(10);
+        int sizeBefore = Game.playerList.size();
+        Game.initialisePlayers(players);
+        int sizeAfter = Game.playerList.size();
+        assertEquals(sizeBefore+10, sizeAfter);
 
     }
 
