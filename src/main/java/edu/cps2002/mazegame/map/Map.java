@@ -243,11 +243,11 @@ public class Map {
         return playerMaps.get(playerNum-1);
     }
 
-    protected Integer getPlayerInitPositionX(int playerNum){
+    public Integer getPlayerInitPositionX(int playerNum){
         return initTiles.get(playerNum-1).getKey();
     }
 
-    protected Integer getPlayerInitPositionY(int playerNum){
+    public Integer getPlayerInitPositionY(int playerNum){
         return initTiles.get(playerNum-1).getValue();
     }
 
