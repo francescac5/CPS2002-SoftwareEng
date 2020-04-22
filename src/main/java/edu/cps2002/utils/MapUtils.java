@@ -117,11 +117,13 @@ public class MapUtils {
         File mapFolder = new File("src"+ret+"main"+ret+"java"+ret+"edu"+ret+"cps2002"+ret+"mazegame"+ret+"gameMaps");
 
         File[] maps = mapFolder.listFiles();
-        for(File map: maps){
-            try {
-                Desktop.getDesktop().browse(map.toURI());
-            } catch (IOException e) {
-                e.printStackTrace();
+        if (maps != null) {
+            for(File map: maps){
+                try {
+                    Desktop.getDesktop().browse(map.toURI());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

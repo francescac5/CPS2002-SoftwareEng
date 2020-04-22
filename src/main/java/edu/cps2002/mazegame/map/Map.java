@@ -26,14 +26,14 @@ public class Map {
     private int size = -1;
     private static int mapCount;
     private Tiles[][] mapTiles;
-    private boolean tilesGenerated = false;
+    protected boolean tilesGenerated = false;
 
-    private ArrayList<Pair<Integer,Integer>> grassTiles = new ArrayList<>();
-    private ArrayList<Pair<Integer,Integer>> waterTiles = new ArrayList<>();
-    private Pair<Integer, Integer> treasureTile;
+    protected ArrayList<Pair<Integer,Integer>> grassTiles = new ArrayList<>();
+    protected ArrayList<Pair<Integer,Integer>> waterTiles = new ArrayList<>();
+    protected Pair<Integer, Integer> treasureTile;
 
-    private ArrayList<Tiles[][]> playerMaps = new ArrayList<>();
-    private ArrayList<Pair<Integer,Integer>> initTiles = new ArrayList<>();
+    protected ArrayList<Tiles[][]> playerMaps = new ArrayList<>();
+    protected ArrayList<Pair<Integer,Integer>> initTiles = new ArrayList<>();
 
     public void initMapCount(){
         mapCount = 0;
@@ -251,8 +251,8 @@ public class Map {
         return initTiles.get(playerNum-1).getValue();
     }
 
-    private void deleteMaps() {
-        util.deleteHTMLFiles();
+    public void resetMap() {
+       
     }
 
 }
