@@ -16,6 +16,7 @@ public class TestMap {
     @Before
     public void setup() {
         map = new Map();
+        map.initMapCount();
     }
 
     @After
