@@ -4,9 +4,11 @@ import edu.cps2002.mazegame.map.Map;
 import edu.cps2002.mazegame.map.PlayerTile;
 import edu.cps2002.mazegame.map.Tile;
 
+import java.awt.*;
 import java.io.*;
 
 public class MapUtils {
+    private String ret = File.separator;
 
     public void writeToFile(String path, String content){
         try {
@@ -39,7 +41,7 @@ public class MapUtils {
     }
 
     public void generateMapHTML(int mapCount, Map.Tiles[][] playerMap) {
-        String path = "src\\main\\java\\edu\\cps2002\\mazegame\\gameMaps\\map_player_"+mapCount+".html";
+        String path = "src"+ret+"main"+ret+"java"+ret+"edu"+ret+"cps2002"+ret+"mazegame"+ret+"gameMaps"+ret+"map_player_"+mapCount+".html";
 
         StringBuilder mapHTML = new StringBuilder();
 
@@ -48,7 +50,7 @@ public class MapUtils {
         mapHTML.append("<script type=\"text/javascript\">\n");
         mapHTML.append("window.onload = setUpRefresh;\n");
         mapHTML.append("function setUpRefresh() {\n");
-        mapHTML.append("setTimeout(\"refreshPage();\",1000); \n}\n");
+        mapHTML.append("setTimeout(\"refreshPage();\",3000); \n}\n");
         mapHTML.append("function refreshPage() {\n");
         mapHTML.append("self.window.location = location.href; \n}\n");
         mapHTML.append("</script>\n");
@@ -96,11 +98,42 @@ public class MapUtils {
     }
 
     public void deleteHTMLFiles(){
-        File mapFolder = new File("src\\main\\java\\edu\\cps2002\\mazegame\\gameMaps");
+        boolean success;
+        File mapFolder = new File("src"+ret+"main"+ret+"java"+ret+"edu"+ret+"cps2002"+ret+"mazegame"+ret+"gameMaps");
 
         File[] maps = mapFolder.listFiles();
-        for(File map: maps){
-            map.delete();
+        if (maps != null) {
+            for(File map: maps){
+                success = map.delete();
+                if(!success){
+                    //if deletion of file is denied
+                    throw new SecurityException();
+                }
+            }
+        }
+    }
+
+    public void openMapsInBrowser(){
+        File mapFolder = new File("src"+ret+"main"+ret+"java"+ret+"edu"+ret+"cps2002"+ret+"mazegame"+ret+"gameMaps");
+
+        File[] maps = mapFolder.listFiles();
+        if (maps != null) {
+            for(File map: maps){
+                try {
+                    Desktop.getDesktop().browse(map.toURI());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void generateGameMapsFolder() {
+        File mapFolder = new File("src"+ret+"main"+ret+"java"+ret+"edu"+ret+"cps2002"+ret+"mazegame"+ret+"gameMaps");
+        if(mapFolder.mkdir()) {
+            System.out.println("Directory Created");
+        } else {
+            System.out.println("Directory is not created");
         }
     }
 }

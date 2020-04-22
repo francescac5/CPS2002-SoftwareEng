@@ -16,6 +16,7 @@ public class TestMap {
     @Before
     public void setup() {
         map = new Map();
+        map.initMapCount();
     }
 
     @After
@@ -282,5 +283,30 @@ public class TestMap {
         //Assert
         assertEquals(Map.Tiles.GRASS, postTiles[initX][initY]);
         assertEquals(Map.Tiles.TREASURE, postTiles[x][y]);
+    }
+
+    //******** map.resetMap tests ********\\
+
+    @Test
+    public void testResetMap(){
+        //Exercise
+        map.setMapSize(5);
+        map.generate();
+
+        map.resetMap();
+
+        //Assert
+        assertEquals(0, map.getMapCount());
+
+        assertEquals(0, map.grassTiles.size());
+        assertEquals(0, map.waterTiles.size());
+        assertNull(map.treasureTile);
+
+        assertEquals(0, map.playerMaps.size());
+        assertEquals(0, map.initTiles.size());
+
+        assertFalse(map.tilesGenerated);
+
+        assertEquals(-1, map.getMapSize());
     }
 }

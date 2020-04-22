@@ -26,14 +26,14 @@ public class Map {
     private int size = -1;
     private static int mapCount;
     private Tiles[][] mapTiles;
-    private boolean tilesGenerated = false;
+    protected boolean tilesGenerated = false;
 
-    private ArrayList<Pair<Integer,Integer>> grassTiles = new ArrayList<>();
-    private ArrayList<Pair<Integer,Integer>> waterTiles = new ArrayList<>();
-    private Pair<Integer, Integer> treasureTile;
+    protected ArrayList<Pair<Integer,Integer>> grassTiles = new ArrayList<>();
+    protected ArrayList<Pair<Integer,Integer>> waterTiles = new ArrayList<>();
+    protected Pair<Integer, Integer> treasureTile;
 
-    private ArrayList<Tiles[][]> playerMaps = new ArrayList<>();
-    private ArrayList<Pair<Integer,Integer>> initTiles = new ArrayList<>();
+    protected ArrayList<Tiles[][]> playerMaps = new ArrayList<>();
+    protected ArrayList<Pair<Integer,Integer>> initTiles = new ArrayList<>();
 
     public void initMapCount(){
         mapCount = 0;
@@ -63,6 +63,8 @@ public class Map {
 
         //single set of tiles
         if(!tilesGenerated){
+            util.generateGameMapsFolder();
+
             generateTileTypes();
             tilesGenerated = true;
         }
@@ -190,7 +192,7 @@ public class Map {
     }
 
     public char getTileType(int x, int y) {
-        if(x >= size || y >= size){
+        if(x >= size || y >= size || x < 0 || y < 0){
             return 'E';
         }
 
@@ -214,45 +216,59 @@ public class Map {
     }
 
     public void updateMap(int xNew, int yNew, int playerNum){
-        Tiles[][] playerMap = getPlayerMap(playerNum);
-        Tiles revealedTile = this.mapTiles[xNew][yNew];
 
-        for (int y = 0; y < size; y++) {
-            for (int x = 0; x < size; x++) {
-                if(xNew == x && yNew == y){
-                    playerMap[x][y] = revealedTile;
-                }
+        if(xNew < size && yNew < size && xNew >= 0 && yNew >= 0) {
 
-                //if grass tile is revealed then remove character from prev tile
-                if(playerMap[x][y] == Tiles.GRASS_PLAYER && (xNew != x || yNew != y)){
-                    playerMap[x][y] = Tiles.GRASS;
-                }
+            Tiles[][] playerMap = getPlayerMap(playerNum);
+            Tiles revealedTile = this.mapTiles[xNew][yNew];
 
-                //if water tile is revealed then remove character from prev tile and place it in init tile
-                if(revealedTile == Tiles.WATER){
-                    int initX = getPlayerInitPositionX(playerNum);
-                    int initY = getPlayerInitPositionY(playerNum);
-                    playerMap[initX][initY] = Tiles.GRASS_PLAYER;
+            for (int y = 0; y < size; y++) {
+                for (int x = 0; x < size; x++) {
+                    if (xNew == x && yNew == y) {
+                        playerMap[x][y] = revealedTile;
+                    }
+
+                    //if grass tile is revealed then remove character from prev tile
+                    if (playerMap[x][y] == Tiles.GRASS_PLAYER && (xNew != x || yNew != y)) {
+                        playerMap[x][y] = Tiles.GRASS;
+                    }
+
+                    //if water tile is revealed then remove character from prev tile and place it in init tile
+                    if (revealedTile == Tiles.WATER) {
+                        int initX = getPlayerInitPositionX(playerNum);
+                        int initY = getPlayerInitPositionY(playerNum);
+                        playerMap[initX][initY] = Tiles.GRASS_PLAYER;
+                    }
                 }
             }
+            util.generateMapHTML(playerNum, playerMap);
         }
-        util.generateMapHTML(playerNum, playerMap);
     }
 
     protected Tiles[][] getPlayerMap(int playerNum){
         return playerMaps.get(playerNum-1);
     }
 
-    protected Integer getPlayerInitPositionX(int playerNum){
+    public Integer getPlayerInitPositionX(int playerNum){
         return initTiles.get(playerNum-1).getKey();
     }
 
-    protected Integer getPlayerInitPositionY(int playerNum){
+    public Integer getPlayerInitPositionY(int playerNum){
         return initTiles.get(playerNum-1).getValue();
     }
 
-    private void deleteMaps() {
-        util.deleteHTMLFiles();
+    public void resetMap() {
+        initMapCount();
+
+        grassTiles.clear();
+        waterTiles.clear();
+        treasureTile = null;
+
+        playerMaps.clear();
+        initTiles.clear();
+        tilesGenerated = false;
+
+        size = -1;
     }
 
 }
