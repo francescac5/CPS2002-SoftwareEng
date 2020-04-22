@@ -30,7 +30,7 @@ public class Map {
 
     private ArrayList<Pair<Integer,Integer>> grassTiles = new ArrayList<>();
     private ArrayList<Pair<Integer,Integer>> waterTiles = new ArrayList<>();
-    private Pair<Integer, Integer> treasureTile;
+    private static Pair<Integer, Integer> treasureTile;
 
     private ArrayList<Tiles[][]> playerMaps = new ArrayList<>();
     private ArrayList<Pair<Integer,Integer>> initTiles = new ArrayList<>();
