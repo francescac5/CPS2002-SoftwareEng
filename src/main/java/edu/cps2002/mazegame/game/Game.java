@@ -2,6 +2,7 @@ package edu.cps2002.mazegame.game;
 
 import edu.cps2002.mazegame.map.Map;
 import edu.cps2002.mazegame.player.Player;
+import edu.cps2002.mazegame.player.Position;
 import jdk.nashorn.api.scripting.ScriptObjectMirror;
 
 import java.util.ArrayList;
@@ -160,7 +161,16 @@ while(true) {
         }
     }
 
-    public static boolean checkWinner() {
-        return false;
+    static boolean checkWinner(){
+        boolean winnerFlag = false;
+        for(int i = 0; i < playerList.size(); i++){
+            Position p = playerList.get(i).getPosition();
+            char type= map.getTileType(p.getX(),p.getY());
+            if (type=='T'){
+                System.out.println("Winner:" + "Player_" + (i+1));
+                winnerFlag= true;
+            }
+        }
+        return winnerFlag;
     }
 }
