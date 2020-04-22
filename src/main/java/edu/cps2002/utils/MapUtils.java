@@ -96,11 +96,18 @@ public class MapUtils {
     }
 
     public void deleteHTMLFiles(){
+        boolean success;
         File mapFolder = new File("src\\main\\java\\edu\\cps2002\\mazegame\\gameMaps");
 
         File[] maps = mapFolder.listFiles();
-        for(File map: maps){
-            map.delete();
+        if (maps != null) {
+            for(File map: maps){
+                success = map.delete();
+                if(!success){
+                    //if deletion of file is denied
+                    throw new SecurityException();
+                }
+            }
         }
     }
 }
