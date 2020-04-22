@@ -35,15 +35,84 @@ public class Map {
     protected ArrayList<Tiles[][]> playerMaps = new ArrayList<>();
     protected ArrayList<Pair<Integer,Integer>> initTiles = new ArrayList<>();
 
-    public void initMapCount(){
-        mapCount = 0;
+    //getters
+    //returns size of map set by user
+    public int getMapSize() {
+        return size;
     }
 
-    //only for testing purposes
+    //returns map of a particular player
+    protected Tiles[][] getPlayerMap(int playerNum){
+        return playerMaps.get(playerNum-1);
+    }
+
+    //returns x-coordinate of a particular player's initial tile
+    public Integer getPlayerInitPositionX(int playerNum){
+        return initTiles.get(playerNum-1).getKey();
+    }
+
+    //returns y-coordinate of a particular player's initial tile
+    public Integer getPlayerInitPositionY(int playerNum){
+        return initTiles.get(playerNum-1).getValue();
+    }
+
+    //returns number of maps created
     protected int getMapCount() {
         return mapCount;
     }
 
+    //returns 2D array mapTiles containing the type of each tile in the Map
+    protected Tiles[][] getTiles() {
+        return this.mapTiles;
+    }
+
+    //returns array list of coordinates for all grass tiles in the map
+    protected ArrayList<Pair<Integer, Integer>> getGrassTiles() {
+        return grassTiles;
+    }
+
+    //returns array list of coordinates for all water tiles in the map
+    protected ArrayList<Pair<Integer, Integer>> getWaterTiles() {
+        return waterTiles;
+    }
+
+    //returns coordinates of the treasure tile in the map
+    protected Pair<Integer, Integer> getTreasureTile() {
+        return treasureTile;
+    }
+
+    //returns type of tile indicated by the given x and y coordinates
+    public char getTileType(int x, int y) {
+        if(x >= size || y >= size || x < 0 || y < 0){
+            return 'E';
+        }
+
+        char type;
+
+        switch(mapTiles[x][y]){
+            case TREASURE:
+                type = 'T';
+                break;
+            case GRASS_PLAYER:
+                type = 'G';
+                break;
+            case WATER:
+                type = 'W';
+                break;
+            default:
+                type = 'E';
+                break;
+        }
+        return type;
+    }
+
+    //setters
+    //set number of maps to zero
+    public void initMapCount(){
+        mapCount = 0;
+    }
+
+    //set map size to a number from 5 to 50
     public boolean setMapSize(int size) {
         //if inputted size is less than minimum of 5
         if(size < 5 || size > 50){
@@ -55,10 +124,8 @@ public class Map {
         }
     }
 
-    public int getMapSize() {
-        return size;
-    }
-
+    //generates tiles for Map once in map's lifetime
+    //generates player map and corresponding HTML file
     public void generate(){
 
         //single set of tiles
@@ -76,6 +143,7 @@ public class Map {
         util.generateMapHTML(mapCount, playerMap);
     }
 
+    //generates initial map for player with initial position on a random grass tile
     private Tiles[][] generateInitMap() {
         Tiles[][] initMap = new Tiles[size][size];
 
@@ -95,6 +163,8 @@ public class Map {
         return initMap;
     }
 
+    //generates grass, water and treasure tiles randomly
+    //initializes mapTiles variable according to the generated tiles
     protected void generateTileTypes() {
         Pair<Integer, Integer> temp;
         int amountTiles = size * size;
@@ -134,6 +204,7 @@ public class Map {
         }
     }
 
+    //generates 85% of the map size as grass tiles
     private ArrayList<Integer> generateGrassTiles(int amountTiles) {
         ArrayList<Integer> grassTiles = new ArrayList<Integer>();
 
@@ -153,6 +224,7 @@ public class Map {
         return grassTiles;
     }
 
+    //generates 1 treasure tile which is not a grass tile
     private int generateTreasureTile(int amountTiles, ArrayList<Integer> grassTiles) {
         //set treasure tile to a tile which is not a grass tile
         Random r = new Random();
@@ -163,8 +235,9 @@ public class Map {
         return treasure;
     }
 
+    //tiles which are neither grass nor treasure are set to water tiles
     private ArrayList<Integer> generateWaterTiles(int amountTiles, int treasure, ArrayList<Integer> grassTiles) {
-        ArrayList<Integer> waterTiles = new ArrayList<Integer>();
+        ArrayList<Integer> waterTiles = new ArrayList<>();
 
         for (int i = 1; i < amountTiles+1; i++) {
             if(!grassTiles.contains(i) && i != treasure){
@@ -174,47 +247,11 @@ public class Map {
         return waterTiles;
     }
 
-    protected Tiles[][] getTiles() {
-        return this.mapTiles;
-    }
-
-    protected ArrayList<Pair<Integer, Integer>> getGrassTiles() {
-        return grassTiles;
-    }
-
-
-    protected ArrayList<Pair<Integer, Integer>> getWaterTiles() {
-        return waterTiles;
-    }
-
-    protected Pair<Integer, Integer> getTreasureTile() {
-        return treasureTile;
-    }
-
-    public char getTileType(int x, int y) {
-        if(x >= size || y >= size || x < 0 || y < 0){
-            return 'E';
-        }
-
-        char type;
-
-        switch(mapTiles[x][y]){
-            case TREASURE:
-                type = 'T';
-                break;
-            case GRASS_PLAYER:
-                type = 'G';
-                break;
-            case WATER:
-                type = 'W';
-                break;
-            default:
-                type = 'E';
-                break;
-        }
-        return type;
-    }
-
+    //if the given x and y coordinates are within the map size limit, the map of the given player is
+    //updated to reveal the tile indicated by those coordinates.
+    //if the revealed tile is grass, then player moves on it,
+    //else if it is water, the player is sent back to the initial tile,
+    //else if it is treasure, the player moves on it.
     public void updateMap(int xNew, int yNew, int playerNum){
 
         if(xNew < size && yNew < size && xNew >= 0 && yNew >= 0) {
@@ -245,18 +282,7 @@ public class Map {
         }
     }
 
-    protected Tiles[][] getPlayerMap(int playerNum){
-        return playerMaps.get(playerNum-1);
-    }
-
-    public Integer getPlayerInitPositionX(int playerNum){
-        return initTiles.get(playerNum-1).getKey();
-    }
-
-    public Integer getPlayerInitPositionY(int playerNum){
-        return initTiles.get(playerNum-1).getValue();
-    }
-
+    //resets all variables associated with the Map
     public void resetMap() {
         initMapCount();
 
@@ -272,4 +298,5 @@ public class Map {
     }
 
 }
+
 
