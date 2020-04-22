@@ -7,12 +7,15 @@ import jdk.nashorn.api.scripting.ScriptObjectMirror;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static edu.cps2002.mazegame.game.Game.gameend;
+
 public class Game {
     static ArrayList<Player> playerList = new ArrayList<Player>();
     private static Map map = new Map();
     static int minPlayers = 2;
     static int maxPlayers = 8;
     static int maxMapSize = 50;
+    static boolean gameend = false;
 
     //method to get the direction from the player
     public static Player.DIRECTION chooseDirection(String input) {
@@ -133,6 +136,12 @@ while(true) {
             p1.move(x);;
         }
     }
+
+    public static void checkGameend(boolean b) {
+    }
+
+
+
 
     public static void main(String[] args) {
         startGame();

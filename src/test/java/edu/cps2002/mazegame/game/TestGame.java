@@ -9,7 +9,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import static edu.cps2002.mazegame.game.Game.gameend;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 public class TestGame {
     public Player p1;
@@ -173,6 +175,12 @@ public class TestGame {
         int sizeAfter = Game.playerList.size();
         assertEquals(sizeBefore+10, sizeAfter);
 
+    }
+
+    @Test
+    public void test_checkGameend(){
+        Game.checkGameend(false);
+        assertFalse(gameend);
     }
 
 }
