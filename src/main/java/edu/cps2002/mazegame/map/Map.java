@@ -192,7 +192,7 @@ public class Map {
     }
 
     public char getTileType(int x, int y) {
-        if(x >= size || y >= size){
+        if(x >= size || y >= size || x < 0 || y < 0){
             return 'E';
         }
 
@@ -216,29 +216,33 @@ public class Map {
     }
 
     public void updateMap(int xNew, int yNew, int playerNum){
-        Tiles[][] playerMap = getPlayerMap(playerNum);
-        Tiles revealedTile = this.mapTiles[xNew][yNew];
 
-        for (int y = 0; y < size; y++) {
-            for (int x = 0; x < size; x++) {
-                if(xNew == x && yNew == y){
-                    playerMap[x][y] = revealedTile;
-                }
+        if(xNew < size && yNew < size && xNew >= 0 && yNew >= 0) {
 
-                //if grass tile is revealed then remove character from prev tile
-                if(playerMap[x][y] == Tiles.GRASS_PLAYER && (xNew != x || yNew != y)){
-                    playerMap[x][y] = Tiles.GRASS;
-                }
+            Tiles[][] playerMap = getPlayerMap(playerNum);
+            Tiles revealedTile = this.mapTiles[xNew][yNew];
 
-                //if water tile is revealed then remove character from prev tile and place it in init tile
-                if(revealedTile == Tiles.WATER){
-                    int initX = getPlayerInitPositionX(playerNum);
-                    int initY = getPlayerInitPositionY(playerNum);
-                    playerMap[initX][initY] = Tiles.GRASS_PLAYER;
+            for (int y = 0; y < size; y++) {
+                for (int x = 0; x < size; x++) {
+                    if (xNew == x && yNew == y) {
+                        playerMap[x][y] = revealedTile;
+                    }
+
+                    //if grass tile is revealed then remove character from prev tile
+                    if (playerMap[x][y] == Tiles.GRASS_PLAYER && (xNew != x || yNew != y)) {
+                        playerMap[x][y] = Tiles.GRASS;
+                    }
+
+                    //if water tile is revealed then remove character from prev tile and place it in init tile
+                    if (revealedTile == Tiles.WATER) {
+                        int initX = getPlayerInitPositionX(playerNum);
+                        int initY = getPlayerInitPositionY(playerNum);
+                        playerMap[initX][initY] = Tiles.GRASS_PLAYER;
+                    }
                 }
             }
+            util.generateMapHTML(playerNum, playerMap);
         }
-        util.generateMapHTML(playerNum, playerMap);
     }
 
     protected Tiles[][] getPlayerMap(int playerNum){
