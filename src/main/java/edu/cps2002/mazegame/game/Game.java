@@ -137,10 +137,15 @@ while(true) {
         }
     }
 
-    public static void checkGameend(boolean b) {
+    static void checkGameend(boolean check){
+        if (check) {
+            gameend = true;
+            System.exit(0);
+        } else {
+            gameend = false;
+            System.out.println("No one won in this round");
+        }
     }
-
-
 
 
     public static void main(String[] args) {
