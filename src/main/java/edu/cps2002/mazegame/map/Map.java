@@ -63,6 +63,8 @@ public class Map {
 
         //single set of tiles
         if(!tilesGenerated){
+            util.generateGameMapsFolder();
+
             generateTileTypes();
             tilesGenerated = true;
         }
@@ -252,7 +254,17 @@ public class Map {
     }
 
     public void resetMap() {
-       
+        initMapCount();
+
+        grassTiles.clear();
+        waterTiles.clear();
+        treasureTile = null;
+
+        playerMaps.clear();
+        initTiles.clear();
+        tilesGenerated = false;
+
+        size = -1;
     }
 
 }

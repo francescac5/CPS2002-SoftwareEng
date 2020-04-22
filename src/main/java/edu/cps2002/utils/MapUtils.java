@@ -127,4 +127,13 @@ public class MapUtils {
             }
         }
     }
+
+    public void generateGameMapsFolder() {
+        File mapFolder = new File("src"+ret+"main"+ret+"java"+ret+"edu"+ret+"cps2002"+ret+"mazegame"+ret+"gameMaps");
+        if(mapFolder.mkdir()) {
+            System.out.println("Directory Created");
+        } else {
+            System.out.println("Directory is not created");
+        }
+    }
 }
