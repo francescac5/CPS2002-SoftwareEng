@@ -185,7 +185,7 @@ public class Map {
         return waterTiles;
     }
 
-    protected Pair<Integer, Integer> getTreasureTile() {
+    public static Pair<Integer, Integer> getTreasureTile() {
         return treasureTile;
     }
 

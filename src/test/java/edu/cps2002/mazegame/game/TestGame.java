@@ -4,14 +4,14 @@ import edu.cps2002.mazegame.map.Map;
 import edu.cps2002.mazegame.player.Player;
 import edu.cps2002.mazegame.player.Position;
 
+import javafx.util.Pair;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import static edu.cps2002.mazegame.game.Game.gameend;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 
 public class TestGame {
     public Player p1;
@@ -175,6 +175,40 @@ public class TestGame {
         int sizeAfter = Game.playerList.size();
         assertEquals(sizeBefore+10, sizeAfter);
 
+    }
+
+    @Test
+    public void test1_Winner(){
+        boolean flag;
+        Map map = new Map();
+        map.setMapSize(10);
+        Game.generateHTMLFiles(10);
+        Player p1 = new Player(4,5);
+        Game.playerList.add(p1);
+        Pair<Integer, Integer> x= Map.getTreasureTile();
+        x.getKey();
+        x.getValue();
+        Position p = new Position(x.getKey(),x.getValue());
+        p1.setPosition(p);
+        flag= Game.checkWinner();
+        assertTrue(flag);
+    }
+
+    @Test
+    public void test2_Winner(){
+        boolean flag;
+        Map map = new Map();
+        map.setMapSize(10);
+        Game.generateHTMLFiles(10);
+        Player p1 = new Player(4,5);
+        Game.playerList.add(p1);
+        Pair<Integer, Integer> x= Map.getTreasureTile();
+        x.getKey();
+        x.getValue();
+        Position p = new Position(x.getKey()+1,x.getValue()+1);
+        p1.setPosition(p);
+        flag= Game.checkWinner();
+        assertFalse(flag);
     }
 
     @Test

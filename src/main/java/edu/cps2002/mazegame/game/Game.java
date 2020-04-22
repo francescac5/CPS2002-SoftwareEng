@@ -159,4 +159,8 @@ while(true) {
             playerList.add(p1);
         }
     }
+
+    public static boolean checkWinner() {
+        return false;
+    }
 }
