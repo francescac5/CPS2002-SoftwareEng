@@ -1,15 +1,12 @@
 package edu.cps2002.mazegame.map;
 
-import edu.cps2002.utils.MapUtils;
+import edu.cps2002.mazegame.utils.MapUtils;
 import javafx.util.Pair;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+
 
 public class Map {
 
@@ -21,9 +18,10 @@ public class Map {
         GRASS_PLAYER
     }
 
+
     private MapUtils util = new MapUtils();
 
-    private int size = -1;
+    private static int size = -1;
     private static int mapCount;
     private Tiles[][] mapTiles;
     private boolean tilesGenerated = false;
@@ -55,7 +53,7 @@ public class Map {
         }
     }
 
-    public int getMapSize() {
+    public static int getMapSize() {
         return size;
     }
 

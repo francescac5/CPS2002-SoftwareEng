@@ -3,15 +3,13 @@ package edu.cps2002.mazegame.game;
 import edu.cps2002.mazegame.map.Map;
 import edu.cps2002.mazegame.player.Player;
 import edu.cps2002.mazegame.player.Position;
-import jdk.nashorn.api.scripting.ScriptObjectMirror;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static edu.cps2002.mazegame.game.Game.gameend;
-
 public class Game {
     static ArrayList<Player> playerList = new ArrayList<Player>();
+    static ArrayList<Player.DIRECTION> playerChoice = new ArrayList<>();
     private static Map map = new Map();
     static int minPlayers = 2;
     static int maxPlayers = 8;

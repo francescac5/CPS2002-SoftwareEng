@@ -3,56 +3,55 @@ package edu.cps2002.mazegame.game;
 import edu.cps2002.mazegame.map.Map;
 import edu.cps2002.mazegame.player.Player;
 import edu.cps2002.mazegame.player.Position;
-
+import edu.cps2002.mazegame.utils.MapUtils;
 import javafx.util.Pair;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+
 import static edu.cps2002.mazegame.game.Game.gameend;
 import static org.junit.Assert.*;
 
 public class TestGame {
     public Player p1;
-    Position pos = new Position(4, 5);
+    Position pos = new Position(4,5);
+    MapUtils utils = new MapUtils();
 
     @Before
     public void setup() {
-        Position pos = new Position(4, 5);
-        p1 = new Player(4, 5);
+        Position pos = new Position (4,5);
+        p1 = new Player(4,5);
     }
-
     @After
     public void tearDown() {
         p1 = null;
-        pos = null;
+        pos= null;
     }
 
     //testing chooseDirection down
     @Test
-    public void testchooseDirectionD() {
+    public void testchooseDirectionD(){
         Assert.assertEquals(Player.DIRECTION.DOWN, Game.chooseDirection("D"));
 
     }
-
     //testing chooseDirection up
     @Test
-    public void testchooseDirectionU() {
+    public void testchooseDirectionU(){
         assertEquals(Player.DIRECTION.UP, Game.chooseDirection("U"));
 
     }
-
     //testing chooseDirection left
     @Test
-    public void testchooseDirectionL() {
+    public void testchooseDirectionL(){
         assertEquals(Player.DIRECTION.LEFT, Game.chooseDirection("L"));
 
     }
 
     //testing chooseDirection right
     @Test
-    public void testchooseDirectionR() {
+    public void testchooseDirectionR(){
         assertEquals(Player.DIRECTION.RIGHT, Game.chooseDirection("R"));
 
     }
@@ -103,6 +102,7 @@ public class TestGame {
         assertEquals(result, actual);
 
     }
+
     @Test
     public void validityofMapSizeTest1(){
         boolean result= Game.validityofMapSize(2,5);
@@ -153,28 +153,42 @@ public class TestGame {
 
     @Test
     public void initialisePlayersTest1(){
-        int players =3;
+        int players = 3;
+
         Map map = new Map();
         map.setMapSize(5);
+
         Game.generateHTMLFiles(3);
+
         int sizeBefore = Game.playerList.size();
+
         Game.initialisePlayers(players);
+
         int sizeAfter = Game.playerList.size();
+
         assertEquals(sizeBefore+3, sizeAfter);
 
+        utils.deleteHTMLFiles();
     }
 
     @Test
     public void initialisePlayersTest2(){
-        int players =10;
+        int players = 10;
+
         Map map = new Map();
         map.setMapSize(10);
+
         Game.generateHTMLFiles(10);
+
         int sizeBefore = Game.playerList.size();
+
         Game.initialisePlayers(players);
+
         int sizeAfter = Game.playerList.size();
+
         assertEquals(sizeBefore+10, sizeAfter);
 
+        utils.deleteHTMLFiles();
     }
 
     @Test
@@ -185,13 +199,15 @@ public class TestGame {
         Game.generateHTMLFiles(10);
         Player p1 = new Player(4,5);
         Game.playerList.add(p1);
-        Pair<Integer, Integer> x= Map.getTreasureTile();
+        Pair<Integer, Integer> x= map.getTreasureTile();
         x.getKey();
         x.getValue();
         Position p = new Position(x.getKey(),x.getValue());
         p1.setPosition(p);
         flag= Game.checkWinner();
         assertTrue(flag);
+
+        utils.deleteHTMLFiles();
     }
 
     @Test
@@ -209,12 +225,13 @@ public class TestGame {
         p1.setPosition(p);
         flag= Game.checkWinner();
         assertFalse(flag);
+        utils.deleteHTMLFiles();
     }
+
 
     @Test
     public void test_checkGameend(){
         Game.checkGameend(false);
         assertFalse(gameend);
     }
-
 }

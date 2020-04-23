@@ -1,10 +1,13 @@
-package edu.cps2002.utils;
+package edu.cps2002.mazegame.utils;
 
 import edu.cps2002.mazegame.map.Map;
 import edu.cps2002.mazegame.map.PlayerTile;
 import edu.cps2002.mazegame.map.Tile;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class MapUtils {
 
