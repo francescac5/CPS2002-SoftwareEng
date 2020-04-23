@@ -120,13 +120,32 @@ while(true) {
         }
     }
 
-    static void startGame(){
+    static void startGame() {
+        boolean gameend = false;
+        System.out.println("Welcome to our Maze game. " +
+                "The following are the rules of the game:"+
+                "\n" +"1) Each player must use the U(p), D(down), L(eft), and R(ight) keys to move along the map." +
+                "\n2) Each player gets one (valid) move per round. " +
+                "\n3) The first player/s to find the treasure, win/s! " +
+                "\n4) If you land on the water tile you have to go back to your initial position\n");
         int players = getNumPlayers();
-        generateHTMLFiles(players);
-        //getposition and move player in turns -- to be modified
-        for(int i=0; i<10;i++) {
-          //  giveoneturntoeachPlayer(players);
-        }
+        map.setMapSize(chooseMapSize(players));
+        do{
+            playerList.clear();
+            playerChoice.clear();
+            utils.deleteHTMLFiles();
+            map.resetMap();
+            generateHTMLFiles(players);
+            initialisePlayers(players);
+
+            utils.openMapsInBrowser();
+            for (int i = 0; i < 5; i++) {
+                giveoneturntoeachPlayer(playerList, playerChoice);
+                boolean check = checkWinner();
+                checkGameend(check);
+            }
+        }while(!gameend);
+
     }
 
 
