@@ -129,6 +129,7 @@ while(true) {
         }
     }
 
+
     static void giveoneturntoeachPlayer(ArrayList<Player> players, ArrayList<Player.DIRECTION> playerchoice) {
         for(int j=0; j<players.size();j++) {
             boolean flag;
@@ -152,7 +153,6 @@ while(true) {
         }
         playerchoice.clear();
     }
-
 
     static void checkGameend(boolean check){
         if (check) {
