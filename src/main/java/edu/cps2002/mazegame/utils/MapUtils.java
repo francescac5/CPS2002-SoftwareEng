@@ -1,4 +1,4 @@
-package edu.cps2002.utils;
+package edu.cps2002.mazegame.utils;
 
 import edu.cps2002.mazegame.map.Map;
 import edu.cps2002.mazegame.map.PlayerTile;
