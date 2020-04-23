@@ -3,6 +3,7 @@ package edu.cps2002.mazegame.game;
 import edu.cps2002.mazegame.map.Map;
 import edu.cps2002.mazegame.player.Player;
 import edu.cps2002.mazegame.player.Position;
+import edu.cps2002.mazegame.utils.MapUtils;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -10,6 +11,7 @@ import java.util.Scanner;
 public class Game {
     static ArrayList<Player> playerList = new ArrayList<Player>();
     static ArrayList<Player.DIRECTION> playerChoice = new ArrayList<>();
+    private static MapUtils utils = new MapUtils();
     private static Map map = new Map();
     static int minPlayers = 2;
     static int maxPlayers = 8;
@@ -123,18 +125,34 @@ while(true) {
         generateHTMLFiles(players);
         //getposition and move player in turns -- to be modified
         for(int i=0; i<10;i++) {
-            giveoneturntoeachPlayer(players);
+          //  giveoneturntoeachPlayer(players);
         }
     }
 
-    static void giveoneturntoeachPlayer(int players) {
-        Player p1 = new Player(5,4);
-        for(int i = 0; i < players; i++){
-            System.out.println("Player " + (i+1) + "'s turn");
-            Player.DIRECTION x= chooseMove();
-            p1.move(x);;
+    static void giveoneturntoeachPlayer(ArrayList<Player> players, ArrayList<Player.DIRECTION> playerchoice) {
+        for(int j=0; j<players.size();j++) {
+            boolean flag;
+            Player.DIRECTION x;
+            System.out.println("Player " + (j + 1) + "'s turn");
+            do {
+                x = chooseMove();
+                char tile = map.getTileType(players.get(j).getPosition().getX(), players.get(j).getPosition().getY());
+                if (tile == 'W') {
+                    Position p1 = new Position(map.getPlayerInitPositionX(j + 1), map.getPlayerInitPositionY(j + 1));
+                    playerList.get(j).setPosition(p1);
+                    flag= players.get(j).move(x);
+                } else {
+                    flag=players.get(j).move(x);
+                }
+            }while(!flag);
+            playerChoice.add(x);
         }
+        for( int i = 0; i < players.size(); i++) {
+            map.updateMap(players.get(i).getPosition().getX(), players.get(i).getPosition().getY(), i + 1);
+        }
+        playerchoice.clear();
     }
+
 
     static void checkGameend(boolean check){
         if (check) {

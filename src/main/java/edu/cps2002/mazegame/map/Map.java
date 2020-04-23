@@ -17,7 +17,7 @@ public class Map {
 
     private MapUtils util = new MapUtils();
 
-    private int size = -1;
+    private static int size = -1;
     private static int mapCount;
     private Tiles[][] mapTiles;
     protected boolean tilesGenerated = false;
@@ -31,7 +31,7 @@ public class Map {
 
     //getters
     //returns size of map set by user
-    public int getMapSize() {
+    public static int getMapSize() {
         return size;
     }
 
@@ -104,13 +104,13 @@ public class Map {
     }
 
     //set map size to a number from 5 to 50
-    public boolean setMapSize(int size) {
+    public static boolean setMapSize(int size) {
         //if inputted size is less than minimum of 5
         if(size < 5 || size > 50){
             return false;
         }
         else{
-            this.size = size;
+            Map.size = size;
             return true;
         }
     }
