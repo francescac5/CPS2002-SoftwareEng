@@ -1,12 +1,6 @@
 package edu.cps2002.mazegame.map;
 
 import edu.cps2002.utils.MapUtils;
-import javafx.util.Pair;
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
