@@ -1,10 +1,10 @@
 package edu.cps2002.mazegame.game;
 
 import edu.cps2002.mazegame.map.Map;
+import edu.cps2002.mazegame.map.Pair;
 import edu.cps2002.mazegame.player.Player;
 import edu.cps2002.mazegame.player.Position;
 import edu.cps2002.mazegame.utils.MapUtils;
-import javafx.util.Pair;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -218,7 +218,7 @@ public class TestGame {
         Game.generateHTMLFiles(10);
         Player p1 = new Player(4,5);
         Game.playerList.add(p1);
-        Pair<Integer, Integer> x= Map.getTreasureTile();
+        edu.cps2002.mazegame.map.Pair<Integer, Integer> x= Map.getTreasureTile();
         x.getKey();
         x.getValue();
         Position p = new Position(x.getKey()+1,x.getValue()+1);
