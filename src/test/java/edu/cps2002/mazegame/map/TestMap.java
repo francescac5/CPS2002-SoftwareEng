@@ -62,6 +62,28 @@ public class TestMap {
     }
 
     @Test
+    public void testSetMapSize_MaxSize() {
+        //Exercise
+        int size = 50;
+        boolean result = map.setMapSize(size);
+
+        //Assert
+        assertTrue(result);
+        assertEquals(size, map.getMapSize());
+    }
+
+    @Test
+    public void testSetMapSize_GreaterThanMaxSize() {
+        //Exercise
+        int size = 53;
+        boolean result = map.setMapSize(size);
+
+        //Assert
+        assertFalse(result);
+        assertEquals(-1, map.getMapSize());
+    }
+
+    @Test
     public void testSetMapSize_NegativeSize() {
         //Exercise
         int size = -9;
@@ -179,7 +201,241 @@ public class TestMap {
         assertEquals('E', type);
     }
 
+    @Test
+    public void testGetTileType_Invalid_XLessThanZero(){
+        //Exercise
+        int size = 5;
+        map.setMapSize(size);
+        map.generateTileTypes();
+
+        int x = -1;
+        int y = size-4;
+
+        //Assert
+        char type = map.getTileType(x, y);
+        assertEquals('E', type);
+    }
+
+    @Test
+    public void testGetTileType_Invalid_YLessThanZero(){
+        //Exercise
+        int size = 5;
+        map.setMapSize(size);
+        map.generateTileTypes();
+
+        int x = size-3;
+        int y = -1;
+
+        //Assert
+        char type = map.getTileType(x, y);
+        assertEquals('E', type);
+    }
+
+    @Test
+    public void testGetTileType_Invalid_XEqualSize(){
+        //Exercise
+        int size = 5;
+        map.setMapSize(size);
+        map.generateTileTypes();
+
+        int y = size+4;
+
+        //Assert
+        char type = map.getTileType(size, y);
+        assertEquals('E', type);
+    }
+
+    @Test
+    public void testGetTileType_Invalid_YEqualSize(){
+        //Exercise
+        int size = 5;
+        map.setMapSize(size);
+        map.generateTileTypes();
+
+        int x = size+3;
+
+        //Assert
+        char type = map.getTileType(x, size);
+        assertEquals('E', type);
+    }
+
+    @Test
+    public void testGetTileType_Invalid_XGreaterThanSize(){
+        //Exercise
+        int size = 5;
+        map.setMapSize(size);
+        map.generateTileTypes();
+
+        int x = size+3;
+        int y = size-4;
+
+        //Assert
+        char type = map.getTileType(x, y);
+        assertEquals('E', type);
+    }
+
+    @Test
+    public void testGetTileType_Invalid_YGreaterThanSize(){
+        //Exercise
+        int size = 5;
+        map.setMapSize(size);
+        map.generateTileTypes();
+
+        int x = size-3;
+        int y = size+4;
+
+        //Assert
+        char type = map.getTileType(x, y);
+        assertEquals('E', type);
+    }
+
+
 //******** map.updateMap tests ********\\
+
+    @Test
+    public void testUpdateMap_XGreaterThanSize() {
+        //Exercise
+        int size = 5;
+        map.setMapSize(size);
+        map.generate();
+
+        int playerNum = map.getMapCount();
+
+        Map.Tiles[][] prevTiles = map.getPlayerMap(playerNum);
+
+        int x = size+3;
+        int y = size-2;
+
+        map.updateMap(x, y, playerNum);
+        Map.Tiles[][] postTiles = map.getPlayerMap(playerNum);
+
+        //Assert
+        assertArrayEquals(prevTiles, postTiles);
+    }
+
+    @Test
+    public void testUpdateMap_YGreaterThanSize() {
+        //Exercise
+        int size = 5;
+        map.setMapSize(size);
+        map.generate();
+
+        int playerNum = map.getMapCount();
+
+        Map.Tiles[][] prevTiles = map.getPlayerMap(playerNum);
+
+        int x = size-3;
+        int y = size+2;
+
+        map.updateMap(x, y, playerNum);
+        Map.Tiles[][] postTiles = map.getPlayerMap(playerNum);
+
+        //Assert
+        assertArrayEquals(prevTiles, postTiles);
+    }
+
+    @Test
+    public void testUpdateMap_XEqualToSize() {
+        //Exercise
+        int size = 5;
+        map.setMapSize(size);
+        map.generate();
+
+        int playerNum = map.getMapCount();
+
+        Map.Tiles[][] prevTiles = map.getPlayerMap(playerNum);
+
+        int y = size-2;
+
+        map.updateMap(size, y, playerNum);
+        Map.Tiles[][] postTiles = map.getPlayerMap(playerNum);
+
+        //Assert
+        assertArrayEquals(prevTiles, postTiles);
+    }
+
+    @Test
+    public void testUpdateMap_YEqualToSize() {
+        //Exercise
+        int size = 5;
+        map.setMapSize(size);
+        map.generate();
+
+        int playerNum = map.getMapCount();
+
+        Map.Tiles[][] prevTiles = map.getPlayerMap(playerNum);
+
+        int x = size-3;
+
+        map.updateMap(x, size, playerNum);
+        Map.Tiles[][] postTiles = map.getPlayerMap(playerNum);
+
+        //Assert
+        assertArrayEquals(prevTiles, postTiles);
+    }
+
+
+    @Test
+    public void testUpdateMap_XLessThanZero() {
+        //Exercise
+        int size = 5;
+        map.setMapSize(size);
+        map.generate();
+
+        int playerNum = map.getMapCount();
+
+        Map.Tiles[][] prevTiles = map.getPlayerMap(playerNum);
+
+        int x = -1;
+        int y = size+2;
+
+        map.updateMap(x, y, playerNum);
+        Map.Tiles[][] postTiles = map.getPlayerMap(playerNum);
+
+        //Assert
+        assertArrayEquals(prevTiles, postTiles);
+    }
+
+    @Test
+    public void testUpdateMap_YLessThanZero() {
+        //Exercise
+        int size = 5;
+        map.setMapSize(size);
+        map.generate();
+
+        int playerNum = map.getMapCount();
+
+        Map.Tiles[][] prevTiles = map.getPlayerMap(playerNum);
+
+        int x = size+3;
+        int y = -1;
+
+        map.updateMap(x, y, playerNum);
+        Map.Tiles[][] postTiles = map.getPlayerMap(playerNum);
+
+        //Assert
+        assertArrayEquals(prevTiles, postTiles);
+    }
+
+    @Test
+    public void testUpdateMap_StayInSameTile(){
+        //Exercise
+        map.setMapSize(5);
+        map.generate();
+
+        int playerNum = map.getMapCount();
+
+        int initX = map.getPlayerInitPositionX(playerNum);
+        int initY = map.getPlayerInitPositionY(playerNum);
+
+        Map.Tiles[][] prevTiles = map.getPlayerMap(playerNum);
+
+        map.updateMap(initX, initY, playerNum);
+        Map.Tiles[][] postTiles = map.getPlayerMap(playerNum);
+
+        //Assert
+        assertArrayEquals(prevTiles, postTiles);
+    }
 
     @Test
     public void testUpdateMap_Grass(){
@@ -284,7 +540,7 @@ public class TestMap {
         assertEquals(Map.Tiles.TREASURE, postTiles[x][y]);
     }
 
-    //******** map.resetMap tests ********\\
+//******** map.resetMap tests ********\\
 
     @Test
     public void testResetMap(){
@@ -307,5 +563,42 @@ public class TestMap {
         assertFalse(map.tilesGenerated);
 
         assertEquals(-1, map.getMapSize());
+    }
+
+//******** map.generate tests ********\\
+
+    @Test
+    public void testGenerate_TilesGenerated_FalseBeforeGenerate(){
+        //Exercise
+        map.setMapSize(5);
+
+        //Assert
+        assertFalse(map.tilesGenerated);
+    }
+
+    @Test
+    public void testGenerate_TilesGenerated_TrueAfterGenerate(){
+        //Exercise
+        map.setMapSize(5);
+        map.generate();
+
+        //Assert
+        assertTrue(map.tilesGenerated);
+    }
+
+    @Test
+    public void testGenerate_TilesGenerated_TrueAfterMultipleGenerate(){
+        //Exercise
+        map.setMapSize(5);
+        map.generate();
+
+        //Assert
+        assertTrue(map.tilesGenerated);
+
+        //Exercise
+        map.generate();
+
+        //Assert
+        assertTrue(map.tilesGenerated);
     }
 }

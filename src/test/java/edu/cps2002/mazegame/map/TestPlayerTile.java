@@ -20,7 +20,7 @@ public class TestPlayerTile {
         tile = null;
     }
 
-    /********** tile.getTileHTML() tests **********/
+/********** tile.getTileHTML() tests **********/
 
     @Test
     public void testGetTileHTML_Valid_Green() {
