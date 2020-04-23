@@ -1,6 +1,6 @@
 package edu.cps2002.mazegame.map;
 
-import edu.cps2002.utils.MapUtils;
+import edu.cps2002.mazegame.utils.MapUtils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -81,7 +81,7 @@ public class Map {
             return 'E';
         }
 
-        char type;
+        char type = 'E';
 
         switch(mapTiles[x][y]){
             case TREASURE:
@@ -92,9 +92,6 @@ public class Map {
                 break;
             case WATER:
                 type = 'W';
-                break;
-            default:
-                type = 'E';
                 break;
         }
         return type;

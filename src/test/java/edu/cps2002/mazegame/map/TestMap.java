@@ -1,6 +1,6 @@
 package edu.cps2002.mazegame.map;
 
-import edu.cps2002.utils.MapUtils;
+import edu.cps2002.mazegame.utils.MapUtils;
 import org.junit.*;
 
 import java.util.ArrayList;
