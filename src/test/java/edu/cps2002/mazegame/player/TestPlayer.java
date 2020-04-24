@@ -10,16 +10,17 @@ import static org.junit.Assert.*;
 public class TestPlayer {
     public Player p1;
     Position pos = new Position (4,5);
-
+     Map map = new Map();
     @Before
     public void setup() {
         p1 = new Player(4,5);
-        Map.setMapSize(5);
+        map.setMapSize(5);
     }
     @After
     public void tearDown() {
         p1 = null;
         pos= null;
+       // map.setMapSize(-1);
     }
 
     //testing SetPosition

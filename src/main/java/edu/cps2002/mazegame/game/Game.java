@@ -53,13 +53,10 @@ while(true) {
             }
         }
     }
+    
     //checking that the number of players inputted is between 4 and 8
     public static boolean validityofPlayers(int numPlayers){
-        if(numPlayers >= minPlayers && numPlayers <= maxPlayers){
-            return true;
-        }else{
-            return false;
-        }
+        return numPlayers >= minPlayers && numPlayers <= maxPlayers;
     }
 
     //checking that the Map Size inputted is between 5 and 50

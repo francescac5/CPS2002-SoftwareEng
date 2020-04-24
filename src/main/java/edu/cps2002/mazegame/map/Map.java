@@ -24,7 +24,7 @@ public class Map {
 
     protected ArrayList<Pair<Integer,Integer>> grassTiles = new ArrayList<>();
     protected ArrayList<Pair<Integer,Integer>> waterTiles = new ArrayList<>();
-    public static Pair<Integer, Integer> treasureTile;
+    protected static Pair<Integer, Integer> treasureTile;
 
     protected ArrayList<Tiles[][]> playerMaps = new ArrayList<>();
     protected ArrayList<Pair<Integer,Integer>> initTiles = new ArrayList<>();
@@ -104,13 +104,13 @@ public class Map {
     }
 
     //set map size to a number from 5 to 50
-    public static boolean setMapSize(int size) {
+    public boolean setMapSize(int size) {
         //if inputted size is less than minimum of 5
         if(size < 5 || size > 50){
             return false;
         }
         else{
-            Map.size = size;
+            this.size = size;
             return true;
         }
     }
@@ -289,5 +289,3 @@ public class Map {
     }
 
 }
-
-

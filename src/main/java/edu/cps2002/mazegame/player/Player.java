@@ -10,13 +10,13 @@ public class Player {
         return position;
     }
 
-    public Player(int x, int y){
-        Position p = new Position(x,y);
+    public Player(int x, int y) {
+        Position p = new Position(x, y);
         setPosition(p);
     }
 
-    public enum DIRECTION{
-        UP,DOWN,RIGHT,LEFT
+    public enum DIRECTION {
+        UP, DOWN, RIGHT, LEFT
     }
 
     public void setPosition(Position position) {
@@ -28,16 +28,16 @@ public class Player {
         int newY = position.getY();
         switch (Direction) {
             case UP:
-                newY = position.getY()-1;
+                newY = position.getY() - 1;
                 break;
             case DOWN:
-                newY = position.getY()+1;
+                newY = position.getY() + 1;
                 break;
             case LEFT:
-                newX= position.getX()-1;
+                newX = position.getX() - 1;
                 break;
             case RIGHT:
-                newX= position.getX()+1;
+                newX = position.getX() + 1;
                 break;
             default:
         }
@@ -51,5 +51,5 @@ public class Player {
             position.setY(newY);
         }
         return true;
+           }
     }
-}
