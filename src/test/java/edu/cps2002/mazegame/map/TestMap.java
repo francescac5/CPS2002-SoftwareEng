@@ -446,42 +446,37 @@ public class TestMap {
 
         int playerNum = map.getMapCount();
 
+        int initX = map.getPlayerInitPositionX(playerNum);
+        int initY = map.getPlayerInitPositionY(playerNum);
+
         ArrayList<Pair<Integer, Integer>> grassTiles = map.getGrassTiles();
         Collections.shuffle(grassTiles);
         Pair<Integer, Integer> grassTile = grassTiles.get(0);
+
         int x = grassTile.getKey();
         int y = grassTile.getValue();
 
-        int initX = map.getPlayerInitPositionX(playerNum);
-        int initY = map.getPlayerInitPositionY(playerNum);
+        //ensure new grass tile is not the initial tile
+        if(x == initX && y == initY){
+            grassTile = grassTiles.get(1);
+
+            x = grassTile.getKey();
+            y = grassTile.getValue();
+        }
 
         Map.Tiles[][] prevTiles = map.getPlayerMap(playerNum);
         Map.Tiles[][] postTiles;
 
         //Assert
-        //ensuring position to be revealed is an init position or grey
-        if(x == initX && y == initY){
-            assertEquals(Map.Tiles.GRASS_PLAYER, prevTiles[x][y]);
+        assertEquals(Map.Tiles.GREY, prevTiles[x][y]);
 
-            //Exercise
-            map.updateMap(x, y, playerNum);
-            postTiles = map.getPlayerMap(playerNum);
+        //Exercise
+        map.updateMap(x, y, playerNum);
+        postTiles = map.getPlayerMap(playerNum);
 
-            //Assert
-            assertEquals(Map.Tiles.GRASS_PLAYER, postTiles[initX][initY]);
-        }else {
-            assertEquals(Map.Tiles.GREY, prevTiles[x][y]);
-
-            //Exercise
-            map.updateMap(x, y, playerNum);
-            postTiles = map.getPlayerMap(playerNum);
-
-            //Assert
-            assertEquals(Map.Tiles.GRASS, postTiles[initX][initY]);
-            assertEquals(Map.Tiles.GRASS_PLAYER, postTiles[x][y]);
-        }
-
-        map.resetMap();
+        //Assert
+        assertEquals(Map.Tiles.GRASS, postTiles[initX][initY]);
+        assertEquals(Map.Tiles.GRASS_PLAYER, postTiles[x][y]);
     }
 
     @Test
