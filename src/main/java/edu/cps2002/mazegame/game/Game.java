@@ -53,7 +53,6 @@ while(true) {
             }
         }
     }
-    
     //checking that the number of players inputted is between 4 and 8
     public static boolean validityofPlayers(int numPlayers){
         return numPlayers >= minPlayers && numPlayers <= maxPlayers;
