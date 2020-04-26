@@ -22,7 +22,8 @@ public class TestMap {
     public void tearDown() {
         MapUtils utils = new MapUtils();
         utils.deleteHTMLFiles();
-
+        map.resetMap();
+        
         map = null;
     }
 
@@ -36,7 +37,7 @@ public class TestMap {
 
         //Assert
         assertTrue(result);
-        assertEquals(size, map.getMapSize());
+        assertEquals(size, Map.getMapSize());
     }
 
     @Test
@@ -47,7 +48,7 @@ public class TestMap {
 
         //Assert
         assertTrue(result);
-        assertEquals(size, map.getMapSize());
+        assertEquals(size, Map.getMapSize());
     }
 
     @Test
@@ -58,7 +59,7 @@ public class TestMap {
 
         //Assert
         assertFalse(result);
-        assertEquals(-1, map.getMapSize());
+        assertEquals(-1, Map.getMapSize());
     }
 
     @Test
@@ -69,44 +70,41 @@ public class TestMap {
 
         //Assert
         assertTrue(result);
-        assertEquals(size, map.getMapSize());
+        assertEquals(size, Map.getMapSize());
     }
 
-//    @Test
-//    public void testSetMapSize_GreaterThanMaxSize() {
-//        //Exercise
-//        int size = 53;
-//        boolean result = map.setMapSize(size);
-//
-//        //Assert
-//        assertFalse(result);
-//        assertEquals(-1, Map.getMapSize());
-//        map.resetMap();
-//    }
+    @Test
+    public void testSetMapSize_GreaterThanMaxSize() {
+        //Exercise
+        int size = 53;
+        boolean result = map.setMapSize(size);
 
-//    @Test
-//    public void testSetMapSize_NegativeSize() {
-//        //Exercise
-//        int size = -9;
-//        boolean result = map.setMapSize(size);
-//
-//        //Assert
-//        assertFalse(result);
-//        assertEquals(-1, Map.getMapSize());
-//        map.resetMap();
-//    }
+        //Assert
+        assertFalse(result);
+        assertEquals(-1, Map.getMapSize());
+    }
 
-//    @Test
-//    public void testSetMapSize_ZeroSize() {
-//        //Exercise
-//        int size = 0;
-//        boolean result = map.setMapSize(size);
-//
-//        //Assert
-//        assertFalse(result);
-//        assertEquals(-1, Map.getMapSize());
-//        map.resetMap();
-//    }
+    @Test
+    public void testSetMapSize_NegativeSize() {
+        //Exercise
+        int size = -9;
+        boolean result = map.setMapSize(size);
+
+        //Assert
+        assertFalse(result);
+        assertEquals(-1, Map.getMapSize());
+    }
+
+    @Test
+    public void testSetMapSize_ZeroSize() {
+        //Exercise
+        int size = 0;
+        boolean result = map.setMapSize(size);
+
+        //Assert
+        assertFalse(result);
+        assertEquals(-1, Map.getMapSize());
+    }
 
 //******** map.generateTileTypes() tests ********\\
 
@@ -180,7 +178,7 @@ public class TestMap {
         map.setMapSize(size);
         map.generateTileTypes();
 
-        Pair<Integer, Integer> treasureTile = map.getTreasureTile();
+        Pair<Integer, Integer> treasureTile = Map.getTreasureTile();
         int x = treasureTile.getKey();
         int y = treasureTile.getValue();
 
@@ -458,22 +456,31 @@ public class TestMap {
         int initY = map.getPlayerInitPositionY(playerNum);
 
         Map.Tiles[][] prevTiles = map.getPlayerMap(playerNum);
+        Map.Tiles[][] postTiles;
 
         //Assert
         //ensuring position to be revealed is an init position or grey
         if(x == initX && y == initY){
             assertEquals(Map.Tiles.GRASS_PLAYER, prevTiles[x][y]);
+
+            //Exercise
+            map.updateMap(x, y, playerNum);
+            postTiles = map.getPlayerMap(playerNum);
+
+            //Assert
+            assertEquals(Map.Tiles.GRASS_PLAYER, postTiles[initX][initY]);
         }else {
             assertEquals(Map.Tiles.GREY, prevTiles[x][y]);
+
+            //Exercise
+            map.updateMap(x, y, playerNum);
+            postTiles = map.getPlayerMap(playerNum);
+
+            //Assert
+            assertEquals(Map.Tiles.GRASS, postTiles[initX][initY]);
+            assertEquals(Map.Tiles.GRASS_PLAYER, postTiles[x][y]);
         }
 
-        //Exercise
-        map.updateMap(x, y, playerNum);
-        Map.Tiles[][] postTiles = map.getPlayerMap(playerNum);
-
-        //Assert
-        assertEquals(Map.Tiles.GRASS, postTiles[initX][initY]);
-        assertEquals(Map.Tiles.GRASS_PLAYER, postTiles[x][y]);
         map.resetMap();
     }
 
@@ -518,7 +525,7 @@ public class TestMap {
         map.generate();
 
         int playerNum = map.getMapCount();
-        Pair<Integer, Integer> treasureTile = map.getTreasureTile();
+        Pair<Integer, Integer> treasureTile = Map.getTreasureTile();
         int x = treasureTile.getKey();
         int y = treasureTile.getValue();
 
@@ -566,7 +573,7 @@ public class TestMap {
 
         assertFalse(map.tilesGenerated);
 
-        assertEquals(-1, map.getMapSize());
+        assertEquals(-1, Map.getMapSize());
     }
 
 //******** map.generate tests ********\\

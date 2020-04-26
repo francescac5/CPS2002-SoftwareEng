@@ -110,7 +110,7 @@ public class Map {
             return false;
         }
         else{
-            this.size = size;
+            Map.size = size;
             return true;
         }
     }
