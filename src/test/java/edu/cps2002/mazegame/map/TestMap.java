@@ -36,7 +36,7 @@ public class TestMap {
 
         //Assert
         assertTrue(result);
-        assertEquals(size, map.getMapSize());
+        assertEquals(size, Map.getMapSize());
     }
 
     @Test
@@ -47,7 +47,7 @@ public class TestMap {
 
         //Assert
         assertTrue(result);
-        assertEquals(size, map.getMapSize());
+        assertEquals(size, Map.getMapSize());
     }
 
     @Test
@@ -58,7 +58,7 @@ public class TestMap {
 
         //Assert
         assertFalse(result);
-        assertEquals(-1, map.getMapSize());
+        assertEquals(-1, Map.getMapSize());
     }
 
     @Test
@@ -69,7 +69,7 @@ public class TestMap {
 
         //Assert
         assertTrue(result);
-        assertEquals(size, map.getMapSize());
+        assertEquals(size, Map.getMapSize());
     }
 
 //    @Test
@@ -180,7 +180,7 @@ public class TestMap {
         map.setMapSize(size);
         map.generateTileTypes();
 
-        Pair<Integer, Integer> treasureTile = map.getTreasureTile();
+        Pair<Integer, Integer> treasureTile = Map.getTreasureTile();
         int x = treasureTile.getKey();
         int y = treasureTile.getValue();
 
