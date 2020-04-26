@@ -1,22 +1,26 @@
 package edu.cps2002.mazegame.player;
 
+import edu.cps2002.mazegame.map.Map;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
+
+import static org.junit.Assert.*;
 
 public class TestPlayer {
     public Player p1;
     Position pos = new Position (4,5);
-
+     Map map = new Map();
     @Before
     public void setup() {
         p1 = new Player(4,5);
+        map.setMapSize(5);
     }
     @After
     public void tearDown() {
         p1 = null;
         pos= null;
+       // map.setMapSize(-1);
     }
 
     //testing SetPosition
@@ -28,40 +32,28 @@ public class TestPlayer {
 
     @Test
     public void testDirectionD(){
-        p1.move(Player.DIRECTION.DOWN);
-        assertEquals(4, p1.getPosition().y);
+       boolean x=p1.move(Player.DIRECTION.DOWN);
+        assertFalse(x);
     }
 
     @Test
     public void testDirectionU(){
-        p1.move(Player.DIRECTION.UP);
-        assertEquals(6, p1.getPosition().y);
+
+        boolean x =p1.move(Player.DIRECTION.UP);
+        assertTrue(x);
     }
 
     @Test
     public void testDirectionL(){
-        p1.move(Player.DIRECTION.LEFT);
-        assertEquals(3, p1.getPosition().x);
+        boolean x= p1.move(Player.DIRECTION.LEFT);
+        assertFalse(x);
     }
 
     @Test
     public void testDirectionR(){
-        p1.move(Player.DIRECTION.RIGHT);
-        assertEquals(5, p1.getPosition().x);
+        boolean x=p1.move(Player.DIRECTION.RIGHT);
+        assertFalse(x);
     }
 
-//    @Test
-//    public void testDirectionUNKNOWN1(){
-//        p1.move(Player.DIRECTION.RIGHTT);
-//        assertEquals(5, p1.getPosition().y);
-//        assertEquals(4, p1.getPosition().x);
-//    }
-//
-//    @Test
-//    public void testDirectionUNKNOWN2(){
-//        p1.move('K');
-//        assertEquals(5, p1.getPosition().y);
-//        assertEquals(4, p1.getPosition().x);
-//    }
 
 }

@@ -17,21 +17,21 @@ public class Map {
 
     private MapUtils util = new MapUtils();
 
-    private int size = -1;
+    private static int size = -1;
     private static int mapCount;
     private Tiles[][] mapTiles;
     protected boolean tilesGenerated = false;
 
     protected ArrayList<Pair<Integer,Integer>> grassTiles = new ArrayList<>();
     protected ArrayList<Pair<Integer,Integer>> waterTiles = new ArrayList<>();
-    protected Pair<Integer, Integer> treasureTile;
+    protected static Pair<Integer, Integer> treasureTile;
 
     protected ArrayList<Tiles[][]> playerMaps = new ArrayList<>();
     protected ArrayList<Pair<Integer,Integer>> initTiles = new ArrayList<>();
 
     //getters
     //returns size of map set by user
-    public int getMapSize() {
+    public static int getMapSize() {
         return size;
     }
 
@@ -71,7 +71,7 @@ public class Map {
     }
 
     //returns coordinates of the treasure tile in the map
-    protected Pair<Integer, Integer> getTreasureTile() {
+    public static Pair<Integer, Integer> getTreasureTile() {
         return treasureTile;
     }
 
@@ -289,5 +289,3 @@ public class Map {
     }
 
 }
-
-
