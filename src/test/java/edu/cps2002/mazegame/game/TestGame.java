@@ -11,7 +11,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 
+import java.util.ArrayList;
+
 import static edu.cps2002.mazegame.game.Game.gameend;
+import static edu.cps2002.mazegame.game.Game.playerChoice;
 import static org.junit.Assert.*;
 
 public class TestGame {
@@ -36,10 +39,22 @@ public class TestGame {
         Assert.assertEquals(Player.DIRECTION.DOWN, Game.chooseDirection("D"));
 
     }
+
+    @Test
+    public void testchooseDirectiond(){
+        Assert.assertEquals(Player.DIRECTION.DOWN, Game.chooseDirection("d"));
+
+    }
     //testing chooseDirection up
     @Test
     public void testchooseDirectionU(){
         assertEquals(Player.DIRECTION.UP, Game.chooseDirection("U"));
+
+    }
+
+    @Test
+    public void testchooseDirectionu(){
+        assertEquals(Player.DIRECTION.UP, Game.chooseDirection("u"));
 
     }
     //testing chooseDirection left
@@ -48,11 +63,22 @@ public class TestGame {
         assertEquals(Player.DIRECTION.LEFT, Game.chooseDirection("L"));
 
     }
+    @Test
+    public void testchooseDirectionl(){
+        assertEquals(Player.DIRECTION.LEFT, Game.chooseDirection("l"));
+
+    }
 
     //testing chooseDirection right
     @Test
     public void testchooseDirectionR(){
         assertEquals(Player.DIRECTION.RIGHT, Game.chooseDirection("R"));
+
+    }
+
+    @Test
+    public void testchooseDirectionr(){
+        assertEquals(Player.DIRECTION.RIGHT, Game.chooseDirection("r"));
 
     }
 
@@ -152,6 +178,14 @@ public class TestGame {
     }
 
     @Test
+    public void validityofMapSizeTest7(){
+        boolean result= Game.validityofMapSize(8,55);
+        boolean actual= false;
+        assertEquals(result, actual);
+
+    }
+
+    @Test
     public void initialisePlayersTest1(){
         int players = 3;
 
@@ -228,10 +262,40 @@ public class TestGame {
         utils.deleteHTMLFiles();
     }
 
-
     @Test
-    public void test_checkGameend(){
+    public void test_addplayerchoice2(){
         Game.checkGameend(false);
         assertFalse(gameend);
     }
+
+    @Test
+    public void test_checkmove(){
+        Map map = new Map();
+        map.setMapSize(5);
+        Game.generateHTMLFiles(1);
+         ArrayList<Player> players = new ArrayList<Player>();
+         Player p1= new Player(4,5);
+         players.add(p1);
+        char tile = map.getTileType(players.get(0).getPosition().getX(), players.get(0).getPosition().getY());
+        boolean x =Game.checkmove(tile,0,players, Player.DIRECTION.DOWN);
+        assertFalse(x);
+        map.resetMap();
+        utils.deleteHTMLFiles();
+    }
+
+    @Test
+    public void test_checkmove2(){
+        Map map = new Map();
+        map.setMapSize(5);
+        Game.generateHTMLFiles(1);
+        ArrayList<Player> players = new ArrayList<Player>();
+        Player p1= new Player(4,5);
+        players.add(p1);
+        char tile = map.getTileType(players.get(0).getPosition().getX(), players.get(0).getPosition().getY());
+        boolean x =Game.checkmove(tile,0,players, Player.DIRECTION.UP);
+        assertTrue(x);
+        map.resetMap();
+        utils.deleteHTMLFiles();
+    }
+
 }

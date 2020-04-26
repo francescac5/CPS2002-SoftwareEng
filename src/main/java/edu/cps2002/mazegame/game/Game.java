@@ -18,9 +18,9 @@ public class Game {
     static int maxMapSize = 50;
     static boolean gameend = false;
 
-    //method to get the direction from the player
+    //method to get the direction from the player (user input)
     public static Player.DIRECTION chooseDirection(String input) {
-while(true) {
+     while(true) {
     if (input.equalsIgnoreCase("U")) {
         return Player.DIRECTION.UP;
     } else if (input.equalsIgnoreCase("D")) {
@@ -33,6 +33,7 @@ while(true) {
 }
     }
 
+    //method to get the direction (move) from the player by user input
     static Player.DIRECTION chooseMove() {
         Scanner sc= new Scanner(System.in);
         String answer = "";
@@ -62,10 +63,9 @@ while(true) {
     public static boolean validityofMapSize(int numPlayers,int size){
         if(size <= maxMapSize && (( numPlayers <= 4 && size >= 5 ) || size >= 8 ) ) {
             return true;
-        }else if(numPlayers <= 4) {
+        }else {
             return false;
         }
-        return false;
     }
 
     //method to get the number of players from the user
@@ -147,19 +147,13 @@ while(true) {
 
     static void giveoneturntoeachPlayer(ArrayList<Player> players, ArrayList<Player.DIRECTION> playerchoice) {
         for(int j=0; j<players.size();j++) {
-            boolean flag;
+            boolean flag = false;
             Player.DIRECTION x;
             System.out.println("Player " + (j + 1) + "'s turn");
             do {
                 x = chooseMove();
                 char tile = map.getTileType(players.get(j).getPosition().getX(), players.get(j).getPosition().getY());
-                if (tile == 'W') {
-                    Position p1 = new Position(map.getPlayerInitPositionX(j + 1), map.getPlayerInitPositionY(j + 1));
-                    playerList.get(j).setPosition(p1);
-                    flag= players.get(j).move(x);
-                } else {
-                    flag=players.get(j).move(x);
-                }
+                flag = checkmove(tile,j,players,x);
             }while(!flag);
             playerChoice.add(x);
         }
@@ -169,6 +163,20 @@ while(true) {
         playerchoice.clear();
     }
 
+    
+    static boolean checkmove(char tile, int j,ArrayList<Player> players, Player.DIRECTION x){
+        boolean flag; 
+        if (tile == 'W') {
+            Position p1 = new Position(map.getPlayerInitPositionX(j + 1), map.getPlayerInitPositionY(j + 1));
+            playerList.get(j).setPosition(p1);
+            flag= players.get(j).move(x);
+        } else {
+            flag=players.get(j).move(x);
+        }
+        return flag;
+    }
+    
+    
     static void checkGameend(boolean check){
         if (check) {
             gameend = true;

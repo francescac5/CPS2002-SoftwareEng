@@ -55,5 +55,27 @@ public class TestPlayer {
         assertFalse(x);
     }
 
+    @Test
+    public void testDirectionLeftINVALID(){
+        boolean x=p1.move(Player.DIRECTION.LEFT);
+        assertFalse(x);
+    }
+
+    @Test
+    public void testDirectionLEFTINVALID(){
+        map.setMapSize(5);
+        p1 = new Player(4,5);
+        boolean x=p1.move(Player.DIRECTION.LEFT);
+        assertFalse(x);
+    }
+
+    @Test
+    public void testDirectionLEFTINVALID2(){
+        map.setMapSize(5);
+        p1 = new Player(5,5);
+        boolean x=p1.move(Player.DIRECTION.RIGHT);
+        assertFalse(x);
+    }
+
 
 }

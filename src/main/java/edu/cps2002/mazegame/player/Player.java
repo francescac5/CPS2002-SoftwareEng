@@ -39,7 +39,6 @@ public class Player {
             case RIGHT:
                 newX = position.getX() + 1;
                 break;
-            default:
         }
 
         if (newX < 0 || newX >= Map.getMapSize()
