@@ -31,6 +31,8 @@ public class TestGame {
     public void tearDown() {
         p1 = null;
         pos= null;
+        utils.deleteHTMLFiles();
+
     }
 
     //testing chooseDirection down
@@ -233,15 +235,13 @@ public class TestGame {
         Game.generateHTMLFiles(10);
         Player p1 = new Player(4,5);
         Game.playerList.add(p1);
-        Pair<Integer, Integer> x= map.getTreasureTile();
-        x.getKey();
-        x.getValue();
+        Pair<Integer, Integer> x= Map.getTreasureTile();
         Position p = new Position(x.getKey(),x.getValue());
+
         p1.setPosition(p);
         flag= Game.checkWinner();
         assertTrue(flag);
-
-        utils.deleteHTMLFiles();
+        Game.playerList.clear();
     }
 
     @Test
@@ -253,13 +253,11 @@ public class TestGame {
         Player p1 = new Player(4,5);
         Game.playerList.add(p1);
         edu.cps2002.mazegame.map.Pair<Integer, Integer> x= Map.getTreasureTile();
-        x.getKey();
-        x.getValue();
         Position p = new Position(x.getKey()+1,x.getValue()+1);
         p1.setPosition(p);
         flag= Game.checkWinner();
         assertFalse(flag);
-        utils.deleteHTMLFiles();
+        Game.playerList.clear();
     }
 
     @Test
@@ -269,7 +267,7 @@ public class TestGame {
     }
 
     @Test
-    public void test_checkmove(){
+    public void test_checkmove1(){
         Map map = new Map();
         map.setMapSize(5);
         Game.generateHTMLFiles(1);
@@ -279,7 +277,8 @@ public class TestGame {
         char tile = map.getTileType(players.get(0).getPosition().getX(), players.get(0).getPosition().getY());
         boolean x =Game.checkmove(tile,0,players, Player.DIRECTION.DOWN);
         assertFalse(x);
-        map.resetMap();
+        players.clear();
+      //  map.resetMap();
         utils.deleteHTMLFiles();
     }
 
@@ -294,7 +293,7 @@ public class TestGame {
         char tile = map.getTileType(players.get(0).getPosition().getX(), players.get(0).getPosition().getY());
         boolean x =Game.checkmove(tile,0,players, Player.DIRECTION.UP);
         assertTrue(x);
-        map.resetMap();
+        players.clear();
         utils.deleteHTMLFiles();
     }
 
