@@ -292,25 +292,25 @@ public class TestGame {
         players.add(p1);
         char tile = map.getTileType(players.get(0).getPosition().getX(), players.get(0).getPosition().getY());
         boolean x =Game.checkmove(tile,0,players, Player.DIRECTION.UP);
-        assertTrue(x);
-        players.clear();
-        utils.deleteHTMLFiles();
-    }
-
-    @Test
-    public void test_checkmove3(){
-        Map map = new Map();
-        map.setMapSize(6);
-        Game.generateHTMLFiles(1);
-        ArrayList<Player> players = new ArrayList<Player>();
-        Player p1= new Player(4,6);
-        Player p2= new Player(5,6);
-        players.add(p1);
-        players.add(p2);
-        boolean x =Game.checkmove('W' ,0,players, Player.DIRECTION.RIGHT);
         assertFalse(x);
         players.clear();
         utils.deleteHTMLFiles();
     }
+
+//    @Test
+//    public void test_checkmove3(){
+//        Map map = new Map();
+//        map.setMapSize(6);
+//        Game.generateHTMLFiles(1);
+//        ArrayList<Player> players = new ArrayList<Player>();
+//        Player p1= new Player(4,6);
+//        Player p2= new Player(5,6);
+//        players.add(p1);
+//        players.add(p2);
+//        boolean x =Game.checkmove('W' ,0,players, Player.DIRECTION.RIGHT);
+//        assertFalse(x);
+//        players.clear();
+//        utils.deleteHTMLFiles();
+//    }
 
 }
