@@ -186,12 +186,6 @@ public class Game {
             System.out.println("No one won in this round");
         }
     }
-
-
-    public static void main(String[] args) {
-        startGame();
-    }
-
     //function to initialise the players
     static void initialisePlayers(int players){
         for (int i =0; i<players; i++){
