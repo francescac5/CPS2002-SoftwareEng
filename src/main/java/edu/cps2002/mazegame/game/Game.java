@@ -9,16 +9,22 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game {
+
+    //arraylist to store the players and their directions choice
     static ArrayList<Player> playerList = new ArrayList<Player>();
     static ArrayList<Player.DIRECTION> playerChoice = new ArrayList<>();
+
     private static MapUtils utils = new MapUtils();
     private static Map map = new Map();
+
+    //setting the minimum players, maximum players and maximum map size
     static int minPlayers = 2;
     static int maxPlayers = 8;
     static int maxMapSize = 50;
+    //flag to set if the game ended or not
     static boolean gameend = false;
 
-    //method to get the direction from the player (user input)
+    //method to get the direction from the player by user input
     public static Player.DIRECTION chooseDirection(String input) {
      while(true) {
     if (input.equalsIgnoreCase("U")) {
@@ -54,12 +60,13 @@ public class Game {
             }
         }
     }
-    //checking that the number of players inputted is between 4 and 8
+
+    //method to check that the number of players inputted is between 4 and 8
     public static boolean validityofPlayers(int numPlayers){
         return numPlayers >= minPlayers && numPlayers <= maxPlayers;
     }
 
-    //checking that the Map Size inputted is between 5 and 50
+    //method to check that the Map Size inputted is between 5 and 50 (depending also on the number of players inputted)
     public static boolean validityofMapSize(int numPlayers,int size){
         if(size <= maxMapSize && (( numPlayers <= 4 && size >= 5 ) || size >= 8 ) ) {
             return true;
@@ -116,8 +123,10 @@ public class Game {
         }
     }
 
+    //main method of the game
     static void startGame() {
         boolean gameend = false;
+        //Outputting the rules of the game
         System.out.println("Welcome to our Maze game. " +
                 "The following are the rules of the game:"+
                 "\n" +"1) Each player must use the U(p), D(down), L(eft), and R(ight) keys to move along the map." +
@@ -144,7 +153,7 @@ public class Game {
 
     }
 
-
+    //method to give every player one turn to choose the direction and then move everyone accordingly
     static void giveoneturntoeachPlayer(ArrayList<Player> players, ArrayList<Player.DIRECTION> playerchoice) {
         for(int j=0; j<players.size();j++) {
             boolean flag = false;
@@ -153,7 +162,7 @@ public class Game {
             do {
                 x = chooseMove();
                 char tile = map.getTileType(players.get(j).getPosition().getX(), players.get(j).getPosition().getY());
-                flag = checkmove(tile,j,players,x);
+                flag = checkwatertile(tile,j,players,x);
             }while(!flag);
             playerChoice.add(x);
         }
@@ -163,8 +172,8 @@ public class Game {
         playerchoice.clear();
     }
 
-    
-    static boolean checkmove(char tile, int j,ArrayList<Player> players, Player.DIRECTION x){
+    //method that checks if a player went on a water tile if so he is sent back to his/her original position
+    static boolean checkwatertile(char tile, int j,ArrayList<Player> players, Player.DIRECTION x){
         boolean flag; 
         if (tile == 'W') {
             Position p1 = new Position(map.getPlayerInitPositionX(j + 1), map.getPlayerInitPositionY(j + 1));
@@ -176,7 +185,7 @@ public class Game {
         return flag;
     }
     
-    
+    //Check if the game ended if so stop the game else print that no one has wound
     static void checkGameend(boolean check){
         if (check) {
             gameend = true;
@@ -186,7 +195,8 @@ public class Game {
             System.out.println("No one won in this round");
         }
     }
-    //function to initialise the players
+
+    //method to create an instance for every player and add it to the array of the players
     static void initialisePlayers(int players){
         for (int i =0; i<players; i++){
             Player p1 = new Player(map.getPlayerInitPositionX(i+1),map.getPlayerInitPositionY(i+1));
@@ -194,6 +204,7 @@ public class Game {
         }
     }
 
+    //method that checks if a player is on the treasure tile (winner)
     static boolean checkWinner(){
         boolean winnerFlag = false;
         for(int i = 0; i < playerList.size(); i++){
