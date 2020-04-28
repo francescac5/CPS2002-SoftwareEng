@@ -26,7 +26,7 @@ public class Player {
         this.position = position;
     }
 
-    //method move to change the x and y coordinates accordingly 
+    //method move to change the x and y coordinates accordingly
     public boolean move(DIRECTION Direction) {
         int newX = position.getX();
         int newY = position.getY();

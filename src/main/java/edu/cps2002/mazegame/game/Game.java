@@ -4,13 +4,12 @@ import edu.cps2002.mazegame.map.Map;
 import edu.cps2002.mazegame.player.Player;
 import edu.cps2002.mazegame.player.Position;
 import edu.cps2002.mazegame.utils.MapUtils;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game {
 
-    //arraylist to store the players and their directions choice
+    //arraylist to store the players and their choice
     static ArrayList<Player> playerList = new ArrayList<Player>();
     static ArrayList<Player.DIRECTION> playerChoice = new ArrayList<>();
 
@@ -36,7 +35,7 @@ public class Game {
     } else if (input.equalsIgnoreCase("R")) {
         return Player.DIRECTION.RIGHT;
     }
-}
+    }
     }
 
     //method to get the direction (move) from the player by user input

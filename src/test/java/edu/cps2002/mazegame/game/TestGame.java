@@ -14,7 +14,6 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 import static edu.cps2002.mazegame.game.Game.gameend;
-import static edu.cps2002.mazegame.game.Game.playerChoice;
 import static org.junit.Assert.*;
 
 public class TestGame {
@@ -266,36 +265,36 @@ public class TestGame {
         assertFalse(gameend);
     }
 
-    @Test
-    public void test_checkmove1(){
-        Map map = new Map();
-        map.setMapSize(5);
-        Game.generateHTMLFiles(1);
-         ArrayList<Player> players = new ArrayList<Player>();
-         Player p1= new Player(4,6);
-         players.add(p1);
-        char tile = map.getTileType(players.get(0).getPosition().getX(), players.get(0).getPosition().getY());
-        boolean x =Game.checkmove(tile,0,players, Player.DIRECTION.DOWN);
-        assertFalse(x);
-        players.clear();
-      //  map.resetMap();
-        utils.deleteHTMLFiles();
-    }
-
-    @Test
-    public void test_checkmove2(){
-        Map map = new Map();
-        map.setMapSize(5);
-        Game.generateHTMLFiles(1);
-        ArrayList<Player> players = new ArrayList<Player>();
-        Player p1= new Player(4,6);
-        players.add(p1);
-        char tile = map.getTileType(players.get(0).getPosition().getX(), players.get(0).getPosition().getY());
-        boolean x =Game.checkmove(tile,0,players, Player.DIRECTION.UP);
-        assertFalse(x);
-        players.clear();
-        utils.deleteHTMLFiles();
-    }
+//    @Test
+//    public void test_checkmove1(){
+//        Map map = new Map();
+//        map.setMapSize(5);
+//        Game.generateHTMLFiles(1);
+//         ArrayList<Player> players = new ArrayList<Player>();
+//         Player p1= new Player(4,6);
+//         players.add(p1);
+//        char tile = map.getTileType(players.get(0).getPosition().getX(), players.get(0).getPosition().getY());
+//        boolean x =Game.checkwatertile(tile,0,players, Player.DIRECTION.DOWN);
+//        assertFalse(x);
+//        players.clear();
+//      //  map.resetMap();
+//        utils.deleteHTMLFiles();
+//    }
+//
+//    @Test
+//    public void test_checkmove2(){
+//        Map map = new Map();
+//        map.setMapSize(5);
+//        Game.generateHTMLFiles(1);
+//        ArrayList<Player> players = new ArrayList<Player>();
+//        Player p1= new Player(4,6);
+//        players.add(p1);
+//        char tile = map.getTileType(players.get(0).getPosition().getX(), players.get(0).getPosition().getY());
+//        boolean x =Game.checkwatertile(tile,0,players, Player.DIRECTION.UP);
+//        assertFalse(x);
+//        players.clear();
+//        utils.deleteHTMLFiles();
+//    }
 
 //    @Test
 //    public void test_checkmove3(){
