@@ -52,7 +52,7 @@ public class Game {
                     Player.DIRECTION x =chooseDirection(answer);
                     return x;
                 }else{
-                    System.out.println("Error");
+                    System.out.println("Invalid Input");
                 }
             }
         }
@@ -193,6 +193,7 @@ public class Game {
     static void checkGameend(boolean check){
         if (check) {
             gameend = true;
+            utils.deleteHTMLFiles();
             System.exit(0);
         } else {
             gameend = false;

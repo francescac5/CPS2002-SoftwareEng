@@ -48,6 +48,7 @@ public class Player {
     //checking the x and y axis in order to ensure that the user does not try to move outside the map
         if (newX < 0 || newX >= Map.getMapSize()
                 || newY < 0 || newY >= Map.getMapSize()){
+            System.out.println("You cannot move out of the map");
             return false;
         }
         else{
