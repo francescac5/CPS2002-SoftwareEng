@@ -188,11 +188,19 @@ public class Game {
         }
         return flag;
     }
-    
+
     //Check if the game ended if so stop the game else print that no one has wound
     static void checkGameend(boolean check){
         if (check) {
             gameend = true;
+
+            try {
+                System.out.println("Deleting HTML files...");
+                Thread.sleep(10000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             utils.deleteHTMLFiles();
             System.exit(0);
         } else {
