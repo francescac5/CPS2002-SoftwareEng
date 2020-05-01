@@ -8,8 +8,12 @@ import java.awt.*;
 import java.io.*;
 
 public class MapUtils {
+
+    //system's file separator
     private String ret = File.separator;
 
+    //creates file at given path
+    //writes given content to created file
     public void writeToFile(String path, String content){
         try {
             File file = new File(path);
@@ -40,6 +44,8 @@ public class MapUtils {
         }
     }
 
+    //generates html file for map according to given array playerMap
+    //name of generated file contains given mapCount in the form "map_player_"+mapCount
     public void generateMapHTML(int mapCount, Map.Tiles[][] playerMap) {
         String path = "src"+ret+"main"+ret+"java"+ret+"edu"+ret+"cps2002"+ret+"mazegame"+ret+"gameMaps"+ret+"map_player_"+mapCount+".html";
 
@@ -97,6 +103,7 @@ public class MapUtils {
         writeToFile(path, mapHTML.toString());
     }
 
+    //delete all html files in gameMaps directory
     public void deleteHTMLFiles(){
         boolean success;
         File mapFolder = new File("src"+ret+"main"+ret+"java"+ret+"edu"+ret+"cps2002"+ret+"mazegame"+ret+"gameMaps");
@@ -113,6 +120,7 @@ public class MapUtils {
         }
     }
 
+    //opens all html map files in default browser
     public void openMapsInBrowser(){
         File mapFolder = new File("src"+ret+"main"+ret+"java"+ret+"edu"+ret+"cps2002"+ret+"mazegame"+ret+"gameMaps");
 
@@ -128,6 +136,7 @@ public class MapUtils {
         }
     }
 
+    //generates gameMaps directory
     public void generateGameMapsFolder() {
         File mapFolder = new File("src"+ret+"main"+ret+"java"+ret+"edu"+ret+"cps2002"+ret+"mazegame"+ret+"gameMaps");
         if(mapFolder.mkdir()) {
