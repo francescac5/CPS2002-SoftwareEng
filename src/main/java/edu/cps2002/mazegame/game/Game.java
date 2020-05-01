@@ -193,6 +193,7 @@ public class Game {
     static void checkGameend(boolean check){
         if (check) {
             gameend = true;
+            utils.deleteHTMLFiles();
             System.exit(0);
         } else {
             gameend = false;
