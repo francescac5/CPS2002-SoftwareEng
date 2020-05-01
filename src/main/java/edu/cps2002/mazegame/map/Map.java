@@ -23,7 +23,7 @@ public class Map {
     protected boolean tilesGenerated = false;
 
     protected ArrayList<Pair<Integer,Integer>> grassTiles = new ArrayList<>();
-    protected ArrayList<Pair<Integer,Integer>> waterTiles = new ArrayList<>();
+    protected static ArrayList<Pair<Integer,Integer>> waterTiles = new ArrayList<>();
     protected static Pair<Integer, Integer> treasureTile;
 
     protected ArrayList<Tiles[][]> playerMaps = new ArrayList<>();
@@ -66,7 +66,7 @@ public class Map {
     }
 
     //returns array list of coordinates for all water tiles in the map
-    protected ArrayList<Pair<Integer, Integer>> getWaterTiles() {
+    public static ArrayList<Pair<Integer, Integer>> getWaterTiles() {
         return waterTiles;
     }
 
