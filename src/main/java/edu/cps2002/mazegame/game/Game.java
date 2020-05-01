@@ -49,8 +49,7 @@ public class Game {
             } catch (Exception e) {
                 sc.next();
             }finally{
-                if(answer.equalsIgnoreCase("L") ||answer.equalsIgnoreCase("R") ||
-                        answer.equalsIgnoreCase("D") || answer.equalsIgnoreCase("U")  ){
+                if(validateuserinput(answer)){
                     Player.DIRECTION x =chooseDirection(answer);
                     return x;
                 }else{
@@ -58,6 +57,11 @@ public class Game {
                 }
             }
         }
+    }
+
+    public static boolean validateuserinput(String answer) {
+        return answer.equalsIgnoreCase("L") || answer.equalsIgnoreCase("R") ||
+                answer.equalsIgnoreCase("D") || answer.equalsIgnoreCase("U");
     }
 
     //method to check that the number of players inputted is between 4 and 8
