@@ -129,8 +129,6 @@ while(true) {
         do{
             playerList.clear();
             playerChoice.clear();
-            utils.deleteHTMLFiles();
-            map.resetMap();
             generateHTMLFiles(players);
             initialisePlayers(players);
 
@@ -140,6 +138,9 @@ while(true) {
                 boolean check = checkWinner();
                 checkGameend(check);
             }
+            utils.deleteHTMLFiles();
+            map.resetMap();
+
         }while(!gameend);
 
     }
