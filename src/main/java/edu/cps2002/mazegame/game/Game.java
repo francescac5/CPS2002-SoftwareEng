@@ -189,7 +189,7 @@ public class Game {
         return flag;
     }
 
-    //Check if the game ended if so stop the game else print that no one has wound
+    //Check if the game ended if so stop the game else print that no one has won
     static void checkGameend(boolean check){
         if (check) {
             gameend = true;
