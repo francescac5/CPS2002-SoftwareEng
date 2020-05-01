@@ -18,7 +18,7 @@ public class Player {
 
     //enum for the direction
     public enum DIRECTION {
-        UP, DOWN, RIGHT, LEFT
+        UP, DOWN, RIGHT, LEFT, UNKNOWN
     }
 
      //setter for the position

@@ -142,7 +142,7 @@ public class Game {
             playerList.clear();
             playerChoice.clear();
             utils.deleteHTMLFiles();
-            map.resetMap();
+           // map.resetMap();
             generateHTMLFiles(players);
             initialisePlayers(players);
 
