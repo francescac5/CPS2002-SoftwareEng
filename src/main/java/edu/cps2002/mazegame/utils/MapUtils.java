@@ -103,6 +103,7 @@ public class MapUtils {
         writeToFile(path, mapHTML.toString());
     }
 
+    //delete all html files in gameMaps directory
     public void deleteHTMLFiles(){
         boolean success;
         File mapFolder = new File("src"+ret+"main"+ret+"java"+ret+"edu"+ret+"cps2002"+ret+"mazegame"+ret+"gameMaps");
@@ -119,6 +120,7 @@ public class MapUtils {
         }
     }
 
+    //opens all html map files in default browser
     public void openMapsInBrowser(){
         File mapFolder = new File("src"+ret+"main"+ret+"java"+ret+"edu"+ret+"cps2002"+ret+"mazegame"+ret+"gameMaps");
 
@@ -134,6 +136,7 @@ public class MapUtils {
         }
     }
 
+    //generates gameMaps directory
     public void generateGameMapsFolder() {
         File mapFolder = new File("src"+ret+"main"+ret+"java"+ret+"edu"+ret+"cps2002"+ret+"mazegame"+ret+"gameMaps");
         if(mapFolder.mkdir()) {
