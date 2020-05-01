@@ -17,7 +17,7 @@ public class TestTile {
         tile = null;
     }
 
-    /********** tile.getTileHTML() tests **********/
+//********** tile.getTileHTML() tests **********//
 
     @Test
     public void testGetTileHTML_Valid_Green() {

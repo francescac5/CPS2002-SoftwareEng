@@ -7,6 +7,7 @@ import java.util.Random;
 
 public class Map {
 
+    //Enum representing types of tiles
     public enum Tiles{
         GRASS,
         WATER,
@@ -17,16 +18,31 @@ public class Map {
 
     private MapUtils util = new MapUtils();
 
+    //map size
     private static int size = -1;
+
+    //number of map copies
     private static int mapCount;
+
+    //array which stores tile types for the map
     private Tiles[][] mapTiles;
+
+    //flag to determine that tile types are generated only once
     protected boolean tilesGenerated = false;
 
+    //stores x and y pairs for all grass tiles
     protected ArrayList<Pair<Integer,Integer>> grassTiles = new ArrayList<>();
+
+    //stores x and y pairs for all water tiles
     protected static ArrayList<Pair<Integer,Integer>> waterTiles = new ArrayList<>();
+
+    //stores x and y pair for the treasure tiles
     protected static Pair<Integer, Integer> treasureTile;
 
+    //stores a map representation for each player
     protected ArrayList<Tiles[][]> playerMaps = new ArrayList<>();
+
+    //stores x and y pairs for the players' initial tiles
     protected ArrayList<Pair<Integer,Integer>> initTiles = new ArrayList<>();
 
     //getters

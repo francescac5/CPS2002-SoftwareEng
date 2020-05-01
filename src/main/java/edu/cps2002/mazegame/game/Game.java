@@ -99,7 +99,7 @@ public class Game {
         } while(true);
     }
 
-    //method to get the mapsize from the player
+    //method to get the map size from the player
     static int chooseMapSize(int numPlayers){
         int size = 0;
         Scanner sc = new Scanner (System.in);
@@ -141,7 +141,6 @@ public class Game {
         do{
             playerList.clear();
             playerChoice.clear();
-            utils.deleteHTMLFiles();
             generateHTMLFiles(players);
             initialisePlayers(players);
             utils.openMapsInBrowser();
@@ -151,6 +150,9 @@ public class Game {
                 boolean check = checkWinner();
                 checkGameend(check);
             }
+            utils.deleteHTMLFiles();
+            map.resetMap();
+
         }while(!gameend);
 
     }
