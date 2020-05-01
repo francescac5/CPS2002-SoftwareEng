@@ -20,7 +20,7 @@ public class TestPlayerTile {
         tile = null;
     }
 
-    /********** tile.getTileHTML() tests **********/
+//********** tile.getTileHTML() tests **********//
 
     @Test
     public void testGetTileHTML_Valid_Green() {
@@ -29,7 +29,7 @@ public class TestPlayerTile {
 
         //Assert
         assertTrue(result.contains("green"));
-        assertTrue(result.contains("<img src=\"/Assignment/src/main/resources/detective.png\" height=\"50\" width=\"50\">"));
+        assertTrue(result.contains("<img src=\"../../../../../resources/detective.png\" height=\"50\" width=\"50\">"));
     }
 
     @Test
@@ -39,7 +39,7 @@ public class TestPlayerTile {
 
         //Assert
         assertTrue(result.contains("yellow"));
-        assertTrue(result.contains("<img src=\"/Assignment/src/main/resources/detective.png\" height=\"50\" width=\"50\">"));
+        assertTrue(result.contains("<img src=\"../../../../../resources/detective.png\" height=\"50\" width=\"50\">"));
     }
 
     @Test
@@ -49,6 +49,6 @@ public class TestPlayerTile {
 
         //Assert
         assertTrue(result.contains("blue"));
-        assertTrue(result.contains("<img src=\"/Assignment/src/main/resources/detective.png\" height=\"50\" width=\"50\">"));
+        assertTrue(result.contains("<img src=\"../../../../../resources/detective.png\" height=\"50\" width=\"50\">"));
     }
 }
