@@ -32,6 +32,7 @@ public class TestGame {
 
     }
 
+    //******** Game.chooseDirection() tests ********\\
     //testing chooseDirection down (capital letter)
     @Test
     public void testchooseDirectionD(){
@@ -87,6 +88,7 @@ public class TestGame {
 
     }
 
+    //******** Game.validityofPlayers() tests ********\\
     @Test
     public void validityofPlayersTest1(){
         boolean result= Game.validityofPlayers(2);
@@ -134,6 +136,7 @@ public class TestGame {
 
     }
 
+    //******** Game.validityofMapSize() tests ********\\
     @Test
     public void validityofMapSizeTest1(){
         boolean result= Game.validityofMapSize(2,5);
@@ -190,6 +193,7 @@ public class TestGame {
 
     }
 
+    //******** Game.initialisePlayers() tests ********\\
     @Test
     public void initialisePlayersTest1(){
         int players = 3;
@@ -230,6 +234,7 @@ public class TestGame {
         utils.deleteHTMLFiles();
     }
 
+    //******** Game.checkWinner() tests ********\\
     @Test
     public void test1_Winner(){
         boolean flag;
@@ -263,12 +268,14 @@ public class TestGame {
         Game.playerList.clear();
     }
 
+    //******** Game.checkGameend() tests ********\\
     @Test
     public void test_addplayerchoice2(){
         Game.checkGameend(false);
         assertFalse(gameend);
     }
 
+    //******** Game.checkwatertile() tests ********\\
     @Test
     public void test_checkwatertile1(){
         Map map = new Map();
@@ -315,7 +322,7 @@ public class TestGame {
         players.clear();
         utils.deleteHTMLFiles();
     }
-
+    //******** Game.validateuserinput() tests ********\\
     @Test
     public void test_validateuserinput1(){
         assertFalse(Game.validateuserinput("k"));
