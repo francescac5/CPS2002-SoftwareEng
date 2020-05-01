@@ -30,7 +30,7 @@ public class TestPlayer {
         assertEquals(pos, p1.getPosition());
     }
 
-
+    //******** Player.move() tests ********\\
     @Test
     public void testDirectionD(){
        boolean x=p1.move(Player.DIRECTION.DOWN);
