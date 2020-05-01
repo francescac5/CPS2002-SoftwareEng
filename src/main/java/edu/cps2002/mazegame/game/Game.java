@@ -12,7 +12,6 @@ public class Game {
     //arraylist to store the players and their choice
     static ArrayList<Player> playerList = new ArrayList<Player>();
     static ArrayList<Player.DIRECTION> playerChoice = new ArrayList<>();
-
     private static MapUtils utils = new MapUtils();
     private static Map map = new Map();
 
@@ -59,6 +58,7 @@ public class Game {
         }
     }
 
+    //method to check that the input that the user gives is either l,d,u or r
     public static boolean validateuserinput(String answer) {
         return answer.equalsIgnoreCase("L") || answer.equalsIgnoreCase("R") ||
                 answer.equalsIgnoreCase("D") || answer.equalsIgnoreCase("U");
@@ -142,12 +142,11 @@ public class Game {
             playerList.clear();
             playerChoice.clear();
             utils.deleteHTMLFiles();
-           // map.resetMap();
             generateHTMLFiles(players);
             initialisePlayers(players);
-
             utils.openMapsInBrowser();
-            for (int i = 0; i < 5; i++) {
+            //for loop that gives 20 turns to each player
+            for (int i = 0; i < 20; i++) {
                 giveoneturntoeachPlayer(playerList, playerChoice);
                 boolean check = checkWinner();
                 checkGameend(check);
