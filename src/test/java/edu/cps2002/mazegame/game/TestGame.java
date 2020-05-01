@@ -9,7 +9,7 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
+import java.util.ArrayList;
 
 import static edu.cps2002.mazegame.game.Game.gameend;
 import static org.junit.Assert.*;
@@ -28,31 +28,62 @@ public class TestGame {
     public void tearDown() {
         p1 = null;
         pos= null;
+        utils.deleteHTMLFiles();
+
     }
 
-    //testing chooseDirection down
+    //testing chooseDirection down (capital letter)
     @Test
     public void testchooseDirectionD(){
         Assert.assertEquals(Player.DIRECTION.DOWN, Game.chooseDirection("D"));
 
     }
-    //testing chooseDirection up
+
+    //testing chooseDirection down (small letter)
+    @Test
+    public void testchooseDirectiond(){
+        Assert.assertEquals(Player.DIRECTION.DOWN, Game.chooseDirection("d"));
+
+    }
+    //testing chooseDirection up (capital letter)
     @Test
     public void testchooseDirectionU(){
         assertEquals(Player.DIRECTION.UP, Game.chooseDirection("U"));
 
     }
-    //testing chooseDirection left
+
+    //testing chooseDirection up (small letter)
+    @Test
+    public void testchooseDirectionu(){
+        assertEquals(Player.DIRECTION.UP, Game.chooseDirection("u"));
+
+    }
+
+    //testing chooseDirection left (capital letter)
     @Test
     public void testchooseDirectionL(){
         assertEquals(Player.DIRECTION.LEFT, Game.chooseDirection("L"));
 
     }
 
-    //testing chooseDirection right
+    //testing chooseDirection left (small letter)
+    @Test
+    public void testchooseDirectionl(){
+        assertEquals(Player.DIRECTION.LEFT, Game.chooseDirection("l"));
+
+    }
+
+    //testing chooseDirection right (capital letter)
     @Test
     public void testchooseDirectionR(){
         assertEquals(Player.DIRECTION.RIGHT, Game.chooseDirection("R"));
+
+    }
+
+    //testing chooseDirection right (small letter)
+    @Test
+    public void testchooseDirectionr(){
+        assertEquals(Player.DIRECTION.RIGHT, Game.chooseDirection("r"));
 
     }
 
@@ -152,6 +183,14 @@ public class TestGame {
     }
 
     @Test
+    public void validityofMapSizeTest7(){
+        boolean result= Game.validityofMapSize(8,55);
+        boolean actual= false;
+        assertEquals(result, actual);
+
+    }
+
+    @Test
     public void initialisePlayersTest1(){
         int players = 3;
 
@@ -199,15 +238,13 @@ public class TestGame {
         Game.generateHTMLFiles(10);
         Player p1 = new Player(4,5);
         Game.playerList.add(p1);
-        Pair<Integer, Integer> x= map.getTreasureTile();
-        x.getKey();
-        x.getValue();
+        Pair<Integer, Integer> x= Map.getTreasureTile();
         Position p = new Position(x.getKey(),x.getValue());
+
         p1.setPosition(p);
         flag= Game.checkWinner();
         assertTrue(flag);
-
-        utils.deleteHTMLFiles();
+        Game.playerList.clear();
     }
 
     @Test
@@ -219,19 +256,89 @@ public class TestGame {
         Player p1 = new Player(4,5);
         Game.playerList.add(p1);
         edu.cps2002.mazegame.map.Pair<Integer, Integer> x= Map.getTreasureTile();
-        x.getKey();
-        x.getValue();
         Position p = new Position(x.getKey()+1,x.getValue()+1);
         p1.setPosition(p);
         flag= Game.checkWinner();
         assertFalse(flag);
-        utils.deleteHTMLFiles();
+        Game.playerList.clear();
     }
 
-
     @Test
-    public void test_checkGameend(){
+    public void test_addplayerchoice2(){
         Game.checkGameend(false);
         assertFalse(gameend);
     }
+
+    @Test
+    public void test_checkwatertile1(){
+        Map map = new Map();
+        map.setMapSize(5);
+        Game.generateHTMLFiles(1);
+         ArrayList<Player> players = new ArrayList<Player>();
+         Player p1= new Player(4,6);
+         players.add(p1);
+        char tile = map.getTileType(players.get(0).getPosition().getX(), players.get(0).getPosition().getY());
+        boolean x =Game.checkwatertile(tile,0,players, Player.DIRECTION.DOWN);
+        assertFalse(x);
+        players.clear();
+      //  map.resetMap();
+        utils.deleteHTMLFiles();
+    }
+
+    @Test
+    public void test_checkwatertile2(){
+        Map map = new Map();
+        map.setMapSize(5);
+        Game.generateHTMLFiles(1);
+        ArrayList<Player> players = new ArrayList<Player>();
+        Player p1= new Player(4,6);
+        players.add(p1);
+        char tile = map.getTileType(players.get(0).getPosition().getX(), players.get(0).getPosition().getY());
+        boolean x =Game.checkwatertile(tile,0,players, Player.DIRECTION.UP);
+        assertFalse(x);
+        players.clear();
+        utils.deleteHTMLFiles();
+    }
+
+    @Test
+    public void test_checkwatertile3(){
+        Map map = new Map();
+        map.setMapSize(6);
+        Game.generateHTMLFiles(1);
+        ArrayList<Player> players = new ArrayList<Player>();
+        Player p1= new Player(4,6);
+        Player p2= new Player(5,6);
+        players.add(p1);
+        players.add(p2);
+        boolean x =Game.checkwatertile('W' ,0,players, Player.DIRECTION.RIGHT);
+        assertFalse(x);
+        players.clear();
+        utils.deleteHTMLFiles();
+    }
+
+    @Test
+    public void test_validateuserinput1(){
+        assertFalse(Game.validateuserinput("k"));
+    }
+
+    @Test
+    public void test_validateuserinput2(){
+        assertTrue(Game.validateuserinput("R"));
+    }
+
+    @Test
+    public void test_validateuserinput3(){
+        assertTrue(Game.validateuserinput("D"));
+    }
+
+    @Test
+    public void test_validateuserinput4(){
+        assertTrue(Game.validateuserinput("L"));
+    }
+
+    @Test
+    public void test_validateuserinput5(){
+        assertTrue(Game.validateuserinput("U"));
+    }
+
 }

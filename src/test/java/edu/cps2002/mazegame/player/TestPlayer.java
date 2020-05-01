@@ -30,6 +30,7 @@ public class TestPlayer {
         assertEquals(pos, p1.getPosition());
     }
 
+
     @Test
     public void testDirectionD(){
        boolean x=p1.move(Player.DIRECTION.DOWN);
@@ -50,10 +51,52 @@ public class TestPlayer {
     }
 
     @Test
+    public void testDirectionUnknown(){
+        boolean x= p1.move(Player.DIRECTION.UNKNOWN);
+        assertFalse(x);
+    }
+
+    @Test
     public void testDirectionR(){
         boolean x=p1.move(Player.DIRECTION.RIGHT);
         assertFalse(x);
     }
 
+    @Test
+    public void testDirectionLeftINVALID(){
+        boolean x=p1.move(Player.DIRECTION.LEFT);
+        assertFalse(x);
+    }
 
+    @Test
+    public void testDirectionLEFTINVALID(){
+        map.setMapSize(5);
+        p1 = new Player(4,5);
+        boolean x=p1.move(Player.DIRECTION.LEFT);
+        assertFalse(x);
+    }
+
+    @Test
+    public void testDirectionLEFTINVALID2(){
+        map.setMapSize(5);
+        p1 = new Player(5,5);
+        boolean x=p1.move(Player.DIRECTION.RIGHT);
+        assertFalse(x);
+    }
+
+    @Test
+    public void testDirectionLEFTINVALID3(){
+        map.setMapSize(5);
+        p1 = new Player(0,0);
+        boolean x=p1.move(Player.DIRECTION.LEFT);
+        assertFalse(x);
+    }
+
+    @Test
+    public void testDirectionLEFTINVALID4(){
+        map.setMapSize(5);
+        p1 = new Player(0,5);
+        boolean x=p1.move(Player.DIRECTION.LEFT);
+        assertFalse(x);
+    }
 }

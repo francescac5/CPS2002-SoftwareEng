@@ -34,7 +34,7 @@ public class Map {
     protected ArrayList<Pair<Integer,Integer>> grassTiles = new ArrayList<>();
 
     //stores x and y pairs for all water tiles
-    protected ArrayList<Pair<Integer,Integer>> waterTiles = new ArrayList<>();
+    protected static ArrayList<Pair<Integer,Integer>> waterTiles = new ArrayList<>();
 
     //stores x and y pair for the treasure tiles
     protected static Pair<Integer, Integer> treasureTile;
@@ -82,7 +82,7 @@ public class Map {
     }
 
     //returns array list of coordinates for all water tiles in the map
-    protected ArrayList<Pair<Integer, Integer>> getWaterTiles() {
+    public static ArrayList<Pair<Integer, Integer>> getWaterTiles() {
         return waterTiles;
     }
 
