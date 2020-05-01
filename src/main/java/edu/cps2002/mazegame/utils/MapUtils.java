@@ -131,9 +131,9 @@ public class MapUtils {
     public void generateGameMapsFolder() {
         File mapFolder = new File("src"+ret+"main"+ret+"java"+ret+"edu"+ret+"cps2002"+ret+"mazegame"+ret+"gameMaps");
         if(mapFolder.mkdir()) {
-            System.out.println("Directory Created");
+            System.out.println("--> gameMaps directory created <-- ");
         } else {
-            System.out.println("Directory is not created");
+            System.out.println("--> gameMaps directory already exists <--");
         }
     }
 }
