@@ -288,7 +288,7 @@ public class TestGame {
         boolean x =Game.checkwatertile(tile,0,players, Player.DIRECTION.DOWN);
         assertFalse(x);
         players.clear();
-      //  map.resetMap();
+      //  hazardousMap.resetMap();
         utils.deleteHTMLFiles();
     }
 

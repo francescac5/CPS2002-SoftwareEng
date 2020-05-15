@@ -20,7 +20,7 @@ public class TestPlayer {
     public void tearDown() {
         p1 = null;
         pos= null;
-       // map.setMapSize(-1);
+       // hazardousMap.setMapSize(-1);
     }
 
     //testing SetPosition
