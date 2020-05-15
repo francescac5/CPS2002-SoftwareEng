@@ -28,7 +28,7 @@ public class TestSafeMap {
         safeMap = null;
     }
 
-//******** hazardousMap.setMapSize() tests ********\\
+//******** safeMap.setMapSize() tests ********\\
 
     @Test
     public void testSetMapSize_GreaterThanMinSize() {
@@ -107,7 +107,69 @@ public class TestSafeMap {
         assertEquals(-1, Map.getMapSize());
     }
 
-//******** hazardousMap.generateTileTypes() tests ********\\
+//******** safeMap.setWaterPercentage() tests ********\\
+
+    @Test
+    public void testSetWaterPercentage_ValidMax(){
+        //Exercise
+        float expectedPercentage = 10;
+
+        boolean result = safeMap.setWaterPercentage(expectedPercentage);
+
+        //Assert
+        assertEquals(expectedPercentage, safeMap.waterPercentage, 0.0);
+        assertTrue(result);
+    }
+
+    @Test
+    public void testSetWaterPercentage_ValidLessThanMax(){
+        //Exercise
+        float expectedPercentage = 5;
+
+        boolean result = safeMap.setWaterPercentage(expectedPercentage);
+
+        //Assert
+        assertEquals(expectedPercentage, safeMap.waterPercentage, 0.0);
+        assertTrue(result);
+    }
+
+    @Test
+    public void testSetWaterPercentage_ValidZero(){
+        //Exercise
+        float expectedPercentage = 0;
+
+        boolean result = safeMap.setWaterPercentage(expectedPercentage);
+
+        //Assert
+        assertEquals(expectedPercentage, safeMap.waterPercentage, 0.0);
+        assertTrue(result);
+    }
+
+    @Test
+    public void testSetWaterPercentage_InvalidNegative(){
+        //Exercise
+        float expectedPercentage = -10;
+
+        boolean result = safeMap.setWaterPercentage(expectedPercentage);
+
+        //Assert
+        assertEquals(-1, safeMap.waterPercentage, 0.0);
+        assertFalse(result);
+    }
+
+    @Test
+    public void testSetWaterPercentage_InvalidGreaterThenMax(){
+        //Exercise
+        float expectedPercentage = 15;
+
+        boolean result = safeMap.setWaterPercentage(expectedPercentage);
+
+        //Assert
+        assertEquals(-1, safeMap.waterPercentage, 0.0);
+        assertFalse(result);
+    }
+
+//******** safeMap.generateTileTypes() tests ********\\
 
     @Test
     public void testGenerateTileTypes_MinSize() {
@@ -136,7 +198,7 @@ public class TestSafeMap {
         assertEquals(50, tiles.length);
     }
 
-//******** hazardousMap.getTileType() tests ********\\
+//******** safeMap.getTileType() tests ********\\
 
     @Test
     public void testGetTileType_Grass(){
@@ -292,7 +354,7 @@ public class TestSafeMap {
     }
 
 
-//******** hazardousMap.updateMap tests ********\\
+//******** safeMap.updateMap tests ********\\
 
     @Test
     public void testUpdateMap_XGreaterThanSize() {
@@ -547,7 +609,7 @@ public class TestSafeMap {
         assertEquals(Map.Tiles.TREASURE, postTiles[x][y]);
     }
 
-//******** hazardousMap.resetMap tests ********\\
+//******** safeMap.resetMap tests ********\\
 
     @Test
     public void testResetMap(){
@@ -572,7 +634,7 @@ public class TestSafeMap {
         assertEquals(-1, Map.getMapSize());
     }
 
-//******** hazardousMap.generate tests ********\\
+//******** safeMap.generate tests ********\\
 
     @Test
     public void testGenerate_TilesGenerated_FalseBeforeGenerate(){

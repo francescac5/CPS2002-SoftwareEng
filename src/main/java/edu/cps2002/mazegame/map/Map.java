@@ -30,6 +30,9 @@ public abstract class Map {
     //flag to determine that tile types are generated only once
     protected boolean tilesGenerated = false;
 
+    //stores percentage of water tiles in map
+    protected float waterPercentage = -1;
+
     //stores x and y pairs for all grass tiles
     protected ArrayList<Pair<Integer,Integer>> grassTiles = new ArrayList<>();
 
@@ -130,6 +133,9 @@ public abstract class Map {
             return true;
         }
     }
+
+    //set percentage of water tiles which affects the percentage of grass tiles
+    abstract boolean setWaterPercentage(float waterPercentage);
 
     //generates tiles for Map once in map's lifetime
     //generates player map and corresponding HTML file

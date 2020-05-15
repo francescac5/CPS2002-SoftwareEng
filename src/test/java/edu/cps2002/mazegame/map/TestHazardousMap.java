@@ -106,6 +106,92 @@ public class TestHazardousMap {
         assertEquals(-1, Map.getMapSize());
     }
 
+//******** hazardousMap.setWaterPercentage() tests ********\\
+
+    @Test
+    public void testSetWaterPercentage_ValidMax(){
+        //Exercise
+        float expectedPercentage = 35;
+
+        boolean result = hazardousMap.setWaterPercentage(expectedPercentage);
+
+        //Assert
+        assertEquals(expectedPercentage, hazardousMap.waterPercentage, 0.0);
+        assertTrue(result);
+    }
+
+    @Test
+    public void testSetWaterPercentage_ValidLessThanMax(){
+        //Exercise
+        float expectedPercentage = 30;
+
+        boolean result = hazardousMap.setWaterPercentage(expectedPercentage);
+
+        //Assert
+        assertEquals(expectedPercentage, hazardousMap.waterPercentage, 0.0);
+        assertTrue(result);
+    }
+
+    @Test
+    public void testSetWaterPercentage_ValidMinimum(){
+        //Exercise
+        float expectedPercentage = 25;
+
+        boolean result = hazardousMap.setWaterPercentage(expectedPercentage);
+
+        //Assert
+        assertEquals(expectedPercentage, hazardousMap.waterPercentage, 0.0);
+        assertTrue(result);
+    }
+
+    @Test
+    public void testSetWaterPercentage_InvalidZero(){
+        //Exercise
+        float expectedPercentage = 0;
+
+        boolean result = hazardousMap.setWaterPercentage(expectedPercentage);
+
+        //Assert
+        assertEquals(-1, hazardousMap.waterPercentage, 0.0);
+        assertFalse(result);
+    }
+
+    @Test
+    public void testSetWaterPercentage_InvalidNegative(){
+        //Exercise
+        float expectedPercentage = -10;
+
+        boolean result = hazardousMap.setWaterPercentage(expectedPercentage);
+
+        //Assert
+        assertEquals(-1, hazardousMap.waterPercentage, 0.0);
+        assertFalse(result);
+    }
+
+    @Test
+    public void testSetWaterPercentage_InvalidGreaterThenMax(){
+        //Exercise
+        float expectedPercentage = 40;
+
+        boolean result = hazardousMap.setWaterPercentage(expectedPercentage);
+
+        //Assert
+        assertEquals(-1, hazardousMap.waterPercentage, 0.0);
+        assertFalse(result);
+    }
+
+    @Test
+    public void testSetWaterPercentage_InvalidLessThanMin(){
+        //Exercise
+        float expectedPercentage = 15;
+
+        boolean result = hazardousMap.setWaterPercentage(expectedPercentage);
+
+        //Assert
+        assertEquals(-1, hazardousMap.waterPercentage, 0.0);
+        assertFalse(result);
+    }
+
 //******** hazardousMap.generateTileTypes() tests ********\\
 
     @Test
