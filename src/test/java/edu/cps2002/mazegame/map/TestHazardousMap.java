@@ -111,7 +111,7 @@ public class TestHazardousMap {
     @Test
     public void testSetWaterPercentage_ValidMax(){
         //Exercise
-        float expectedPercentage = 35;
+        double expectedPercentage = 35;
 
         boolean result = hazardousMap.setWaterPercentage(expectedPercentage);
 
@@ -123,7 +123,7 @@ public class TestHazardousMap {
     @Test
     public void testSetWaterPercentage_ValidLessThanMax(){
         //Exercise
-        float expectedPercentage = 30;
+        double expectedPercentage = 30;
 
         boolean result = hazardousMap.setWaterPercentage(expectedPercentage);
 
@@ -135,7 +135,7 @@ public class TestHazardousMap {
     @Test
     public void testSetWaterPercentage_ValidMinimum(){
         //Exercise
-        float expectedPercentage = 25;
+        double expectedPercentage = 25;
 
         boolean result = hazardousMap.setWaterPercentage(expectedPercentage);
 
@@ -147,7 +147,7 @@ public class TestHazardousMap {
     @Test
     public void testSetWaterPercentage_InvalidZero(){
         //Exercise
-        float expectedPercentage = 0;
+        double expectedPercentage = 0;
 
         boolean result = hazardousMap.setWaterPercentage(expectedPercentage);
 
@@ -159,7 +159,7 @@ public class TestHazardousMap {
     @Test
     public void testSetWaterPercentage_InvalidNegative(){
         //Exercise
-        float expectedPercentage = -10;
+        double expectedPercentage = -10;
 
         boolean result = hazardousMap.setWaterPercentage(expectedPercentage);
 
@@ -171,7 +171,7 @@ public class TestHazardousMap {
     @Test
     public void testSetWaterPercentage_InvalidGreaterThenMax(){
         //Exercise
-        float expectedPercentage = 40;
+        double expectedPercentage = 40;
 
         boolean result = hazardousMap.setWaterPercentage(expectedPercentage);
 
@@ -183,13 +183,69 @@ public class TestHazardousMap {
     @Test
     public void testSetWaterPercentage_InvalidLessThanMin(){
         //Exercise
-        float expectedPercentage = 15;
+        double expectedPercentage = 15;
 
         boolean result = hazardousMap.setWaterPercentage(expectedPercentage);
 
         //Assert
         assertEquals(-1, hazardousMap.waterPercentage, 0.0);
         assertFalse(result);
+    }
+
+//******** hazardousMap.calculateGrassPercentage() tests ********\\
+
+    @Test
+    public void testCalculateGrassPercentage_MaxWater(){
+        //Exercise
+        int mapSize = 5;
+        hazardousMap.setMapSize(mapSize);
+
+        double waterPercentage = 35;
+        int tilePercentage = (1/mapSize)*100;
+
+        double expectedGrassPercentage = 100 - waterPercentage - tilePercentage;
+
+        hazardousMap.setWaterPercentage(waterPercentage);
+        double actualGrassPercentage = hazardousMap.calculateGrassPercentage();
+
+        //Assert
+        assertEquals(expectedGrassPercentage, actualGrassPercentage, 0.0);
+    }
+
+    @Test
+    public void testCalculateGrassPercentage_LessThanMaxWater(){
+        //Exercise
+        int mapSize = 5;
+        hazardousMap.setMapSize(mapSize);
+
+        double waterPercentage = 30;
+        int tilePercentage = (1/mapSize)*100;
+
+        double expectedGrassPercentage = 100 - waterPercentage - tilePercentage;
+
+        hazardousMap.setWaterPercentage(waterPercentage);
+        double actualGrassPercentage = hazardousMap.calculateGrassPercentage();
+
+        //Assert
+        assertEquals(expectedGrassPercentage, actualGrassPercentage, 0.0);
+    }
+
+    @Test
+    public void testCalculateGrassPercentage_ValidMinimum(){
+        //Exercise
+        int mapSize = 5;
+        hazardousMap.setMapSize(mapSize);
+
+        double waterPercentage = 25;
+        int tilePercentage = (1/mapSize)*100;
+
+        double expectedGrassPercentage = 100 - waterPercentage - tilePercentage;
+
+        hazardousMap.setWaterPercentage(waterPercentage);
+        double actualGrassPercentage = hazardousMap.calculateGrassPercentage();
+
+        //Assert
+        assertEquals(expectedGrassPercentage, actualGrassPercentage, 0.0);
     }
 
 //******** hazardousMap.generateTileTypes() tests ********\\

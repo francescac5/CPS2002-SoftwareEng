@@ -112,7 +112,7 @@ public class TestSafeMap {
     @Test
     public void testSetWaterPercentage_ValidMax(){
         //Exercise
-        float expectedPercentage = 10;
+        double expectedPercentage = 10;
 
         boolean result = safeMap.setWaterPercentage(expectedPercentage);
 
@@ -124,7 +124,7 @@ public class TestSafeMap {
     @Test
     public void testSetWaterPercentage_ValidLessThanMax(){
         //Exercise
-        float expectedPercentage = 5;
+        double expectedPercentage = 5;
 
         boolean result = safeMap.setWaterPercentage(expectedPercentage);
 
@@ -136,7 +136,7 @@ public class TestSafeMap {
     @Test
     public void testSetWaterPercentage_ValidZero(){
         //Exercise
-        float expectedPercentage = 0;
+        double expectedPercentage = 0;
 
         boolean result = safeMap.setWaterPercentage(expectedPercentage);
 
@@ -148,7 +148,7 @@ public class TestSafeMap {
     @Test
     public void testSetWaterPercentage_InvalidNegative(){
         //Exercise
-        float expectedPercentage = -10;
+        double expectedPercentage = -10;
 
         boolean result = safeMap.setWaterPercentage(expectedPercentage);
 
@@ -160,13 +160,69 @@ public class TestSafeMap {
     @Test
     public void testSetWaterPercentage_InvalidGreaterThenMax(){
         //Exercise
-        float expectedPercentage = 15;
+        double expectedPercentage = 15;
 
         boolean result = safeMap.setWaterPercentage(expectedPercentage);
 
         //Assert
         assertEquals(-1, safeMap.waterPercentage, 0.0);
         assertFalse(result);
+    }
+
+//******** safeMap.calculateGrassPercentage() tests ********\\
+
+    @Test
+    public void testCalculateGrassPercentage_MaxWater(){
+        //Exercise
+        int mapSize = 5;
+        safeMap.setMapSize(mapSize);
+
+        double waterPercentage = 10;
+        int tilePercentage = (1/mapSize)*100;
+
+        double expectedGrassPercentage = 100 - waterPercentage - tilePercentage;
+
+        safeMap.setWaterPercentage(waterPercentage);
+        double actualGrassPercentage = safeMap.calculateGrassPercentage();
+
+        //Assert
+        assertEquals(expectedGrassPercentage, actualGrassPercentage, 0.0);
+    }
+
+    @Test
+    public void testCalculateGrassPercentage_LessThanMaxWater(){
+        //Exercise
+        int mapSize = 5;
+        safeMap.setMapSize(mapSize);
+
+        double waterPercentage = 5;
+        int tilePercentage = (1/mapSize)*100;
+
+        double expectedGrassPercentage = 100 - waterPercentage - tilePercentage;
+
+        safeMap.setWaterPercentage(waterPercentage);
+        double actualGrassPercentage = safeMap.calculateGrassPercentage();
+
+        //Assert
+        assertEquals(expectedGrassPercentage, actualGrassPercentage, 0.0);
+    }
+
+    @Test
+    public void testCalculateGrassPercentage_ZeroWater(){
+        //Exercise
+        int mapSize = 5;
+        safeMap.setMapSize(mapSize);
+
+        double waterPercentage = 0;
+        int tilePercentage = (1/mapSize)*100;
+
+        double expectedGrassPercentage = 100 - waterPercentage - tilePercentage;
+
+        safeMap.setWaterPercentage(waterPercentage);
+        double actualGrassPercentage = safeMap.calculateGrassPercentage();
+
+        //Assert
+        assertEquals(expectedGrassPercentage, actualGrassPercentage, 0.0);
     }
 
 //******** safeMap.generateTileTypes() tests ********\\

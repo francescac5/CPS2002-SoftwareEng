@@ -31,7 +31,7 @@ public abstract class Map {
     protected boolean tilesGenerated = false;
 
     //stores percentage of water tiles in map
-    protected float waterPercentage = -1;
+    protected double waterPercentage = -1;
 
     //stores x and y pairs for all grass tiles
     protected ArrayList<Pair<Integer,Integer>> grassTiles = new ArrayList<>();
@@ -135,7 +135,7 @@ public abstract class Map {
     }
 
     //set percentage of water tiles which affects the percentage of grass tiles
-    abstract boolean setWaterPercentage(float waterPercentage);
+    abstract boolean setWaterPercentage(double waterPercentage);
 
     //generates tiles for Map once in map's lifetime
     //generates player map and corresponding HTML file
@@ -215,6 +215,10 @@ public abstract class Map {
                 tileCount++;
             }
         }
+    }
+
+    protected float calculateGrassPercentage(){
+        return 0;
     }
 
     //generates 85% of the map size as grass tiles
