@@ -13,7 +13,7 @@ public class Game {
     static ArrayList<Player> playerList = new ArrayList<Player>();
     static ArrayList<Player.DIRECTION> playerChoice = new ArrayList<>();
     private static MapUtils utils = new MapUtils();
-    private static Map map = new Map();
+    private static Map map;
 
     //setting the minimum players, maximum players and maximum map size
     static int minPlayers = 2;
@@ -136,6 +136,7 @@ public class Game {
                 "\n2) Each player gets one (valid) move per round. " +
                 "\n3) The first player/s to find the treasure, win/s! " +
                 "\n4) If you land on the water tile you have to go back to your initial position\n");
+        chooseMapType();
         int players = getNumPlayers();
         map.setMapSize(chooseMapSize(players));
         do{
@@ -229,5 +230,8 @@ public class Game {
             }
         }
         return winnerFlag;
+    }
+
+    protected static void chooseMapType() {
     }
 }
