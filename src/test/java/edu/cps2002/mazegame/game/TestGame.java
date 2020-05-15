@@ -200,8 +200,8 @@ public class TestGame {
     public void initialisePlayersTest1_SafeMap(){
         int players = 3;
 
-        Map map = new SafeMap();
-        map.setMapSize(5);
+        Game.map = new SafeMap();
+        Game.map.setMapSize(5);
 
         Game.generateHTMLFiles(3);
 
@@ -220,8 +220,8 @@ public class TestGame {
     public void initialisePlayersTest2_SafeMap(){
         int players = 10;
 
-        Map map = new SafeMap();
-        map.setMapSize(10);
+        Game.map = new SafeMap();
+        Game.map.setMapSize(10);
 
         Game.generateHTMLFiles(10);
 
@@ -240,8 +240,8 @@ public class TestGame {
     public void initialisePlayersTest1_HazardMap(){
         int players = 3;
 
-        Map map = new HazardousMap();
-        map.setMapSize(5);
+        Game.map = new HazardousMap();
+        Game.map.setMapSize(5);
 
         Game.generateHTMLFiles(3);
 
@@ -260,8 +260,8 @@ public class TestGame {
     public void initialisePlayersTest2_HazardMap(){
         int players = 10;
 
-        Map map = new HazardousMap();
-        map.setMapSize(10);
+        Game.map = new HazardousMap();
+        Game.map.setMapSize(10);
 
         Game.generateHTMLFiles(10);
 
@@ -280,8 +280,8 @@ public class TestGame {
     @Test
     public void test1SafeMap_Winner(){
         boolean flag;
-        Map map = new SafeMap();
-        map.setMapSize(10);
+        Game.map = new SafeMap();
+        Game.map.setMapSize(10);
         Game.generateHTMLFiles(10);
         Player p1 = new Player(4,5);
         Game.playerList.add(p1);
@@ -297,8 +297,8 @@ public class TestGame {
     @Test
     public void test2SafeMap_Winner(){
         boolean flag;
-        Map map = new SafeMap();
-        map.setMapSize(10);
+        Game.map = new SafeMap();
+        Game.map.setMapSize(10);
         Game.generateHTMLFiles(10);
         Player p1 = new Player(4,5);
         Game.playerList.add(p1);
@@ -313,8 +313,8 @@ public class TestGame {
     @Test
     public void test1HazardMap_Winner(){
         boolean flag;
-        Map map = new HazardousMap();
-        map.setMapSize(10);
+        Game.map = new HazardousMap();
+        Game.map.setMapSize(10);
         Game.generateHTMLFiles(10);
         Player p1 = new Player(4,5);
         Game.playerList.add(p1);
@@ -330,8 +330,8 @@ public class TestGame {
     @Test
     public void test2HazardMap_Winner(){
         boolean flag;
-        Map map = new HazardousMap();
-        map.setMapSize(10);
+        Game.map = new HazardousMap();
+        Game.map.setMapSize(10);
         Game.generateHTMLFiles(10);
         Player p1 = new Player(4,5);
         Game.playerList.add(p1);
@@ -353,13 +353,13 @@ public class TestGame {
     //******** Game.checkwatertile() tests ********\\
     @Test
     public void testSafeMap_checkwatertile1(){
-        Map map = new SafeMap();
-        map.setMapSize(5);
+        Game.map = new SafeMap();
+        Game.map.setMapSize(5);
         Game.generateHTMLFiles(1);
          ArrayList<Player> players = new ArrayList<Player>();
          Player p1= new Player(4,6);
          players.add(p1);
-        char tile = map.getTileType(players.get(0).getPosition().getX(), players.get(0).getPosition().getY());
+        char tile = Game.map.getTileType(players.get(0).getPosition().getX(), players.get(0).getPosition().getY());
         boolean x =Game.checkwatertile(tile,0,players, Player.DIRECTION.DOWN);
         assertFalse(x);
         players.clear();
@@ -369,13 +369,13 @@ public class TestGame {
 
     @Test
     public void testSafeMap_checkwatertile2(){
-        Map map = new SafeMap();
-        map.setMapSize(5);
+        Game.map = new SafeMap();
+        Game.map.setMapSize(5);
         Game.generateHTMLFiles(1);
         ArrayList<Player> players = new ArrayList<Player>();
         Player p1= new Player(4,6);
         players.add(p1);
-        char tile = map.getTileType(players.get(0).getPosition().getX(), players.get(0).getPosition().getY());
+        char tile = Game.map.getTileType(players.get(0).getPosition().getX(), players.get(0).getPosition().getY());
         boolean x =Game.checkwatertile(tile,0,players, Player.DIRECTION.UP);
         assertFalse(x);
         players.clear();
@@ -384,8 +384,8 @@ public class TestGame {
 
     @Test
     public void testSafeMap_checkwatertile3() {
-        Map map = new SafeMap();
-        map.setMapSize(6);
+        Game.map = new SafeMap();
+        Game.map.setMapSize(6);
         Game.generateHTMLFiles(1);
         ArrayList<Player> players = new ArrayList<Player>();
         Player p1 = new Player(4, 6);
@@ -399,13 +399,13 @@ public class TestGame {
     }
         @Test
         public void testHazardMap_checkwatertile1(){
-            Map map = new HazardousMap();
-            map.setMapSize(5);
+            Game.map = new HazardousMap();
+            Game.map.setMapSize(5);
             Game.generateHTMLFiles(1);
             ArrayList<Player> players = new ArrayList<Player>();
             Player p1= new Player(4,6);
             players.add(p1);
-            char tile = map.getTileType(players.get(0).getPosition().getX(), players.get(0).getPosition().getY());
+            char tile = Game.map.getTileType(players.get(0).getPosition().getX(), players.get(0).getPosition().getY());
             boolean x =Game.checkwatertile(tile,0,players, Player.DIRECTION.DOWN);
             assertFalse(x);
             players.clear();
@@ -415,13 +415,13 @@ public class TestGame {
 
         @Test
         public void testHazardMap_checkwatertile2(){
-            Map map = new HazardousMap();
-            map.setMapSize(5);
+            Game.map = new HazardousMap();
+            Game.map.setMapSize(5);
             Game.generateHTMLFiles(1);
             ArrayList<Player> players = new ArrayList<Player>();
             Player p1= new Player(4,6);
             players.add(p1);
-            char tile = map.getTileType(players.get(0).getPosition().getX(), players.get(0).getPosition().getY());
+            char tile = Game.map.getTileType(players.get(0).getPosition().getX(), players.get(0).getPosition().getY());
             boolean x =Game.checkwatertile(tile,0,players, Player.DIRECTION.UP);
             assertFalse(x);
             players.clear();
@@ -430,8 +430,8 @@ public class TestGame {
 
         @Test
         public void testHazardMap_checkwatertile3(){
-            Map map = new HazardousMap();
-            map.setMapSize(6);
+            Game.map = new HazardousMap();
+            Game.map.setMapSize(6);
             Game.generateHTMLFiles(1);
             ArrayList<Player> players = new ArrayList<Player>();
             Player p1= new Player(4,6);

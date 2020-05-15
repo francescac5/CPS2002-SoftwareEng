@@ -25,7 +25,7 @@ public class TestMapFactory {
     @Test
     public void testCreateMap_safeMap(){
         //Exercise
-        Map safeMap = mapFactory.createMap("safe");
+        Map safeMap = mapFactory.createMap("S");
 
         //Assert
         assertTrue(safeMap instanceof SafeMap);
@@ -34,7 +34,7 @@ public class TestMapFactory {
     @Test
     public void testCreateMap_hazardousMap(){
         //Exercise
-        Map hazardousMap = mapFactory.createMap("hazardous");
+        Map hazardousMap = mapFactory.createMap("H");
 
         //Assert
         assertTrue(hazardousMap instanceof HazardousMap);

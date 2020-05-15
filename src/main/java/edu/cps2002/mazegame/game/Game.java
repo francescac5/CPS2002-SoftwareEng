@@ -14,7 +14,7 @@ public class Game {
     static ArrayList<Player> playerList = new ArrayList<Player>();
     static ArrayList<Player.DIRECTION> playerChoice = new ArrayList<>();
     private static MapUtils utils = new MapUtils();
-    private static Map map;
+    protected static Map map;
 
     //setting the minimum players, maximum players and maximum map size
     static int minPlayers = 2;
