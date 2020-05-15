@@ -135,7 +135,7 @@ public abstract class Map {
     }
 
     //set percentage of water tiles which affects the percentage of grass tiles
-    abstract boolean setWaterPercentage(double waterPercentage);
+    abstract public boolean setWaterPercentage(double waterPercentage);
 
     //generates tiles for Map once in map's lifetime
     //generates player map and corresponding HTML file
@@ -217,8 +217,11 @@ public abstract class Map {
         }
     }
 
-    protected float calculateGrassPercentage(){
-        return 0;
+    protected double calculateGrassPercentage(){
+        double mapSize = (double)size;
+        double tilePercentage = (1/mapSize)*100;
+
+        return (100 - waterPercentage - tilePercentage);
     }
 
     //generates 85% of the map size as grass tiles
@@ -227,7 +230,8 @@ public abstract class Map {
 
         Random r = new Random();
         int randNum;
-        int amountGrass = (int)Math.ceil(0.85*amountTiles);
+        double grassPercentage = calculateGrassPercentage();
+        int amountGrass = (int)Math.ceil((grassPercentage/100)*amountTiles);
 
         randNum = r.nextInt(amountGrass) + 1;
         grassTiles.add(randNum);

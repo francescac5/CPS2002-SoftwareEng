@@ -178,7 +178,8 @@ public class TestSafeMap {
         safeMap.setMapSize(mapSize);
 
         double waterPercentage = 10;
-        int tilePercentage = (1/mapSize)*100;
+        double size = (double)mapSize;
+        double tilePercentage = (1/size)*100;
 
         double expectedGrassPercentage = 100 - waterPercentage - tilePercentage;
 
@@ -196,7 +197,8 @@ public class TestSafeMap {
         safeMap.setMapSize(mapSize);
 
         double waterPercentage = 5;
-        int tilePercentage = (1/mapSize)*100;
+        double size = (double)mapSize;
+        double tilePercentage = (1/size)*100;
 
         double expectedGrassPercentage = 100 - waterPercentage - tilePercentage;
 
@@ -214,7 +216,8 @@ public class TestSafeMap {
         safeMap.setMapSize(mapSize);
 
         double waterPercentage = 0;
-        int tilePercentage = (1/mapSize)*100;
+        double size = (double)mapSize;
+        double tilePercentage = (1/size)*100;
 
         double expectedGrassPercentage = 100 - waterPercentage - tilePercentage;
 

@@ -202,6 +202,7 @@ public class TestGame {
 
         Game.map = new SafeMap();
         Game.map.setMapSize(5);
+        Game.map.setWaterPercentage(5);
 
         Game.generateHTMLFiles(3);
 
@@ -222,6 +223,7 @@ public class TestGame {
 
         Game.map = new SafeMap();
         Game.map.setMapSize(10);
+        Game.map.setWaterPercentage(5);
 
         Game.generateHTMLFiles(10);
 
@@ -242,6 +244,7 @@ public class TestGame {
 
         Game.map = new HazardousMap();
         Game.map.setMapSize(5);
+        Game.map.setWaterPercentage(30);
 
         Game.generateHTMLFiles(3);
 
@@ -262,6 +265,7 @@ public class TestGame {
 
         Game.map = new HazardousMap();
         Game.map.setMapSize(10);
+        Game.map.setWaterPercentage(30);
 
         Game.generateHTMLFiles(10);
 
@@ -282,6 +286,8 @@ public class TestGame {
         boolean flag;
         Game.map = new SafeMap();
         Game.map.setMapSize(10);
+        Game.map.setWaterPercentage(5);
+
         Game.generateHTMLFiles(10);
         Player p1 = new Player(4,5);
         Game.playerList.add(p1);
@@ -299,6 +305,8 @@ public class TestGame {
         boolean flag;
         Game.map = new SafeMap();
         Game.map.setMapSize(10);
+        Game.map.setWaterPercentage(5);
+
         Game.generateHTMLFiles(10);
         Player p1 = new Player(4,5);
         Game.playerList.add(p1);
@@ -315,6 +323,8 @@ public class TestGame {
         boolean flag;
         Game.map = new HazardousMap();
         Game.map.setMapSize(10);
+        Game.map.setWaterPercentage(30);
+
         Game.generateHTMLFiles(10);
         Player p1 = new Player(4,5);
         Game.playerList.add(p1);
@@ -332,6 +342,8 @@ public class TestGame {
         boolean flag;
         Game.map = new HazardousMap();
         Game.map.setMapSize(10);
+        Game.map.setWaterPercentage(30);
+
         Game.generateHTMLFiles(10);
         Player p1 = new Player(4,5);
         Game.playerList.add(p1);

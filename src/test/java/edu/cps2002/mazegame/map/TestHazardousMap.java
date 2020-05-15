@@ -201,7 +201,8 @@ public class TestHazardousMap {
         hazardousMap.setMapSize(mapSize);
 
         double waterPercentage = 35;
-        int tilePercentage = (1/mapSize)*100;
+        double size = (double)mapSize;
+        double tilePercentage = (1/size)*100;
 
         double expectedGrassPercentage = 100 - waterPercentage - tilePercentage;
 
@@ -219,7 +220,8 @@ public class TestHazardousMap {
         hazardousMap.setMapSize(mapSize);
 
         double waterPercentage = 30;
-        int tilePercentage = (1/mapSize)*100;
+        double size = (double)mapSize;
+        double tilePercentage = (1/size)*100;
 
         double expectedGrassPercentage = 100 - waterPercentage - tilePercentage;
 
@@ -237,7 +239,8 @@ public class TestHazardousMap {
         hazardousMap.setMapSize(mapSize);
 
         double waterPercentage = 25;
-        int tilePercentage = (1/mapSize)*100;
+        double size = (double)mapSize;
+        double tilePercentage = (1/size)*100;
 
         double expectedGrassPercentage = 100 - waterPercentage - tilePercentage;
 
