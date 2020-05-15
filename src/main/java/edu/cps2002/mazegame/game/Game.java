@@ -1,6 +1,7 @@
 package edu.cps2002.mazegame.game;
 
 import edu.cps2002.mazegame.map.Map;
+import edu.cps2002.mazegame.map.MapFactory;
 import edu.cps2002.mazegame.player.Player;
 import edu.cps2002.mazegame.player.Position;
 import edu.cps2002.mazegame.utils.MapUtils;
@@ -232,6 +233,27 @@ public class Game {
         return winnerFlag;
     }
 
-    protected static void chooseMapType() {
+    //asks user what type of map he/she would like
+    private static void chooseMapType() {
+        MapFactory mapFactory = new MapFactory();
+
+        Scanner sc= new Scanner(System.in);
+        String mapType;
+
+        while (true) {
+            System.out.print("===Choose map type  S = SAFE, H = HAZARDOUS===\n");
+            try {
+                mapType = sc.next();
+                map = mapFactory.createMap(mapType);
+            } catch (Exception e) {
+                sc.next();
+            }
+
+            if(map == null){
+                System.out.println("Invalid Map Type!\n");
+            }else{
+                break;
+            }
+        }
     }
 }
