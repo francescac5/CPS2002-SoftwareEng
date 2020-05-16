@@ -1,6 +1,7 @@
 package edu.cps2002.mazegame.game;
 
 import edu.cps2002.mazegame.map.Map;
+import edu.cps2002.mazegame.map.MapFactory;
 import edu.cps2002.mazegame.player.Player;
 import edu.cps2002.mazegame.player.Position;
 import edu.cps2002.mazegame.utils.MapUtils;
@@ -13,7 +14,7 @@ public class Game {
     static ArrayList<Player> playerList = new ArrayList<Player>();
     static ArrayList<Player.DIRECTION> playerChoice = new ArrayList<>();
     private static MapUtils utils = new MapUtils();
-    private static Map map = new Map();
+    protected static Map map;
 
     //setting the minimum players, maximum players and maximum map size
     static int minPlayers = 2;
@@ -136,6 +137,7 @@ public class Game {
                 "\n2) Each player gets one (valid) move per round. " +
                 "\n3) The first player/s to find the treasure, win/s! " +
                 "\n4) If you land on the water tile you have to go back to your initial position\n");
+        chooseMapType();
         int players = getNumPlayers();
         map.setMapSize(chooseMapSize(players));
         do{
@@ -229,5 +231,29 @@ public class Game {
             }
         }
         return winnerFlag;
+    }
+
+    //asks user what type of map he/she would like
+    private static void chooseMapType() {
+        MapFactory mapFactory = new MapFactory();
+
+        Scanner sc= new Scanner(System.in);
+        String mapType;
+
+        while (true) {
+            System.out.print("===Choose map type  S = SAFE, H = HAZARDOUS===\n");
+            try {
+                mapType = sc.next();
+                map = mapFactory.createMap(mapType);
+            } catch (Exception e) {
+                sc.next();
+            }
+
+            if(map == null){
+                System.out.println("Invalid Map Type!\n");
+            }else{
+                break;
+            }
+        }
     }
 }

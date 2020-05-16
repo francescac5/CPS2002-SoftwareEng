@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-public class Map {
+public abstract class Map {
 
     //Enum representing types of tiles
     public enum Tiles{
@@ -29,6 +29,9 @@ public class Map {
 
     //flag to determine that tile types are generated only once
     protected boolean tilesGenerated = false;
+
+    //stores percentage of water tiles in map
+    protected double waterPercentage = -1;
 
     //stores x and y pairs for all grass tiles
     protected ArrayList<Pair<Integer,Integer>> grassTiles = new ArrayList<>();
@@ -82,7 +85,7 @@ public class Map {
     }
 
     //returns array list of coordinates for all water tiles in the map
-    public static ArrayList<Pair<Integer, Integer>> getWaterTiles() {
+    public ArrayList<Pair<Integer, Integer>> getWaterTiles() {
         return waterTiles;
     }
 
@@ -131,6 +134,9 @@ public class Map {
         }
     }
 
+    //set percentage of water tiles which affects the percentage of grass tiles
+    abstract public boolean setWaterPercentage(double waterPercentage);
+
     //generates tiles for Map once in map's lifetime
     //generates player map and corresponding HTML file
     public void generate(){
@@ -138,6 +144,17 @@ public class Map {
         //single set of tiles
         if(!tilesGenerated){
             util.generateGameMapsFolder();
+
+            // create instance of Random class
+            Random rand = new Random();
+            double randomValue;
+
+            //set water percentage randomly
+            boolean success = false;
+            while(!success){
+                randomValue = 100 * rand.nextDouble();
+                success = this.setWaterPercentage(randomValue);
+            }
 
             generateTileTypes();
             tilesGenerated = true;
@@ -211,13 +228,22 @@ public class Map {
         }
     }
 
+    //calculates percentage of grass tiles from percentage of water tiles
+    protected double calculateGrassPercentage(){
+        double mapSize = (double)size;
+        double tilePercentage = (1/(mapSize*mapSize))*100;
+
+        return (100 - waterPercentage - tilePercentage);
+    }
+
     //generates 85% of the map size as grass tiles
     private ArrayList<Integer> generateGrassTiles(int amountTiles) {
         ArrayList<Integer> grassTiles = new ArrayList<Integer>();
 
         Random r = new Random();
         int randNum;
-        int amountGrass = (int)Math.ceil(0.85*amountTiles);
+        double grassPercentage = calculateGrassPercentage();
+        int amountGrass = (int)Math.ceil((grassPercentage/100)*amountTiles);
 
         randNum = r.nextInt(amountGrass) + 1;
         grassTiles.add(randNum);
@@ -246,9 +272,12 @@ public class Map {
     private ArrayList<Integer> generateWaterTiles(int amountTiles, int treasure, ArrayList<Integer> grassTiles) {
         ArrayList<Integer> waterTiles = new ArrayList<>();
 
-        for (int i = 1; i < amountTiles+1; i++) {
-            if(!grassTiles.contains(i) && i != treasure){
-                waterTiles.add(i);
+        //if water tile percentage = 0%
+        if(waterPercentage > 0) {
+            for (int i = 1; i < amountTiles + 1; i++) {
+                if (!grassTiles.contains(i) && i != treasure) {
+                    waterTiles.add(i);
+                }
             }
         }
         return waterTiles;
@@ -301,6 +330,7 @@ public class Map {
         initTiles.clear();
         tilesGenerated = false;
 
+        waterPercentage = -1;
         size = -1;
     }
 
