@@ -18,8 +18,7 @@ public class TestMapFactory {
 
     @After
     public void tearDown() {
-     //   MapFactory.mapInstance=null;
-        mapFactory = null;
+      MapFactory.TearDown();
     }
 
 //******** mapFactory.createMap() tests ********\\

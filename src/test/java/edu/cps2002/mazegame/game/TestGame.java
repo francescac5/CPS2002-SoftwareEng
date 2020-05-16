@@ -1,9 +1,6 @@
 package edu.cps2002.mazegame.game;
 
-import edu.cps2002.mazegame.map.HazardousMap;
-import edu.cps2002.mazegame.map.Map;
-import edu.cps2002.mazegame.map.Pair;
-import edu.cps2002.mazegame.map.SafeMap;
+import edu.cps2002.mazegame.map.*;
 import edu.cps2002.mazegame.player.Player;
 import edu.cps2002.mazegame.player.Position;
 import edu.cps2002.mazegame.utils.MapUtils;
@@ -199,7 +196,7 @@ public class TestGame {
     public void initialisePlayersTest1_SafeMap(){
         int players = 3;
 
-        Game.map = new SafeMap();
+        Game.map = MapFactory.getInstance("S"); 
         Game.map.setMapSize(5);
         Game.map.setWaterPercentage(5);
 
@@ -220,7 +217,7 @@ public class TestGame {
     public void initialisePlayersTest2_SafeMap(){
         int players = 10;
 
-        Game.map = new SafeMap();
+        Game.map = MapFactory.getInstance("S"); 
         Game.map.setMapSize(10);
         Game.map.setWaterPercentage(5);
 
@@ -241,7 +238,7 @@ public class TestGame {
     public void initialisePlayersTest1_HazardMap(){
         int players = 3;
 
-        Game.map = new HazardousMap();
+        Game.map = MapFactory.getInstance("H"); 
         Game.map.setMapSize(5);
         Game.map.setWaterPercentage(30);
 
@@ -262,7 +259,7 @@ public class TestGame {
     public void initialisePlayersTest2_HazardMap(){
         int players = 10;
 
-        Game.map = new HazardousMap();
+        Game.map = MapFactory.getInstance("H"); 
         Game.map.setMapSize(10);
         Game.map.setWaterPercentage(30);
 
@@ -283,7 +280,7 @@ public class TestGame {
     @Test
     public void test1SafeMap_Winner(){
         boolean flag;
-        Game.map = new SafeMap();
+        Game.map = MapFactory.getInstance("S"); 
         Game.map.setMapSize(10);
         Game.map.setWaterPercentage(5);
 
@@ -302,7 +299,7 @@ public class TestGame {
     @Test
     public void test2SafeMap_Winner(){
         boolean flag;
-        Game.map = new SafeMap();
+        Game.map = MapFactory.getInstance("S"); 
         Game.map.setMapSize(10);
         Game.map.setWaterPercentage(5);
 
@@ -320,7 +317,7 @@ public class TestGame {
     @Test
     public void test1HazardMap_Winner(){
         boolean flag;
-        Game.map = new HazardousMap();
+        Game.map = MapFactory.getInstance("H"); 
         Game.map.setMapSize(10);
         Game.map.setWaterPercentage(30);
 
@@ -339,7 +336,7 @@ public class TestGame {
     @Test
     public void test2HazardMap_Winner(){
         boolean flag;
-        Game.map = new HazardousMap();
+        Game.map = MapFactory.getInstance("H"); 
         Game.map.setMapSize(10);
         Game.map.setWaterPercentage(30);
 
@@ -364,7 +361,7 @@ public class TestGame {
     //******** Game.checkwatertile() tests ********\\
     @Test
     public void testSafeMap_checkwatertile1(){
-        Game.map = new SafeMap();
+        Game.map = MapFactory.getInstance("S"); 
         Game.map.setMapSize(5);
         Game.generateHTMLFiles(1);
          ArrayList<Player> players = new ArrayList<Player>();
@@ -380,7 +377,7 @@ public class TestGame {
 
     @Test
     public void testSafeMap_checkwatertile2(){
-        Game.map = new SafeMap();
+        Game.map = MapFactory.getInstance("S"); 
         Game.map.setMapSize(5);
         Game.generateHTMLFiles(1);
         ArrayList<Player> players = new ArrayList<Player>();
@@ -395,7 +392,7 @@ public class TestGame {
 
     @Test
     public void testSafeMap_checkwatertile3() {
-        Game.map = new SafeMap();
+        Game.map = MapFactory.getInstance("S"); 
         Game.map.setMapSize(6);
         Game.generateHTMLFiles(1);
         ArrayList<Player> players = new ArrayList<Player>();
@@ -410,7 +407,7 @@ public class TestGame {
     }
         @Test
         public void testHazardMap_checkwatertile1(){
-            Game.map = new HazardousMap();
+            Game.map = MapFactory.getInstance("H"); 
             Game.map.setMapSize(5);
             Game.generateHTMLFiles(1);
             ArrayList<Player> players = new ArrayList<Player>();
@@ -426,7 +423,7 @@ public class TestGame {
 
         @Test
         public void testHazardMap_checkwatertile2(){
-            Game.map = new HazardousMap();
+            Game.map = MapFactory.getInstance("H"); 
             Game.map.setMapSize(5);
             Game.generateHTMLFiles(1);
             ArrayList<Player> players = new ArrayList<Player>();
@@ -441,7 +438,7 @@ public class TestGame {
 
         @Test
         public void testHazardMap_checkwatertile3(){
-            Game.map = new HazardousMap();
+            Game.map = MapFactory.getInstance("H"); 
             Game.map.setMapSize(6);
             Game.generateHTMLFiles(1);
             ArrayList<Player> players = new ArrayList<Player>();

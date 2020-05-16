@@ -2,7 +2,7 @@ package edu.cps2002.mazegame.map;
 
 public class MapFactory {
 
-    protected static Map mapInstance= null;
+    private static Map mapInstance= null;
 
     private MapFactory(){
     }
@@ -22,5 +22,9 @@ public class MapFactory {
             return new HazardousMap();
         }
         return null;
+    }
+    //For testing purposes only
+    protected static void TearDown(){
+        mapInstance= null;
     }
 }
