@@ -136,6 +136,11 @@ public abstract class Map {
         mapCount = 0;
     }
 
+    //set number of maps for testing
+    protected void setMapCount(int newMapCount){
+        mapCount = newMapCount;
+    }
+
     //set map size to a number from 5 to 50
     public boolean setMapSize(int size) {
         //if inputted size is less than minimum of 5
@@ -182,7 +187,7 @@ public abstract class Map {
     }
 
     //generates initial map for player with initial position on a random grass tile
-    private Tiles[][] generateInitMap() {
+    protected Tiles[][] generateInitMap() {
         Tiles[][] initMap = new Tiles[size][size];
 
         Collections.shuffle(grassTiles);
