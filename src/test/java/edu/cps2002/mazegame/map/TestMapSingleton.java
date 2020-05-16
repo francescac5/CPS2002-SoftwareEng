@@ -1,6 +1,10 @@
 package edu.cps2002.mazegame.map;
 
 import org.junit.Test;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
@@ -14,7 +18,7 @@ public class TestMapSingleton {
 
       assertNotEquals(map1.hashCode(),map2.hashCode());
     }
-    
+
     //Singleton pattern tests
     @Test
     public void getInstanceTest1(){
@@ -45,5 +49,6 @@ public class TestMapSingleton {
         //checking that the hashcode is equal
         assertEquals(instance1.hashCode(),instance3.hashCode());
     }
+
 
 }
