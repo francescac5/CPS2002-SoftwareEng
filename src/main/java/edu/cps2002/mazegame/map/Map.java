@@ -85,7 +85,7 @@ public abstract class Map {
     }
 
     //returns array list of coordinates for all water tiles in the map
-    public static ArrayList<Pair<Integer, Integer>> getWaterTiles() {
+    public ArrayList<Pair<Integer, Integer>> getWaterTiles() {
         return waterTiles;
     }
 
@@ -231,7 +231,7 @@ public abstract class Map {
     //calculates percentage of grass tiles from percentage of water tiles
     protected double calculateGrassPercentage(){
         double mapSize = (double)size;
-        double tilePercentage = (1/mapSize)*100;
+        double tilePercentage = (1/(mapSize*mapSize))*100;
 
         return (100 - waterPercentage - tilePercentage);
     }
@@ -272,9 +272,12 @@ public abstract class Map {
     private ArrayList<Integer> generateWaterTiles(int amountTiles, int treasure, ArrayList<Integer> grassTiles) {
         ArrayList<Integer> waterTiles = new ArrayList<>();
 
-        for (int i = 1; i < amountTiles+1; i++) {
-            if(!grassTiles.contains(i) && i != treasure){
-                waterTiles.add(i);
+        //if water tile percentage = 0%
+        if(waterPercentage > 0) {
+            for (int i = 1; i < amountTiles + 1; i++) {
+                if (!grassTiles.contains(i) && i != treasure) {
+                    waterTiles.add(i);
+                }
             }
         }
         return waterTiles;
@@ -327,6 +330,7 @@ public abstract class Map {
         initTiles.clear();
         tilesGenerated = false;
 
+        waterPercentage = -1;
         size = -1;
     }
 

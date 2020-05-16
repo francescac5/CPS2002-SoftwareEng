@@ -179,7 +179,7 @@ public class TestSafeMap {
 
         double waterPercentage = 10;
         double size = (double)mapSize;
-        double tilePercentage = (1/size)*100;
+        double tilePercentage = (1/(size*size))*100;
 
         double expectedGrassPercentage = 100 - waterPercentage - tilePercentage;
 
@@ -198,7 +198,7 @@ public class TestSafeMap {
 
         double waterPercentage = 5;
         double size = (double)mapSize;
-        double tilePercentage = (1/size)*100;
+        double tilePercentage = (1/(size*size))*100;
 
         double expectedGrassPercentage = 100 - waterPercentage - tilePercentage;
 
@@ -217,7 +217,7 @@ public class TestSafeMap {
 
         double waterPercentage = 0;
         double size = (double)mapSize;
-        double tilePercentage = (1/size)*100;
+        double tilePercentage = (1/(size*size))*100;
 
         double expectedGrassPercentage = 100 - waterPercentage - tilePercentage;
 
@@ -234,6 +234,7 @@ public class TestSafeMap {
     public void testGenerateTileTypes_MinSize() {
         //Exercise
         safeMap.setMapSize(5);
+        safeMap.setWaterPercentage(5);
 
         safeMap.generateTileTypes();
 
@@ -247,6 +248,7 @@ public class TestSafeMap {
     public void testGenerateTileTypes_MaxSize() {
         //Exercise
         safeMap.setMapSize(50);
+        safeMap.setWaterPercentage(5);
 
         //generates map_player_0.html file
         safeMap.generateTileTypes();
@@ -264,6 +266,7 @@ public class TestSafeMap {
         //Exercise
         int size = 5;
         safeMap.setMapSize(size);
+        safeMap.setWaterPercentage(5);
         safeMap.generateTileTypes();
 
         ArrayList<Pair<Integer, Integer>> tiles = safeMap.getGrassTiles();
@@ -281,6 +284,7 @@ public class TestSafeMap {
         //Exercise
         int size = 5;
         safeMap.setMapSize(size);
+        safeMap.setWaterPercentage(5);
         safeMap.generateTileTypes();
 
         ArrayList<Pair<Integer, Integer>> tiles = safeMap.getWaterTiles();
@@ -298,6 +302,7 @@ public class TestSafeMap {
         //Exercise
         int size = 5;
         safeMap.setMapSize(size);
+        safeMap.setWaterPercentage(5);
         safeMap.generateTileTypes();
 
         Pair<Integer, Integer> treasureTile = Map.getTreasureTile();
@@ -314,6 +319,7 @@ public class TestSafeMap {
         //Exercise
         int size = 5;
         safeMap.setMapSize(size);
+        safeMap.setWaterPercentage(5);
         safeMap.generateTileTypes();
 
         int x = size+3;
@@ -329,6 +335,7 @@ public class TestSafeMap {
         //Exercise
         int size = 5;
         safeMap.setMapSize(size);
+        safeMap.setWaterPercentage(5);
         safeMap.generateTileTypes();
 
         int x = -1;
@@ -344,6 +351,7 @@ public class TestSafeMap {
         //Exercise
         int size = 5;
         safeMap.setMapSize(size);
+        safeMap.setWaterPercentage(5);
         safeMap.generateTileTypes();
 
         int x = size-3;
@@ -359,6 +367,7 @@ public class TestSafeMap {
         //Exercise
         int size = 5;
         safeMap.setMapSize(size);
+        safeMap.setWaterPercentage(5);
         safeMap.generateTileTypes();
 
         int y = size+4;
@@ -373,6 +382,7 @@ public class TestSafeMap {
         //Exercise
         int size = 5;
         safeMap.setMapSize(size);
+        safeMap.setWaterPercentage(5);
         safeMap.generateTileTypes();
 
         int x = size+3;
@@ -387,6 +397,7 @@ public class TestSafeMap {
         //Exercise
         int size = 5;
         safeMap.setMapSize(size);
+        safeMap.setWaterPercentage(5);
         safeMap.generateTileTypes();
 
         int x = size+3;
@@ -402,6 +413,7 @@ public class TestSafeMap {
         //Exercise
         int size = 5;
         safeMap.setMapSize(size);
+        safeMap.setWaterPercentage(5);
         safeMap.generateTileTypes();
 
         int x = size-3;

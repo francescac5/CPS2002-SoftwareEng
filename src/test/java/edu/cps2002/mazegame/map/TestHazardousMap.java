@@ -202,7 +202,7 @@ public class TestHazardousMap {
 
         double waterPercentage = 35;
         double size = (double)mapSize;
-        double tilePercentage = (1/size)*100;
+        double tilePercentage = (1/(size*size))*100;
 
         double expectedGrassPercentage = 100 - waterPercentage - tilePercentage;
 
@@ -221,7 +221,7 @@ public class TestHazardousMap {
 
         double waterPercentage = 30;
         double size = (double)mapSize;
-        double tilePercentage = (1/size)*100;
+        double tilePercentage = (1/(size*size))*100;
 
         double expectedGrassPercentage = 100 - waterPercentage - tilePercentage;
 
@@ -240,7 +240,7 @@ public class TestHazardousMap {
 
         double waterPercentage = 25;
         double size = (double)mapSize;
-        double tilePercentage = (1/size)*100;
+        double tilePercentage = (1/(size*size))*100;
 
         double expectedGrassPercentage = 100 - waterPercentage - tilePercentage;
 
@@ -257,6 +257,7 @@ public class TestHazardousMap {
     public void testGenerateTileTypes_MinSize() {
         //Exercise
         hazardousMap.setMapSize(5);
+        hazardousMap.setWaterPercentage(30);
 
         hazardousMap.generateTileTypes();
 
@@ -270,6 +271,7 @@ public class TestHazardousMap {
     public void testGenerateTileTypes_MaxSize() {
         //Exercise
         hazardousMap.setMapSize(50);
+        hazardousMap.setWaterPercentage(30);
 
         //generates map_player_0.html file
         hazardousMap.generateTileTypes();
@@ -287,6 +289,7 @@ public class TestHazardousMap {
         //Exercise
         int size = 5;
         hazardousMap.setMapSize(size);
+        hazardousMap.setWaterPercentage(30);
         hazardousMap.generateTileTypes();
 
         ArrayList<Pair<Integer, Integer>> tiles = hazardousMap.getGrassTiles();
@@ -304,6 +307,7 @@ public class TestHazardousMap {
         //Exercise
         int size = 5;
         hazardousMap.setMapSize(size);
+        hazardousMap.setWaterPercentage(30);
         hazardousMap.generateTileTypes();
 
         ArrayList<Pair<Integer, Integer>> tiles = hazardousMap.getWaterTiles();
@@ -321,6 +325,7 @@ public class TestHazardousMap {
         //Exercise
         int size = 5;
         hazardousMap.setMapSize(size);
+        hazardousMap.setWaterPercentage(30);
         hazardousMap.generateTileTypes();
 
         Pair<Integer, Integer> treasureTile = Map.getTreasureTile();
@@ -337,6 +342,7 @@ public class TestHazardousMap {
         //Exercise
         int size = 5;
         hazardousMap.setMapSize(size);
+        hazardousMap.setWaterPercentage(30);
         hazardousMap.generateTileTypes();
 
         int x = size+3;
@@ -352,6 +358,7 @@ public class TestHazardousMap {
         //Exercise
         int size = 5;
         hazardousMap.setMapSize(size);
+        hazardousMap.setWaterPercentage(30);
         hazardousMap.generateTileTypes();
 
         int x = -1;
@@ -367,6 +374,7 @@ public class TestHazardousMap {
         //Exercise
         int size = 5;
         hazardousMap.setMapSize(size);
+        hazardousMap.setWaterPercentage(30);
         hazardousMap.generateTileTypes();
 
         int x = size-3;
@@ -382,6 +390,7 @@ public class TestHazardousMap {
         //Exercise
         int size = 5;
         hazardousMap.setMapSize(size);
+        hazardousMap.setWaterPercentage(30);
         hazardousMap.generateTileTypes();
 
         int y = size+4;
@@ -396,6 +405,7 @@ public class TestHazardousMap {
         //Exercise
         int size = 5;
         hazardousMap.setMapSize(size);
+        hazardousMap.setWaterPercentage(30);
         hazardousMap.generateTileTypes();
 
         int x = size+3;
@@ -410,6 +420,7 @@ public class TestHazardousMap {
         //Exercise
         int size = 5;
         hazardousMap.setMapSize(size);
+        hazardousMap.setWaterPercentage(30);
         hazardousMap.generateTileTypes();
 
         int x = size+3;
@@ -425,6 +436,7 @@ public class TestHazardousMap {
         //Exercise
         int size = 5;
         hazardousMap.setMapSize(size);
+        hazardousMap.setWaterPercentage(30);
         hazardousMap.generateTileTypes();
 
         int x = size-3;
