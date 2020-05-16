@@ -1,8 +1,6 @@
 package edu.cps2002.mazegame.map;
 
 import org.junit.Test;
-
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 
 public class TestMapSingleton {
