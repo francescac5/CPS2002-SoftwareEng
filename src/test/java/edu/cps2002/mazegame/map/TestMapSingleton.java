@@ -37,30 +37,60 @@ public class TestMapSingleton {
 
     //Singleton pattern tests
     @Test
-    public void getInstanceTest1(){
-
+    public void getInstanceTestHazardous1(){
+        MapSingleton.setMapType("H");
         //Instance 1
-        MapSingleton instance1 = MapSingleton.getInstance();
+        Map instance1 = MapSingleton.getInstance();
 
         //Instance 2
-        MapSingleton instance2 = MapSingleton.getInstance();
+        Map instance2 = MapSingleton.getInstance();
 
         //checking that the hashcode is equal
         assertEquals(instance1.hashCode(),instance2.hashCode());
     }
 
     @Test
-    public void getInstanceTest2(){
-        //  Map singleton = MapSingleton.getInstance();
-
+    public void getInstanceTestSafe1(){
+        MapSingleton.setMapType("S");
         //Instance 1
-        MapSingleton instance1 = MapSingleton.getInstance();
+        Map instance1 = MapSingleton.getInstance();
 
         //Instance 2
-        MapSingleton instance2 = MapSingleton.getInstance();
+        Map instance2 = MapSingleton.getInstance();
+
+        //checking that the hashcode is equal
+        assertEquals(instance1.hashCode(),instance2.hashCode());
+    }
+
+    @Test
+    public void getInstanceTestHazardous2(){
+        MapSingleton.setMapType("H");
+
+        //Instance 1
+        Map instance1 = MapSingleton.getInstance();
+
+        //Instance 2
+        Map instance2 = MapSingleton.getInstance();
 
         //Instance 3
-        MapSingleton instance3 = MapSingleton.getInstance();
+        Map instance3 = MapSingleton.getInstance();
+
+        //checking that the hashcode is equal
+        assertEquals(instance1.hashCode(),instance3.hashCode());
+    }
+
+    @Test
+    public void getInstanceTestSafe2(){
+        MapSingleton.setMapType("S");
+
+        //Instance 1
+        Map instance1 = MapSingleton.getInstance();
+
+        //Instance 2
+        Map instance2 = MapSingleton.getInstance();
+
+        //Instance 3
+        Map instance3 = MapSingleton.getInstance();
 
         //checking that the hashcode is equal
         assertEquals(instance1.hashCode(),instance3.hashCode());
