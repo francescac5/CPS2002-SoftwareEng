@@ -2,9 +2,20 @@ package edu.cps2002.mazegame.map;
 
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class TestMapSingleton {
 
+    //Testing the system without the singleton pattern
+    @Test
+    public void BeforeSingleton(){
+        Map map1 = new Map();
+        Map map2 = new Map();
+
+      assertNotEquals(map1.hashCode(),map2.hashCode());
+    }
+    
+    //Singleton pattern tests
     @Test
     public void getInstanceTest1(){
 
