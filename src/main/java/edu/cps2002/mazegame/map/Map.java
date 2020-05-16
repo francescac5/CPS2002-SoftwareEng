@@ -9,8 +9,8 @@ public abstract class Map {
 
 //    private static Map mapInstance= null;
 //
-//    private Map(){
-//    }
+     public Map(){
+    }
 //
 //    public static Map getInstance(String type) {
 //        if(mapInstance ==null) {
