@@ -9,42 +9,58 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 public class TestMapSingleton {
-
-    //Testing the system without the singleton pattern
-    @Test
-    public void BeforeSingleton(){
-        Map map1 = new Map();
-        Map map2 = new Map();
-
-      assertNotEquals(map1.hashCode(),map2.hashCode());
-    }
-
     //Singleton pattern tests
     @Test
-    public void getInstanceTest1(){
-
+    public void getInstanceTestHazardous1(){
         //Instance 1
-        MapSingleton instance1 = MapSingleton.getInstance();
+        Map instance1 = MapFactory.getInstance("H");
 
         //Instance 2
-        MapSingleton instance2 = MapSingleton.getInstance();
+        Map instance2 = MapFactory.getInstance("H");
 
         //checking that the hashcode is equal
         assertEquals(instance1.hashCode(),instance2.hashCode());
     }
 
     @Test
-    public void getInstanceTest2(){
-        //  Map singleton = MapSingleton.getInstance();
-
+    public void getInstanceTestSafe1(){
         //Instance 1
-        MapSingleton instance1 = MapSingleton.getInstance();
+        Map instance1 = MapFactory.getInstance("S");
 
         //Instance 2
-        MapSingleton instance2 = MapSingleton.getInstance();
+        Map instance2 = MapFactory.getInstance("S");
+
+        //checking that the hashcode is equal
+        assertEquals(instance1.hashCode(),instance2.hashCode());
+    }
+
+    @Test
+    public void getInstanceTestHazardous2(){
+
+        //Instance 1
+        Map instance1 = MapFactory.getInstance("H");
+
+        //Instance 2
+        Map instance2 = MapFactory.getInstance("H");
 
         //Instance 3
-        MapSingleton instance3 = MapSingleton.getInstance();
+        Map instance3 = MapFactory.getInstance("H");
+
+        //checking that the hashcode is equal
+        assertEquals(instance1.hashCode(),instance3.hashCode());
+    }
+
+    @Test
+    public void getInstanceTestSafe2(){
+
+        //Instance 1
+        Map instance1 = MapFactory.getInstance("S");
+
+        //Instance 2
+        Map instance2 = MapFactory.getInstance("S");
+
+        //Instance 3
+        Map instance3 = MapFactory.getInstance("S");
 
         //checking that the hashcode is equal
         assertEquals(instance1.hashCode(),instance3.hashCode());

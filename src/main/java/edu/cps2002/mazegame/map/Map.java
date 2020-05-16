@@ -7,6 +7,20 @@ import java.util.Random;
 
 public abstract class Map {
 
+//    private static Map mapInstance= null;
+//
+     public Map(){
+    }
+//
+//    public static Map getInstance(String type) {
+//        if(mapInstance ==null) {
+//            MapFactory mapFactory = new MapFactory();
+//            mapInstance = mapFactory.createMap(type);
+//        }
+//
+//        return mapInstance;
+//    }
+
     //Enum representing types of tiles
     public enum Tiles{
         GRASS,

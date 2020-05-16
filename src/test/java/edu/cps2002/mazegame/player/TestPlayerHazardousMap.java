@@ -2,6 +2,7 @@ package edu.cps2002.mazegame.player;
 
 import edu.cps2002.mazegame.map.HazardousMap;
 import edu.cps2002.mazegame.map.Map;
+import edu.cps2002.mazegame.map.MapFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +12,7 @@ import static org.junit.Assert.*;
 public class TestPlayerHazardousMap {
     private Player p1;
     private Position pos = new Position (4,5);
-    private Map hazardousMap = new HazardousMap();
+    private Map hazardousMap = MapFactory.getInstance("H");
 
     @Before
     public void setup() {

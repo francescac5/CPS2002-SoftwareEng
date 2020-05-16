@@ -1,7 +1,9 @@
 package edu.cps2002.mazegame.game;
 
+import edu.cps2002.mazegame.map.HazardousMap;
 import edu.cps2002.mazegame.map.Map;
 import edu.cps2002.mazegame.map.MapFactory;
+import edu.cps2002.mazegame.map.SafeMap;
 import edu.cps2002.mazegame.player.Player;
 import edu.cps2002.mazegame.player.Position;
 import edu.cps2002.mazegame.utils.MapUtils;
@@ -235,7 +237,7 @@ public class Game {
 
     //asks user what type of map he/she would like
     private static void chooseMapType() {
-        MapFactory mapFactory = new MapFactory();
+        MapFactory mapFactory;
 
         Scanner sc= new Scanner(System.in);
         String mapType;
@@ -244,7 +246,7 @@ public class Game {
             System.out.print("===Choose map type  S = SAFE, H = HAZARDOUS===\n");
             try {
                 mapType = sc.next();
-                map = mapFactory.createMap(mapType);
+                map = MapFactory.getInstance(mapType);
             } catch (Exception e) {
                 sc.next();
             }
