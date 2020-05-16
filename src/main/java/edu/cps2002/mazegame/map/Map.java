@@ -145,6 +145,17 @@ public abstract class Map {
         if(!tilesGenerated){
             util.generateGameMapsFolder();
 
+            // create instance of Random class
+            Random rand = new Random();
+            double randomValue;
+
+            //set water percentage randomly
+            boolean success = false;
+            while(!success){
+                randomValue = 100 * rand.nextDouble();
+                success = this.setWaterPercentage(randomValue);
+            }
+
             generateTileTypes();
             tilesGenerated = true;
         }
@@ -217,6 +228,7 @@ public abstract class Map {
         }
     }
 
+    //calculates percentage of grass tiles from percentage of water tiles
     protected double calculateGrassPercentage(){
         double mapSize = (double)size;
         double tilePercentage = (1/mapSize)*100;
