@@ -1,6 +1,7 @@
 package edu.cps2002.mazegame.map;
 
 public class SafeMap extends Map{
+
     @Override
     public boolean setWaterPercentage(double waterPercentage) {
         //if percentage is greater than 10% or less than 0%

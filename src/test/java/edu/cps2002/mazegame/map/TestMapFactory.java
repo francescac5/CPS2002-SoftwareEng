@@ -12,11 +12,13 @@ public class TestMapFactory {
 
     @Before
     public void setup() {
-        mapFactory = new MapFactory();
+
+    //    mapFactory = new MapFactory();
     }
 
     @After
     public void tearDown() {
+     //   MapFactory.mapInstance=null;
         mapFactory = null;
     }
 
@@ -25,7 +27,7 @@ public class TestMapFactory {
     @Test
     public void testCreateMap_safeMap_upperCase(){
         //Exercise
-        Map safeMap = mapFactory.createMap("S");
+        Map safeMap = MapFactory.getInstance("S");
 
         //Assert
         assertTrue(safeMap instanceof SafeMap);
@@ -34,7 +36,7 @@ public class TestMapFactory {
     @Test
     public void testCreateMap_safeMap_lowerCase(){
         //Exercise
-        Map safeMap = mapFactory.createMap("s");
+        Map safeMap = MapFactory.getInstance("s");
 
         //Assert
         assertTrue(safeMap instanceof SafeMap);
@@ -43,7 +45,7 @@ public class TestMapFactory {
     @Test
     public void testCreateMap_hazardousMap_upperCase(){
         //Exercise
-        Map hazardousMap = mapFactory.createMap("H");
+        Map hazardousMap = MapFactory.getInstance("H");
 
         //Assert
         assertTrue(hazardousMap instanceof HazardousMap);
@@ -52,7 +54,8 @@ public class TestMapFactory {
     @Test
     public void testCreateMap_hazardousMap_lowerCase(){
         //Exercise
-        Map hazardousMap = mapFactory.createMap("h");
+        Map hazardousMap = MapFactory.getInstance("h");
+
 
         //Assert
         assertTrue(hazardousMap instanceof HazardousMap);
@@ -61,7 +64,7 @@ public class TestMapFactory {
     @Test
     public void testCreateMap_invalidMap(){
         //Exercise
-        Map invalidMap = mapFactory.createMap("invalid");
+        Map invalidMap = MapFactory.getInstance("invalid");
 
         //Assert
         assertNull(invalidMap);
