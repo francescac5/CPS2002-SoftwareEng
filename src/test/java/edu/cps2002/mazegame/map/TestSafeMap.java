@@ -14,7 +14,7 @@ public class TestSafeMap {
 
     @Before
     public void setup() {
-        safeMap = new SafeMap();
+        safeMap = MapFactory.getInstance("S");
         safeMap.initMapCount();
     }
 
@@ -25,7 +25,7 @@ public class TestSafeMap {
         utils.deleteHTMLFiles();
         safeMap.resetMap();
 
-        safeMap = null;
+        MapFactory.TearDown();
     }
 
 //******** safeMap.setMapSize() tests ********\\
@@ -617,7 +617,10 @@ public class TestSafeMap {
     public void testUpdateMap_Water(){
         //Exercise
         safeMap.setMapSize(5);
-        safeMap.generate();
+        safeMap.setWaterPercentage(5);
+        safeMap.generateTileTypes();
+        safeMap.setMapCount(1);
+        safeMap.playerMaps.add(safeMap.generateInitMap());
 
         int playerNum = safeMap.getMapCount();
         ArrayList<Pair<Integer, Integer>> waterTiles = safeMap.getWaterTiles();
@@ -631,12 +634,8 @@ public class TestSafeMap {
         Map.Tiles[][] prevTiles = safeMap.getPlayerMap(playerNum);
 
         //Assert
-        //ensuring position to be revealed is an init position or grey
-        if(x == initX && y == initY){
-            assertEquals(Map.Tiles.GRASS_PLAYER, prevTiles[x][y]);
-        }else {
-            assertEquals(Map.Tiles.GREY, prevTiles[x][y]);
-        }
+        //ensuring position to be revealed is a grey tile
+        assertEquals(Map.Tiles.GREY, prevTiles[x][y]);
 
         //Exercise
         safeMap.updateMap(x, y, playerNum);
@@ -664,12 +663,8 @@ public class TestSafeMap {
         Map.Tiles[][] prevTiles = safeMap.getPlayerMap(playerNum);
 
         //Assert
-        //ensuring position to be revealed is an init position or grey
-        if(x == safeMap.getPlayerInitPositionX(playerNum) && y == safeMap.getPlayerInitPositionY(playerNum)){
-            assertEquals(Map.Tiles.GRASS_PLAYER, prevTiles[x][y]);
-        }else {
-            assertEquals(Map.Tiles.GREY, prevTiles[x][y]);
-        }
+        //ensuring position to be revealed is a grey tile
+        assertEquals(Map.Tiles.GREY, prevTiles[x][y]);
 
         //Exercise
         safeMap.updateMap(x, y, playerNum);

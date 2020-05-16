@@ -14,7 +14,7 @@ public class TestHazardousMap {
 
     @Before
     public void setup() {
-        hazardousMap = new HazardousMap();
+        hazardousMap = MapFactory.getInstance("H");
         hazardousMap.initMapCount();
     }
 
@@ -24,7 +24,7 @@ public class TestHazardousMap {
         utils.deleteHTMLFiles();
         hazardousMap.resetMap();
 
-        hazardousMap = null;
+        MapFactory.TearDown();
     }
 
 //******** hazardousMap.setMapSize() tests ********\\
@@ -654,12 +654,8 @@ public class TestHazardousMap {
         Map.Tiles[][] prevTiles = hazardousMap.getPlayerMap(playerNum);
 
         //Assert
-        //ensuring position to be revealed is an init position or grey
-        if(x == initX && y == initY){
-            assertEquals(Map.Tiles.GRASS_PLAYER, prevTiles[x][y]);
-        }else {
-            assertEquals(Map.Tiles.GREY, prevTiles[x][y]);
-        }
+        //ensuring position to be revealed is a grey tile
+        assertEquals(Map.Tiles.GREY, prevTiles[x][y]);
 
         //Exercise
         hazardousMap.updateMap(x, y, playerNum);
@@ -687,12 +683,8 @@ public class TestHazardousMap {
         Map.Tiles[][] prevTiles = hazardousMap.getPlayerMap(playerNum);
 
         //Assert
-        //ensuring position to be revealed is an init position or grey
-        if(x == hazardousMap.getPlayerInitPositionX(playerNum) && y == hazardousMap.getPlayerInitPositionY(playerNum)){
-            assertEquals(Map.Tiles.GRASS_PLAYER, prevTiles[x][y]);
-        }else {
-            assertEquals(Map.Tiles.GREY, prevTiles[x][y]);
-        }
+        //ensuring position to be revealed is a grey tile
+        assertEquals(Map.Tiles.GREY, prevTiles[x][y]);
 
         //Exercise
         hazardousMap.updateMap(x, y, playerNum);
