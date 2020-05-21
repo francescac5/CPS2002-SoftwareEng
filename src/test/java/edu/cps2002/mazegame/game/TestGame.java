@@ -215,6 +215,12 @@ public class TestGame {
 
     }
 
+    @Test
+    public void testmodewrong(){
+        assertFalse(Game.validityofMode("r"));
+
+    }
+
     //******** Game.initialisePlayers() tests ********\\
     @Test
     public void initialisePlayersTest1_SafeMap(){

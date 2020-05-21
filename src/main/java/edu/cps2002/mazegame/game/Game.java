@@ -71,11 +71,16 @@ public class Game {
     public static boolean validityofPlayers(int numPlayers){
         return numPlayers >= minPlayers && numPlayers <= maxPlayers;
     }
-
     //method to check that the mode entered is either collaborative or individual
     public static boolean validityofMode(String mode){
-   return false;
+        if (mode.equalsIgnoreCase("I")) {
+            return true;
+        }else if(mode.equalsIgnoreCase("C")){
+            return true;
+        }
+        return false;
     }
+
 
     //method to check that the Map Size inputted is between 5 and 50 (depending also on the number of players inputted)
     public static boolean validityofMapSize(int numPlayers,int size){
