@@ -247,7 +247,7 @@ static void initialiseTeams(int players, int teams) {
             int players = getNumPlayers();
             int teams = getNumTeams(players);
             map.setMapSize(chooseMapSize(players));
-        //    do {
+           // do {
                 playerList.clear();
                 playerChoice.clear();
                 initialiseTeams(players, teams);
