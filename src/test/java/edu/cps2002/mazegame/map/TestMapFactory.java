@@ -8,12 +8,10 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 public class TestMapFactory {
-    public MapFactory mapFactory;
 
     @Before
     public void setup() {
 
-    //    mapFactory = new MapFactory();
     }
 
     @After

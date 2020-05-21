@@ -136,6 +136,11 @@ public abstract class Map {
         mapCount = 0;
     }
 
+    //set number of maps for testing
+    protected void setMapCount(int newMapCount){
+        mapCount = newMapCount;
+    }
+
     //set map size to a number from 5 to 50
     public boolean setMapSize(int size) {
         //if inputted size is less than minimum of 5
@@ -151,38 +156,50 @@ public abstract class Map {
     //set percentage of water tiles which affects the percentage of grass tiles
     abstract public boolean setWaterPercentage(double waterPercentage);
 
-    //generates tiles for Map once in map's lifetime
     //generates player map and corresponding HTML file
-    public void generate(){
+    public void generate(int numOfTeamPlayers){
 
         //single set of tiles
-        if(!tilesGenerated){
-            util.generateGameMapsFolder();
-
-            // create instance of Random class
-            Random rand = new Random();
-            double randomValue;
-
-            //set water percentage randomly
-            boolean success = false;
-            while(!success){
-                randomValue = 100 * rand.nextDouble();
-                success = this.setWaterPercentage(randomValue);
-            }
-
-            generateTileTypes();
-            tilesGenerated = true;
+        if(!tilesGenerated) {
+            setUpMapTiles();
         }
 
         mapCount++;
         Tiles [][] playerMap = generateInitMap();
         playerMaps.add(playerMap);
 
-        util.generateMapHTML(mapCount, playerMap);
+        if(numOfTeamPlayers > 0) {
+            //collaborative
+            for (int i = 0; i < numOfTeamPlayers; i++) {
+                util.generateMapHTML(mapCount, playerMap, i);
+            }
+        }else{
+            //individual
+            util.generateMapHTML(mapCount, playerMap);
+        }
+    }
+
+    //generates tiles for Map once in map's lifetime
+    private void setUpMapTiles(){
+        util.generateGameMapsFolder();
+
+        // create instance of Random class
+        Random rand = new Random();
+        double randomValue;
+
+        //set water percentage randomly
+        boolean success = false;
+        while(!success){
+            randomValue = 100 * rand.nextDouble();
+            success = this.setWaterPercentage(randomValue);
+        }
+
+        generateTileTypes();
+        tilesGenerated = true;
     }
 
     //generates initial map for player with initial position on a random grass tile
-    private Tiles[][] generateInitMap() {
+    protected Tiles[][] generateInitMap() {
         Tiles[][] initMap = new Tiles[size][size];
 
         Collections.shuffle(grassTiles);
@@ -302,7 +319,7 @@ public abstract class Map {
     //if the revealed tile is grass, then player moves on it,
     //else if it is water, the player is sent back to the initial tile,
     //else if it is treasure, the player moves on it.
-    public void updateMap(int xNew, int yNew, int playerNum){
+    public void updateMap(int xNew, int yNew, int playerNum, int teamPlayerNum){
 
         if(xNew < size && yNew < size && xNew >= 0 && yNew >= 0) {
 
@@ -328,7 +345,11 @@ public abstract class Map {
                     }
                 }
             }
-            util.generateMapHTML(playerNum, playerMap);
+            if(teamPlayerNum > 0){
+                util.generateMapHTML(playerNum, playerMap, teamPlayerNum);
+            }else{
+                util.generateMapHTML(playerNum, playerMap);
+            }
         }
     }
 
