@@ -71,6 +71,12 @@ public class Game {
     public static boolean validityofPlayers(int numPlayers){
         return numPlayers >= minPlayers && numPlayers <= maxPlayers;
     }
+
+    //method to check that the number of teams inputted is greater than the number of players inputted
+    public static boolean validityofTeams(int numPlayers, int teams){
+        return teams <= numPlayers;
+    }
+
     //method to check that the mode entered is either collaborative or individual
     public static boolean validityofMode(String mode){
         if (mode.equalsIgnoreCase("I")) {
@@ -107,6 +113,26 @@ public class Game {
 
                 }else{
                     System.out.println("===The number of players should be between 2 and 8===\n");
+                }
+            }
+        } while(true);
+    }
+
+    //method to get the number of players from the user
+    public static int getNumTeams(int numPlayers){
+        int numTeams = 0;
+        Scanner sc = new Scanner(System.in);
+        do {
+            System.out.print("Please choose the number of teams: \n");
+            try {
+                numTeams = sc.nextInt();
+            } catch (Exception e) {
+                sc.next();
+            } finally {
+                if(validityofTeams(numPlayers, numTeams)){
+                    return numTeams;
+                }else{
+                    System.out.println("===The number of teams is greater than the number of players inputted==\n");
                 }
             }
         } while(true);
@@ -152,7 +178,9 @@ public class Game {
         } while (true);
     }
 
+void initialiseTeams(int players, int teams){
 
+}
     //method to generate HTML files for every player
     static void generateHTMLFiles(int players){
         for (int i =0; i<players;i++){
@@ -200,12 +228,14 @@ public class Game {
                     "\n4) If you land on the water tile you have to go back to your initial position\n");
             chooseMapType();
             int players = getNumPlayers();
+            int teams = getNumTeams(players);
             map.setMapSize(chooseMapSize(players));
             do {
                 playerList.clear();
                 playerChoice.clear();
                 generateHTMLFiles(players);
                 initialisePlayers(players);
+
                 utils.openMapsInBrowser();
                 //for loop that gives 20 turns to each player
                 for (int i = 0; i < 20; i++) {
