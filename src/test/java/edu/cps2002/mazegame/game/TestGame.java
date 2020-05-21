@@ -30,6 +30,7 @@ public class TestGame {
         utils.deleteHTMLFiles();
     }
 
+    
     //******** Game.chooseDirection() tests ********\\
     //testing chooseDirection down (capital letter)
     @Test
