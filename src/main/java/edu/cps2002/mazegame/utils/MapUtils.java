@@ -78,7 +78,7 @@ public class MapUtils {
         mapHTML.append(playerMapLength);
         mapHTML.append("\">Team ");
         mapHTML.append(mapCount);
-        mapHTML.append("\"> - Player ");
+        mapHTML.append(" - Player ");
         mapHTML.append(teamPlayerNum);
         mapHTML.append("</th>\n");
         mapHTML.append("</tr>\n");
@@ -108,7 +108,7 @@ public class MapUtils {
         mapHTML.append(mapTitle);
 
         mapHTML.append("<tbody>\n");
-
+    //    file:///Users/francescachircop/Desktop/CPS2002-SoftwareEng/src/main/java/edu/cps2002/mazegame/gameMaps/map_player_4.html
         //inputting grid according to map size
         for (int y = 0; y < playerMap.length; y++) {
             mapHTML.append("<tr>");

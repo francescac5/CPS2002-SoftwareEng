@@ -8,6 +8,7 @@ import edu.cps2002.mazegame.player.Player;
 import edu.cps2002.mazegame.player.Position;
 import edu.cps2002.mazegame.utils.MapUtils;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Game {
@@ -15,6 +16,7 @@ public class Game {
     //arraylist to store the players and their choice
     static ArrayList<Player> playerList = new ArrayList<Player>();
     static ArrayList<Player.DIRECTION> playerChoice = new ArrayList<>();
+    static int[] TeamPlayers;
     private static MapUtils utils = new MapUtils();
     protected static Map map;
 
@@ -178,14 +180,29 @@ public class Game {
         } while (true);
     }
 
-void initialiseTeams(int players, int teams){
-
+static void initialiseTeams(int players, int teams) {
+        TeamPlayers = new int[teams];
+    int remainder = players % teams;
+    int playersPerTeam = players / teams;
+    Arrays.fill(TeamPlayers, playersPerTeam);
+    if (remainder != 0) {
+        for (int i = 0; i < remainder; i++) {
+            TeamPlayers[i] = TeamPlayers[i] + 1;
+        }
+    }
 }
     //method to generate HTML files for every player
+    static void generateHTMLFiles(int[] playersPerTeam, int teams){
+            for (int i = 0; i < teams; i++) {
+                map.generate(playersPerTeam[i]);
+            }
+    }
+
+    //method to generate HTML files for every player
     static void generateHTMLFiles(int players){
-        for (int i =0; i<players;i++){
-            map.generate(0);
-        }
+            for (int i = 0; i < players; i++) {
+                map.generate(0);
+            }
     }
 
     //main method of the game
@@ -230,23 +247,23 @@ void initialiseTeams(int players, int teams){
             int players = getNumPlayers();
             int teams = getNumTeams(players);
             map.setMapSize(chooseMapSize(players));
-            do {
+        //    do {
                 playerList.clear();
                 playerChoice.clear();
-                generateHTMLFiles(players);
-                initialisePlayers(players);
+                initialiseTeams(players, teams);
+                generateHTMLFiles(TeamPlayers,teams);
 
                 utils.openMapsInBrowser();
-                //for loop that gives 20 turns to each player
-                for (int i = 0; i < 20; i++) {
-                    giveoneturntoeachPlayer(playerList, playerChoice);
-                    boolean check = checkWinner();
-                    checkGameend(check);
-                }
-                utils.deleteHTMLFiles();
-                map.resetMap();
+//                //for loop that gives 20 turns to each player
+//                for (int i = 0; i < 20; i++) {
+//                    giveoneturntoeachPlayer(playerList, playerChoice);
+//                    boolean check = checkWinner();
+//                    checkGameend(check);
+//                }
+//                utils.deleteHTMLFiles();
+//                map.resetMap();
 
-            } while (!gameend);
+        //    } while (!gameend);
         }
     }
 
