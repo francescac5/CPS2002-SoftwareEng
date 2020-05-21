@@ -1,6 +1,5 @@
 package edu.cps2002.mazegame.player;
 
-import edu.cps2002.mazegame.map.HazardousMap;
 import edu.cps2002.mazegame.map.Map;
 import edu.cps2002.mazegame.map.MapFactory;
 import org.junit.After;

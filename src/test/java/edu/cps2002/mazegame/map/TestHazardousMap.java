@@ -451,7 +451,7 @@ public class TestHazardousMap {
 //******** hazardousMap.updateMap tests ********\\
 
     @Test
-    public void testUpdateMap_XGreaterThanSize() {
+    public void testUpdateMap_Individual_XGreaterThanSize() {
         //Exercise
         int size = 5;
         hazardousMap.setMapSize(size);
@@ -464,7 +464,7 @@ public class TestHazardousMap {
         int x = size+3;
         int y = size-2;
 
-        hazardousMap.updateMap(x, y, playerNum, 0);
+        hazardousMap.updateMap(x, y, playerNum);
         Map.Tiles[][] postTiles = hazardousMap.getPlayerMap(playerNum);
 
         //Assert
@@ -485,7 +485,7 @@ public class TestHazardousMap {
         int x = size-3;
         int y = size+2;
 
-        hazardousMap.updateMap(x, y, playerNum, 0);
+        hazardousMap.updateMap(x, y, playerNum);
         Map.Tiles[][] postTiles = hazardousMap.getPlayerMap(playerNum);
 
         //Assert
@@ -493,7 +493,7 @@ public class TestHazardousMap {
     }
 
     @Test
-    public void testUpdateMap_XEqualToSize() {
+    public void testUpdateMap_Individual_XEqualToSize() {
         //Exercise
         int size = 5;
         hazardousMap.setMapSize(size);
@@ -505,7 +505,7 @@ public class TestHazardousMap {
 
         int y = size-2;
 
-        hazardousMap.updateMap(size, y, playerNum, 0);
+        hazardousMap.updateMap(size, y, playerNum);
         Map.Tiles[][] postTiles = hazardousMap.getPlayerMap(playerNum);
 
         //Assert
@@ -513,7 +513,7 @@ public class TestHazardousMap {
     }
 
     @Test
-    public void testUpdateMap_YEqualToSize() {
+    public void testUpdateMap_Individual_YEqualToSize() {
         //Exercise
         int size = 5;
         hazardousMap.setMapSize(size);
@@ -525,7 +525,7 @@ public class TestHazardousMap {
 
         int x = size-3;
 
-        hazardousMap.updateMap(x, size, playerNum, 0);
+        hazardousMap.updateMap(x, size, playerNum);
         Map.Tiles[][] postTiles = hazardousMap.getPlayerMap(playerNum);
 
         //Assert
@@ -534,7 +534,7 @@ public class TestHazardousMap {
 
 
     @Test
-    public void testUpdateMap_XLessThanZero() {
+    public void testUpdateMap_Individual_XLessThanZero() {
         //Exercise
         int size = 5;
         hazardousMap.setMapSize(size);
@@ -547,7 +547,7 @@ public class TestHazardousMap {
         int x = -1;
         int y = size+2;
 
-        hazardousMap.updateMap(x, y, playerNum, 0);
+        hazardousMap.updateMap(x, y, playerNum);
         Map.Tiles[][] postTiles = hazardousMap.getPlayerMap(playerNum);
 
         //Assert
@@ -555,7 +555,7 @@ public class TestHazardousMap {
     }
 
     @Test
-    public void testUpdateMap_YLessThanZero() {
+    public void testUpdateMap_Individual_YLessThanZero() {
         //Exercise
         int size = 5;
         hazardousMap.setMapSize(size);
@@ -568,7 +568,7 @@ public class TestHazardousMap {
         int x = size+3;
         int y = -1;
 
-        hazardousMap.updateMap(x, y, playerNum, 0);
+        hazardousMap.updateMap(x, y, playerNum);
         Map.Tiles[][] postTiles = hazardousMap.getPlayerMap(playerNum);
 
         //Assert
@@ -576,7 +576,7 @@ public class TestHazardousMap {
     }
 
     @Test
-    public void testUpdateMap_StayInSameTile(){
+    public void testUpdateMap_Individual_StayInSameTile(){
         //Exercise
         hazardousMap.setMapSize(5);
         hazardousMap.generate(0);
@@ -588,7 +588,7 @@ public class TestHazardousMap {
 
         Map.Tiles[][] prevTiles = hazardousMap.getPlayerMap(playerNum);
 
-        hazardousMap.updateMap(initX, initY, playerNum, 0);
+        hazardousMap.updateMap(initX, initY, playerNum);
         Map.Tiles[][] postTiles = hazardousMap.getPlayerMap(playerNum);
 
         //Assert
@@ -596,7 +596,7 @@ public class TestHazardousMap {
     }
 
     @Test
-    public void testUpdateMap_Grass(){
+    public void testUpdateMap_Individual_Grass(){
         //Exercise
         hazardousMap.setMapSize(5);
         hazardousMap.generate(0);
@@ -628,7 +628,7 @@ public class TestHazardousMap {
         assertEquals(Map.Tiles.GREY, prevTiles[x][y]);
 
         //Exercise
-        hazardousMap.updateMap(x, y, playerNum, 0);
+        hazardousMap.updateMap(x, y, playerNum);
         postTiles = hazardousMap.getPlayerMap(playerNum);
 
         //Assert
@@ -637,7 +637,7 @@ public class TestHazardousMap {
     }
 
     @Test
-    public void testUpdateMap_Water(){
+    public void testUpdateMap_Individual_Water(){
         //Exercise
         hazardousMap.setMapSize(5);
         hazardousMap.generate(0);
@@ -658,7 +658,7 @@ public class TestHazardousMap {
         assertEquals(Map.Tiles.GREY, prevTiles[x][y]);
 
         //Exercise
-        hazardousMap.updateMap(x, y, playerNum, 0);
+        hazardousMap.updateMap(x, y, playerNum);
         Map.Tiles[][] postTiles = hazardousMap.getPlayerMap(playerNum);
 
         //Assert player returned to init position and water tile is revealed
@@ -667,7 +667,7 @@ public class TestHazardousMap {
     }
 
     @Test
-    public void testUpdateMap_Treasure(){
+    public void testUpdateMap_Individual_Treasure(){
         //Exercise
         hazardousMap.setMapSize(5);
         hazardousMap.generate(0);
@@ -687,8 +687,257 @@ public class TestHazardousMap {
         assertEquals(Map.Tiles.GREY, prevTiles[x][y]);
 
         //Exercise
-        hazardousMap.updateMap(x, y, playerNum, 0);
+        hazardousMap.updateMap(x, y, playerNum);
         Map.Tiles[][] postTiles = hazardousMap.getPlayerMap(playerNum);
+
+        //Assert
+        assertEquals(Map.Tiles.GRASS, postTiles[initX][initY]);
+        assertEquals(Map.Tiles.TREASURE, postTiles[x][y]);
+    }
+
+    @Test
+    public void testUpdateMap_Team_XGreaterThanSize() {
+        //Exercise
+        int size = 5;
+        hazardousMap.setMapSize(size);
+        hazardousMap.generate(1);
+
+        int teamNum = hazardousMap.getMapCount();
+
+        Map.Tiles[][] prevTiles = hazardousMap.getTeamPlayerMap(teamNum, 0);
+
+        int x = size+3;
+        int y = size-2;
+
+        hazardousMap.updateMap(x, y, teamNum, 0);
+        Map.Tiles[][] postTiles = hazardousMap.getTeamPlayerMap(teamNum, 0);
+
+        //Assert
+        assertArrayEquals(prevTiles, postTiles);
+    }
+
+    @Test
+    public void testUpdateMap_Team_YGreaterThanSize() {
+        //Exercise
+        int size = 5;
+        hazardousMap.setMapSize(size);
+        hazardousMap.generate(1);
+
+        int teamNum = hazardousMap.getMapCount();
+
+        Map.Tiles[][] prevTiles = hazardousMap.getTeamPlayerMap(teamNum, 0);
+
+        int x = size-3;
+        int y = size+2;
+
+        hazardousMap.updateMap(x, y, teamNum, 0);
+        Map.Tiles[][] postTiles = hazardousMap.getTeamPlayerMap(teamNum, 0);
+
+        //Assert
+        assertArrayEquals(prevTiles, postTiles);
+    }
+
+    @Test
+    public void testUpdateMap_Team_XEqualToSize() {
+        //Exercise
+        int size = 5;
+        hazardousMap.setMapSize(size);
+        hazardousMap.generate(1);
+
+        int teamNum = hazardousMap.getMapCount();
+
+        Map.Tiles[][] prevTiles = hazardousMap.getTeamPlayerMap(teamNum, 0);
+
+        int y = size-2;
+
+        hazardousMap.updateMap(size, y, teamNum, 0);
+        Map.Tiles[][] postTiles = hazardousMap.getTeamPlayerMap(teamNum, 0);
+
+        //Assert
+        assertArrayEquals(prevTiles, postTiles);
+    }
+
+    @Test
+    public void testUpdateMap_Team_YEqualToSize() {
+        //Exercise
+        int size = 5;
+        hazardousMap.setMapSize(size);
+        hazardousMap.generate(1);
+
+        int teamNum = hazardousMap.getMapCount();
+
+        Map.Tiles[][] prevTiles = hazardousMap.getTeamPlayerMap(teamNum, 0);
+
+        int x = size-3;
+
+        hazardousMap.updateMap(x, size, teamNum, 0);
+        Map.Tiles[][] postTiles = hazardousMap.getTeamPlayerMap(teamNum, 0);
+
+        //Assert
+        assertArrayEquals(prevTiles, postTiles);
+    }
+
+
+    @Test
+    public void testUpdateMap_Team_XLessThanZero() {
+        //Exercise
+        int size = 5;
+        hazardousMap.setMapSize(size);
+        hazardousMap.generate(1);
+
+        int teamNum = hazardousMap.getMapCount();
+
+        Map.Tiles[][] prevTiles = hazardousMap.getTeamPlayerMap(teamNum, 0);
+
+        int x = -1;
+        int y = size+2;
+
+        hazardousMap.updateMap(x, y, teamNum, 0);
+        Map.Tiles[][] postTiles = hazardousMap.getTeamPlayerMap(teamNum, 0);
+
+        //Assert
+        assertArrayEquals(prevTiles, postTiles);
+    }
+
+    @Test
+    public void testUpdateMap_Team_YLessThanZero() {
+        //Exercise
+        int size = 5;
+        hazardousMap.setMapSize(size);
+        hazardousMap.generate(1);
+
+        int teamNum = hazardousMap.getMapCount();
+
+        Map.Tiles[][] prevTiles = hazardousMap.getTeamPlayerMap(teamNum, 0);
+
+        int x = size+3;
+        int y = -1;
+
+        hazardousMap.updateMap(x, y, teamNum, 0);
+        Map.Tiles[][] postTiles = hazardousMap.getTeamPlayerMap(teamNum, 0);
+
+        //Assert
+        assertArrayEquals(prevTiles, postTiles);
+    }
+
+    @Test
+    public void testUpdateMap_Team_StayInSameTile(){
+        //Exercise
+        hazardousMap.setMapSize(5);
+        hazardousMap.generate(1);
+
+        int teamNum = hazardousMap.getMapCount();
+
+        int initX = hazardousMap.getPlayerInitPositionX(teamNum);
+        int initY = hazardousMap.getPlayerInitPositionY(teamNum);
+
+        Map.Tiles[][] prevTiles = hazardousMap.getTeamPlayerMap(teamNum, 0);
+
+        hazardousMap.updateMap(initX, initY, teamNum, 0);
+        Map.Tiles[][] postTiles = hazardousMap.getTeamPlayerMap(teamNum, 0);
+
+        //Assert
+        assertArrayEquals(prevTiles, postTiles);
+    }
+
+    @Test
+    public void testUpdateMap_Team_Grass(){
+        //Exercise
+        hazardousMap.setMapSize(5);
+        hazardousMap.generate(1);
+
+        int teamNum = hazardousMap.getMapCount();
+
+        int initX = hazardousMap.getPlayerInitPositionX(teamNum);
+        int initY = hazardousMap.getPlayerInitPositionY(teamNum);
+
+        ArrayList<Pair<Integer, Integer>> grassTiles = hazardousMap.getGrassTiles();
+        Collections.shuffle(grassTiles);
+        Pair<Integer, Integer> grassTile = grassTiles.get(0);
+
+        int x = grassTile.getKey();
+        int y = grassTile.getValue();
+
+        //ensure new grass tile is not the initial tile
+        if(x == initX && y == initY){
+            grassTile = grassTiles.get(1);
+
+            x = grassTile.getKey();
+            y = grassTile.getValue();
+        }
+
+        Map.Tiles[][] prevTiles = hazardousMap.getTeamPlayerMap(teamNum, 0);
+        Map.Tiles[][] postTiles;
+
+        //Assert
+        assertEquals(Map.Tiles.GREY, prevTiles[x][y]);
+
+        //Exercise
+        hazardousMap.updateMap(x, y, teamNum, 0);
+        postTiles = hazardousMap.getTeamPlayerMap(teamNum, 0);
+
+        //Assert
+        assertEquals(Map.Tiles.GRASS, postTiles[initX][initY]);
+        assertEquals(Map.Tiles.GRASS_PLAYER, postTiles[x][y]);
+    }
+
+    @Test
+    public void testUpdateMap_Team_Water(){
+        //Exercise
+        hazardousMap.setMapSize(5);
+        hazardousMap.setWaterPercentage(30);
+        hazardousMap.generateTileTypes();
+        hazardousMap.setMapCount(1);
+        hazardousMap.teamMaps.add(new ArrayList<>());
+        hazardousMap.teamMaps.get(0).add(hazardousMap.generateInitMap());
+
+        int teamNum = hazardousMap.getMapCount();
+        ArrayList<Pair<Integer, Integer>> waterTiles = hazardousMap.getWaterTiles();
+        Pair<Integer, Integer> waterTile = waterTiles.get(0);
+        int x = waterTile.getKey();
+        int y = waterTile.getValue();
+
+        int initX = hazardousMap.getPlayerInitPositionX(teamNum);
+        int initY = hazardousMap.getPlayerInitPositionY(teamNum);
+
+        Map.Tiles[][] prevTiles = hazardousMap.getTeamPlayerMap(teamNum, 0);
+
+        //Assert
+        //ensuring position to be revealed is a grey tile
+        assertEquals(Map.Tiles.GREY, prevTiles[x][y]);
+
+        //Exercise
+        hazardousMap.updateMap(x, y, teamNum, 0);
+        Map.Tiles[][] postTiles = hazardousMap.getTeamPlayerMap(teamNum, 0);
+
+        //Assert player returned to init position and water tile is revealed
+        assertEquals(Map.Tiles.GRASS_PLAYER, postTiles[initX][initY]);
+        assertEquals(Map.Tiles.WATER, postTiles[x][y]);
+    }
+
+    @Test
+    public void testUpdateMap_Team_Treasure(){
+        //Exercise
+        hazardousMap.setMapSize(5);
+        hazardousMap.generate(1);
+
+        int teamNum = hazardousMap.getMapCount();
+        Pair<Integer, Integer> treasureTile = Map.getTreasureTile();
+        int x = treasureTile.getKey();
+        int y = treasureTile.getValue();
+
+        int initX = hazardousMap.getPlayerInitPositionX(teamNum);
+        int initY = hazardousMap.getPlayerInitPositionY(teamNum);
+
+        Map.Tiles[][] prevTiles = hazardousMap.getTeamPlayerMap(teamNum, 0);
+
+        //Assert
+        //ensuring position to be revealed is a grey tile
+        assertEquals(Map.Tiles.GREY, prevTiles[x][y]);
+
+        //Exercise
+        hazardousMap.updateMap(x, y, teamNum, 0);
+        Map.Tiles[][] postTiles = hazardousMap.getTeamPlayerMap(teamNum, 0);
 
         //Assert
         assertEquals(Map.Tiles.GRASS, postTiles[initX][initY]);
@@ -713,6 +962,7 @@ public class TestHazardousMap {
         assertNull(hazardousMap.treasureTile);
 
         assertEquals(0, hazardousMap.playerMaps.size());
+        assertEquals(0, hazardousMap.teamMaps.size());
         assertEquals(0, hazardousMap.initTiles.size());
 
         assertFalse(hazardousMap.tilesGenerated);
@@ -755,5 +1005,204 @@ public class TestHazardousMap {
 
         //Assert
         assertTrue(hazardousMap.tilesGenerated);
+    }
+
+    @Test
+    public void testGenerate_PlayerMapsInitialised_Individual(){
+        //Exercise
+        hazardousMap.setMapSize(5);
+
+        //Assert
+        assertEquals(0, hazardousMap.playerMaps.size());
+
+        //Exercise
+        hazardousMap.generate(0);
+
+        //Assert
+        assertEquals(1, hazardousMap.playerMaps.size());
+
+        //Exercise
+        hazardousMap.generate(0);
+        assertEquals(2, hazardousMap.playerMaps.size());
+
+        assertEquals(0, hazardousMap.teamMaps.size());
+    }
+
+    @Test
+    public void testGenerate_PlayerMapsInitialised_Team(){
+        //Exercise
+        hazardousMap.setMapSize(5);
+
+        //Assert
+        assertEquals(0, hazardousMap.teamMaps.size());
+
+        //Exercise
+        hazardousMap.generate(5);
+
+        //Assert
+        assertEquals(1, hazardousMap.teamMaps.size());
+        assertEquals(5, hazardousMap.teamMaps.get(0).size());
+
+        //Exercise
+        hazardousMap.generate(6);
+        assertEquals(2, hazardousMap.teamMaps.size());
+        assertEquals(6, hazardousMap.teamMaps.get(1).size());
+
+        assertEquals(0, hazardousMap.playerMaps.size());
+    }
+
+//******** hazardousMap.revealTile()tests ********\\
+
+    @Test
+    public void testRevealTileTeam__PlayerOnTile(){
+        //Exercise
+        hazardousMap.setMapSize(8);
+        hazardousMap.generate(1);
+
+        //playerNum equivalent to teamNum in parameter
+        int x = hazardousMap.getPlayerInitPositionX(1);
+        int y = hazardousMap.getPlayerInitPositionY(1);
+
+        Map.Tiles[][] playerMap = hazardousMap.getTeamPlayerMap(1, 0);
+
+        //Assert
+        assertEquals(Map.Tiles.GRASS_PLAYER, playerMap[x][y]);
+
+        //Exercise
+        hazardousMap.revealTile(x, y, 1, 0);
+
+        //Assert
+        playerMap = hazardousMap.getTeamPlayerMap(1, 0);
+        assertEquals(Map.Tiles.GRASS_PLAYER, playerMap[x][y]);
+    }
+
+    @Test
+    public void testRevealTileTeam_GRASS(){
+        //Exercise
+        hazardousMap.setMapSize(8);
+        hazardousMap.generate(1);
+
+        ArrayList<Pair<Integer, Integer>> tiles = hazardousMap.getGrassTiles();
+        Pair<Integer, Integer> greenTile = tiles.get(0);
+        int x = greenTile.getKey();
+        int y = greenTile.getValue();
+
+        int count = 1;
+        while(x == hazardousMap.getPlayerInitPositionX(1) || y == hazardousMap.getPlayerInitPositionY(1)) {
+            x = greenTile.getKey();
+            y = greenTile.getValue();
+            greenTile = tiles.get(count);
+            count++;
+        }
+
+        Map.Tiles[][] playerMap = hazardousMap.getTeamPlayerMap(1, 0);
+
+        //Assert
+        assertEquals(Map.Tiles.GREY, playerMap[x][y]);
+
+        //Exercise
+        hazardousMap.revealTile(x, y, 1, 0);
+
+        //Assert
+        playerMap = hazardousMap.getTeamPlayerMap(1, 0);
+        assertEquals(Map.Tiles.GRASS_PLAYER, playerMap[hazardousMap.getPlayerInitPositionX(1)][hazardousMap.getPlayerInitPositionY(1)]);
+        assertEquals(Map.Tiles.GRASS, playerMap[x][y]);
+    }
+
+    @Test
+    public void testRevealTileTeam_WATER(){
+        //Exercise
+        hazardousMap.setMapSize(8);
+        hazardousMap.generate(1);
+
+        ArrayList<Pair<Integer, Integer>> tiles = hazardousMap.getWaterTiles();
+        Pair<Integer, Integer> waterTile = tiles.get(0);
+        int x = waterTile.getKey();
+        int y = waterTile.getValue();
+
+        Map.Tiles[][] playerMap = hazardousMap.getTeamPlayerMap(1, 0);
+
+        //Assert
+        assertEquals(Map.Tiles.GREY, playerMap[x][y]);
+
+        //Exercise
+        hazardousMap.revealTile(x, y, 1, 0);
+
+        //Assert
+        playerMap = hazardousMap.getTeamPlayerMap(1, 0);
+        assertEquals(Map.Tiles.GRASS_PLAYER, playerMap[hazardousMap.getPlayerInitPositionX(1)][hazardousMap.getPlayerInitPositionY(1)]);
+        assertEquals(Map.Tiles.WATER, playerMap[x][y]);
+    }
+
+    @Test
+    public void testRevealTileTeam_TREASURE(){
+        //Exercise
+        hazardousMap.setMapSize(8);
+        hazardousMap.generate(1);
+
+        Pair<Integer, Integer> tile = hazardousMap.getTreasureTile();
+        int x = tile.getKey();
+        int y = tile.getValue();
+
+        Map.Tiles[][] playerMap = hazardousMap.getTeamPlayerMap(1, 0);
+
+        //Assert
+        assertEquals(Map.Tiles.GREY, playerMap[x][y]);
+
+        //Exercise
+        hazardousMap.revealTile(x, y, 1, 0);
+
+        //Assert
+        playerMap = hazardousMap.getTeamPlayerMap(1, 0);
+        assertEquals(Map.Tiles.GRASS, playerMap[hazardousMap.getPlayerInitPositionX(1)][hazardousMap.getPlayerInitPositionY(1)]);
+        assertEquals(Map.Tiles.TREASURE, playerMap[x][y]);
+    }
+
+    @Test
+    public void testRevealTileTeam_AlreadyRevealed_Grass(){
+        //Exercise
+        hazardousMap.setMapSize(8);
+        hazardousMap.generate(1);
+
+        ArrayList<Pair<Integer, Integer>> tiles = hazardousMap.getGrassTiles();
+        Pair<Integer, Integer> greenTile = tiles.get(0);
+        int x = greenTile.getKey();
+        int y = greenTile.getValue();
+
+        int count = 1;
+        while(x == hazardousMap.getPlayerInitPositionX(1) || y == hazardousMap.getPlayerInitPositionY(1)) {
+            greenTile = tiles.get(count);
+            x = greenTile.getKey();
+            y = greenTile.getValue();
+            count++;
+        }
+
+        //Exercise
+        hazardousMap.revealTile(x, y, 1, 0);
+        hazardousMap.revealTile(x, y, 1, 0);
+
+        //Assert
+        Map.Tiles[][] playerMap = hazardousMap.getTeamPlayerMap(1, 0);
+        assertEquals(Map.Tiles.GRASS, playerMap[x][y]);
+    }
+
+    @Test
+    public void testRevealTileTeam_AlreadyRevealed_Water(){
+        //Exercise
+        hazardousMap.setMapSize(8);
+        hazardousMap.generate(1);
+
+        ArrayList<Pair<Integer, Integer>> tiles = hazardousMap.getWaterTiles();
+        Pair<Integer, Integer> waterTile = tiles.get(0);
+        int x = waterTile.getKey();
+        int y = waterTile.getValue();
+
+        //Exercise
+        hazardousMap.revealTile(x, y, 1, 0);
+        hazardousMap.revealTile(x, y, 1, 0);
+
+        //Assert
+        Map.Tiles[][] playerMap = hazardousMap.getTeamPlayerMap(1, 0);
+        assertEquals(Map.Tiles.WATER, playerMap[x][y]);
     }
 }

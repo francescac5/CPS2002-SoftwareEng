@@ -1,6 +1,5 @@
 package edu.cps2002.mazegame.game;
 
-import edu.cps2002.mazegame.map.*;
 import edu.cps2002.mazegame.player.Player;
 import edu.cps2002.mazegame.player.Position;
 import edu.cps2002.mazegame.utils.MapUtils;
@@ -8,7 +7,6 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import java.util.ArrayList;
 
 import static edu.cps2002.mazegame.game.Game.TeamPlayers;
 import static edu.cps2002.mazegame.game.Game.gameend;
