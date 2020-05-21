@@ -2,7 +2,6 @@ package edu.cps2002.mazegame.player;
 
 import edu.cps2002.mazegame.map.Map;
 import edu.cps2002.mazegame.map.MapFactory;
-import edu.cps2002.mazegame.map.SafeMap;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

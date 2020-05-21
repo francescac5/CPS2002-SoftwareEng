@@ -835,9 +835,10 @@ public class TestHazardousMap {
 
         ArrayList<Pair<Integer, Integer>> tiles = hazardousMap.getGrassTiles();
         Pair<Integer, Integer> greenTile = tiles.get(0);
-        int x = 0, y = 0;
-        int count = 1;
+        int x = greenTile.getKey();
+        int y = greenTile.getValue();
 
+        int count = 1;
         while(x == hazardousMap.getPlayerInitPositionX(1) || y == hazardousMap.getPlayerInitPositionY(1)) {
             x = greenTile.getKey();
             y = greenTile.getValue();
@@ -916,12 +917,14 @@ public class TestHazardousMap {
 
         ArrayList<Pair<Integer, Integer>> tiles = hazardousMap.getGrassTiles();
         Pair<Integer, Integer> greenTile = tiles.get(0);
+        int x = greenTile.getKey();
+        int y = greenTile.getValue();
 
-        int x = 0, y = 0, count = 1;
+        int count = 1;
         while(x == hazardousMap.getPlayerInitPositionX(1) || y == hazardousMap.getPlayerInitPositionY(1)) {
+            greenTile = tiles.get(count);
             x = greenTile.getKey();
             y = greenTile.getValue();
-            greenTile = tiles.get(count);
             count++;
         }
 

@@ -393,7 +393,7 @@ public abstract class Map {
                 }
 
                 //if treasure tile is revealed then remove character from prev tile and move it to treasure tile
-                if (teamPlayerMap[x][y] == Tiles.GRASS_PLAYER && (xNew != x || yNew != y) && teamPlayerMap[xNew][yNew] == Tiles.TREASURE){
+                if (teamPlayerMap[x][y] == Tiles.GRASS_PLAYER && (xNew != x || yNew != y) && revealedTile == Tiles.TREASURE){
                     teamPlayerMap[x][y] = Tiles.GRASS;
                 }
             }

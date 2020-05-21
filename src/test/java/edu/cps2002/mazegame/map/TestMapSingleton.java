@@ -3,11 +3,7 @@ package edu.cps2002.mazegame.map;
 import org.junit.After;
 import org.junit.Test;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 
 public class TestMapSingleton {
 
