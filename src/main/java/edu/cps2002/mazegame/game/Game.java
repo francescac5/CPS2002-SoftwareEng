@@ -8,6 +8,7 @@ import edu.cps2002.mazegame.player.Player;
 import edu.cps2002.mazegame.player.Position;
 import edu.cps2002.mazegame.utils.MapUtils;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Game {
@@ -15,6 +16,7 @@ public class Game {
     //arraylist to store the players and their choice
     static ArrayList<Player> playerList = new ArrayList<Player>();
     static ArrayList<Player.DIRECTION> playerChoice = new ArrayList<>();
+    static int[] TeamPlayers;
     private static MapUtils utils = new MapUtils();
     protected static Map map;
 
@@ -72,6 +74,22 @@ public class Game {
         return numPlayers >= minPlayers && numPlayers <= maxPlayers;
     }
 
+    //method to check that the number of teams inputted is greater than the number of players inputted
+    public static boolean validityofTeams(int numPlayers, int teams){
+        return teams <= numPlayers;
+    }
+
+    //method to check that the mode entered is either collaborative or individual
+    public static boolean validityofMode(String mode){
+        if (mode.equalsIgnoreCase("I")) {
+            return true;
+        }else if(mode.equalsIgnoreCase("C")){
+            return true;
+        }
+        return false;
+    }
+
+
     //method to check that the Map Size inputted is between 5 and 50 (depending also on the number of players inputted)
     public static boolean validityofMapSize(int numPlayers,int size){
         if(size <= maxMapSize && (( numPlayers <= 4 && size >= 5 ) || size >= 8 ) ) {
@@ -102,6 +120,26 @@ public class Game {
         } while(true);
     }
 
+    //method to get the number of players from the user
+    public static int getNumTeams(int numPlayers){
+        int numTeams = 0;
+        Scanner sc = new Scanner(System.in);
+        do {
+            System.out.print("Please choose the number of teams: \n");
+            try {
+                numTeams = sc.nextInt();
+            } catch (Exception e) {
+                sc.next();
+            } finally {
+                if(validityofTeams(numPlayers, numTeams)){
+                    return numTeams;
+                }else{
+                    System.out.println("===The number of teams is greater than the number of players inputted==\n");
+                }
+            }
+        } while(true);
+    }
+
     //method to get the map size from the player
     static int chooseMapSize(int numPlayers){
         int size = 0;
@@ -122,43 +160,111 @@ public class Game {
         } while (true);
     }
 
+    //method to get the game mode from the player
+    static String choosegameMode(){
+        String mode = null;
+        Scanner sc = new Scanner (System.in);
+        do {
+            System.out.print("Choose between Individual (I) or Collaborative mode (C) \n");
+            try {
+                mode= sc.next();
+            } catch (Exception e) {
+                sc.next();
+            } finally {
+                if(validityofMode(mode)){
+                    return mode;
+                }else{
+                    System.out.println("The mode can be either individual or collaborative\n");
+                }
+            }
+        } while (true);
+    }
+
+static void initialiseTeams(int players, int teams) {
+        TeamPlayers = new int[teams];
+    int remainder = players % teams;
+    int playersPerTeam = players / teams;
+    Arrays.fill(TeamPlayers, playersPerTeam);
+    if (remainder != 0) {
+        for (int i = 0; i < remainder; i++) {
+            TeamPlayers[i] = TeamPlayers[i] + 1;
+        }
+    }
+}
+    //method to generate HTML files for every player
+    static void generateHTMLFiles(int[] playersPerTeam, int teams){
+            for (int i = 0; i < teams; i++) {
+                map.generate(playersPerTeam[i]);
+            }
+    }
+
     //method to generate HTML files for every player
     static void generateHTMLFiles(int players){
-        for (int i =0; i<players;i++){
-            map.generate(0);
-        }
+            for (int i = 0; i < players; i++) {
+                map.generate(0);
+            }
     }
 
     //main method of the game
     static void startGame() {
         boolean gameend = false;
+       String mode= choosegameMode();
         //Outputting the rules of the game
-        System.out.println("Welcome to our Maze game. " +
-                "The following are the rules of the game:"+
-                "\n" +"1) Each player must use the U(p), D(down), L(eft), and R(ight) keys to move along the map." +
-                "\n2) Each player gets one (valid) move per round. " +
-                "\n3) The first player/s to find the treasure, win/s! " +
-                "\n4) If you land on the water tile you have to go back to your initial position\n");
-        chooseMapType();
-        int players = getNumPlayers();
-        map.setMapSize(chooseMapSize(players));
-        do{
-            playerList.clear();
-            playerChoice.clear();
-            generateHTMLFiles(players);
-            initialisePlayers(players);
-            utils.openMapsInBrowser();
-            //for loop that gives 20 turns to each player
-            for (int i = 0; i < 20; i++) {
-                giveoneturntoeachPlayer(playerList, playerChoice);
-                boolean check = checkWinner();
-                checkGameend(check);
-            }
-            utils.deleteHTMLFiles();
-            map.resetMap();
+        if(mode.equalsIgnoreCase("I")) {
+            System.out.println("Welcome to our Maze game. " +
+                    "The following are the rules of the game:" +
+                    "\n" + "1) Each player must use the U(p), D(down), L(eft), and R(ight) keys to move along the map." +
+                    "\n2) Each player gets one (valid) move per round. " +
+                    "\n3) The first player/s to find the treasure, win/s! " +
+                    "\n4) If you land on the water tile you have to go back to your initial position\n");
+            chooseMapType();
+            int players = getNumPlayers();
+            map.setMapSize(chooseMapSize(players));
+            do {
+                playerList.clear();
+                playerChoice.clear();
+                generateHTMLFiles(players);
+                initialisePlayers(players);
+                utils.openMapsInBrowser();
+                //for loop that gives 20 turns to each player
+                for (int i = 0; i < 20; i++) {
+                    giveoneturntoeachPlayer(playerList, playerChoice);
+                    boolean check = checkWinner();
+                    checkGameend(check);
+                }
+                utils.deleteHTMLFiles();
+                map.resetMap();
 
-        }while(!gameend);
+            } while (!gameend);
+        }else if(mode.equalsIgnoreCase("C")){
+            System.out.println("Welcome to our Maze game. " +
+                    "The following are the rules of the game:" +
+                    "\n" + "1) Each player must use the U(p), D(down), L(eft), and R(ight) keys to move along the map." +
+                    "\n2) Each team gets one (valid) move per round. " +
+                    "\n3) The first team to find the treasure, win/s! " +
+                    "\n4) If you land on the water tile you have to go back to your initial position\n");
+            chooseMapType();
+            int players = getNumPlayers();
+            int teams = getNumTeams(players);
+            map.setMapSize(chooseMapSize(players));
+           // do {
+                playerList.clear();
+                playerChoice.clear();
+                initialiseTeams(players, teams);
+                generateHTMLFiles(TeamPlayers,teams);
 
+                utils.openMapsInBrowser();
+//                //for loop that gives 20 turns to each player
+//                for (int i = 0; i < 20; i++) {
+//                    giveoneturntoeachPlayer(playerList, playerChoice);
+//                    boolean check = checkWinner();
+//                    checkGameend(check);
+//                }
+//                utils.deleteHTMLFiles();
+//                map.resetMap();
+
+        //    } while (!gameend);
+        }
     }
 
     //method to give every player one turn to choose the direction and then move everyone accordingly
