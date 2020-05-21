@@ -125,7 +125,7 @@ public class Game {
     //method to generate HTML files for every player
     static void generateHTMLFiles(int players){
         for (int i =0; i<players;i++){
-            map.generate();
+            map.generate(0);
         }
     }
 
@@ -175,7 +175,7 @@ public class Game {
             playerChoice.add(x);
         }
         for( int i = 0; i < players.size(); i++) {
-            map.updateMap(players.get(i).getPosition().getX(), players.get(i).getPosition().getY(), i + 1);
+            map.updateMap(players.get(i).getPosition().getX(), players.get(i).getPosition().getY(), i + 1, 0);
         }
         playerchoice.clear();
     }
