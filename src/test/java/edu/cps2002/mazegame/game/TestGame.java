@@ -30,6 +30,7 @@ public class TestGame {
         p1 = null;
         pos = null;
         utils.deleteHTMLFiles();
+        TeamPlayers=null;
     }
 
 
