@@ -190,6 +190,30 @@ public class TestGame {
         assertEquals(result, actual);
 
     }
+    //******** Game.validityofMode() tests ********\\
+    @Test
+    public void testmodeC(){
+        assertTrue(Game.validityofMode("C"));
+
+    }
+
+    @Test
+    public void testmodec(){
+        assertTrue(Game.validityofMode("c"));
+
+    }
+
+    @Test
+    public void testmodeI(){
+        assertTrue(Game.validityofMode("I"));
+
+    }
+
+    @Test
+    public void testmodei(){
+        assertTrue(Game.validityofMode("i"));
+
+    }
 
     //******** Game.initialisePlayers() tests ********\\
     @Test
