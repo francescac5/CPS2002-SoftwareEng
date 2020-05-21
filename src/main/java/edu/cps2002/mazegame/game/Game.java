@@ -133,7 +133,7 @@ public class Game {
     }
 
     //method to get the game mode from the player
-    static String choosegameMode(int numPlayers){
+    static String choosegameMode(){
         String mode = null;
         Scanner sc = new Scanner (System.in);
         do {
@@ -163,33 +163,61 @@ public class Game {
     //main method of the game
     static void startGame() {
         boolean gameend = false;
+       String mode= choosegameMode();
         //Outputting the rules of the game
-        System.out.println("Welcome to our Maze game. " +
-                "The following are the rules of the game:"+
-                "\n" +"1) Each player must use the U(p), D(down), L(eft), and R(ight) keys to move along the map." +
-                "\n2) Each player gets one (valid) move per round. " +
-                "\n3) The first player/s to find the treasure, win/s! " +
-                "\n4) If you land on the water tile you have to go back to your initial position\n");
-        chooseMapType();
-        int players = getNumPlayers();
-        map.setMapSize(chooseMapSize(players));
-        do{
-            playerList.clear();
-            playerChoice.clear();
-            generateHTMLFiles(players);
-            initialisePlayers(players);
-            utils.openMapsInBrowser();
-            //for loop that gives 20 turns to each player
-            for (int i = 0; i < 20; i++) {
-                giveoneturntoeachPlayer(playerList, playerChoice);
-                boolean check = checkWinner();
-                checkGameend(check);
-            }
-            utils.deleteHTMLFiles();
-            map.resetMap();
+        if(mode.equalsIgnoreCase("I")) {
+            System.out.println("Welcome to our Maze game. " +
+                    "The following are the rules of the game:" +
+                    "\n" + "1) Each player must use the U(p), D(down), L(eft), and R(ight) keys to move along the map." +
+                    "\n2) Each player gets one (valid) move per round. " +
+                    "\n3) The first player/s to find the treasure, win/s! " +
+                    "\n4) If you land on the water tile you have to go back to your initial position\n");
+            chooseMapType();
+            int players = getNumPlayers();
+            map.setMapSize(chooseMapSize(players));
+            do {
+                playerList.clear();
+                playerChoice.clear();
+                generateHTMLFiles(players);
+                initialisePlayers(players);
+                utils.openMapsInBrowser();
+                //for loop that gives 20 turns to each player
+                for (int i = 0; i < 20; i++) {
+                    giveoneturntoeachPlayer(playerList, playerChoice);
+                    boolean check = checkWinner();
+                    checkGameend(check);
+                }
+                utils.deleteHTMLFiles();
+                map.resetMap();
 
-        }while(!gameend);
+            } while (!gameend);
+        }else if(mode.equalsIgnoreCase("C")){
+            System.out.println("Welcome to our Maze game. " +
+                    "The following are the rules of the game:" +
+                    "\n" + "1) Each player must use the U(p), D(down), L(eft), and R(ight) keys to move along the map." +
+                    "\n2) Each team gets one (valid) move per round. " +
+                    "\n3) The first team to find the treasure, win/s! " +
+                    "\n4) If you land on the water tile you have to go back to your initial position\n");
+            chooseMapType();
+            int players = getNumPlayers();
+            map.setMapSize(chooseMapSize(players));
+            do {
+                playerList.clear();
+                playerChoice.clear();
+                generateHTMLFiles(players);
+                initialisePlayers(players);
+                utils.openMapsInBrowser();
+                //for loop that gives 20 turns to each player
+                for (int i = 0; i < 20; i++) {
+                    giveoneturntoeachPlayer(playerList, playerChoice);
+                    boolean check = checkWinner();
+                    checkGameend(check);
+                }
+                utils.deleteHTMLFiles();
+                map.resetMap();
 
+            } while (!gameend);
+        }
     }
 
     //method to give every player one turn to choose the direction and then move everyone accordingly
