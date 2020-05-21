@@ -132,6 +132,27 @@ public class Game {
         } while (true);
     }
 
+    //method to get the game mode from the player
+    static String choosegameMode(int numPlayers){
+        String mode = null;
+        Scanner sc = new Scanner (System.in);
+        do {
+            System.out.print("Choose between Individual (I) or Collaborative mode (C) \n");
+            try {
+                mode= sc.next();
+            } catch (Exception e) {
+                sc.next();
+            } finally {
+                if(validityofMode(mode)){
+                    return mode;
+                }else{
+                    System.out.println("The mode can be either individual or collaborative\n");
+                }
+            }
+        } while (true);
+    }
+
+
     //method to generate HTML files for every player
     static void generateHTMLFiles(int players){
         for (int i =0; i<players;i++){
