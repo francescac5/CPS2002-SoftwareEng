@@ -715,45 +715,6 @@ public class TestHazardousMap {
         assertEquals(0, hazardousMap.playerMaps.size());
         assertEquals(0, hazardousMap.initTiles.size());
 
-        assertFalse(hazardousMap.tilesGenerated);
-
         assertEquals(-1, Map.getMapSize());
-    }
-
-//******** hazardousMap.generate tests ********\\
-
-    @Test
-    public void testGenerate_TilesGenerated_FalseBeforeGenerate(){
-        //Exercise
-        hazardousMap.setMapSize(5);
-
-        //Assert
-        assertFalse(hazardousMap.tilesGenerated);
-    }
-
-    @Test
-    public void testGenerate_TilesGenerated_TrueAfterGenerate(){
-        //Exercise
-        hazardousMap.setMapSize(5);
-        hazardousMap.generate();
-
-        //Assert
-        assertTrue(hazardousMap.tilesGenerated);
-    }
-
-    @Test
-    public void testGenerate_TilesGenerated_TrueAfterMultipleGenerate(){
-        //Exercise
-        hazardousMap.setMapSize(5);
-        hazardousMap.generate();
-
-        //Assert
-        assertTrue(hazardousMap.tilesGenerated);
-
-        //Exercise
-        hazardousMap.generate();
-
-        //Assert
-        assertTrue(hazardousMap.tilesGenerated);
     }
 }

@@ -42,7 +42,7 @@ public abstract class Map {
     private Tiles[][] mapTiles;
 
     //flag to determine that tile types are generated only once
-    protected boolean tilesGenerated = false;
+//    protected boolean tilesGenerated = false;
 
     //stores percentage of water tiles in map
     protected double waterPercentage = -1;
@@ -170,7 +170,7 @@ public abstract class Map {
         }
 
         generateTileTypes();
-        tilesGenerated = true;
+//        tilesGenerated = true;
     }
 
     //set percentage of water tiles which affects the percentage of grass tiles
@@ -352,7 +352,7 @@ public abstract class Map {
 
         playerMaps.clear();
         initTiles.clear();
-        tilesGenerated = false;
+//        tilesGenerated = false;
 
         waterPercentage = -1;
         size = -1;

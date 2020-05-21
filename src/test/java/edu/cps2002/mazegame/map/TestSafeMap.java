@@ -704,46 +704,7 @@ public class TestSafeMap {
 
         assertEquals(0, safeMap.playerMaps.size());
         assertEquals(0, safeMap.initTiles.size());
-
-        assertFalse(safeMap.tilesGenerated);
-
+        
         assertEquals(-1, Map.getMapSize());
-    }
-
-//******** safeMap.generate tests ********\\
-
-    @Test
-    public void testGenerate_TilesGenerated_FalseBeforeGenerate(){
-        //Exercise
-        safeMap.setMapSize(5);
-
-        //Assert
-        assertFalse(safeMap.tilesGenerated);
-    }
-
-    @Test
-    public void testGenerate_TilesGenerated_TrueAfterGenerate(){
-        //Exercise
-        safeMap.setMapSize(5);
-        safeMap.generate();
-
-        //Assert
-        assertTrue(safeMap.tilesGenerated);
-    }
-
-    @Test
-    public void testGenerate_TilesGenerated_TrueAfterMultipleGenerate(){
-        //Exercise
-        safeMap.setMapSize(5);
-        safeMap.generate();
-
-        //Assert
-        assertTrue(safeMap.tilesGenerated);
-
-        //Exercise
-        safeMap.generate();
-
-        //Assert
-        assertTrue(safeMap.tilesGenerated);
     }
 }
