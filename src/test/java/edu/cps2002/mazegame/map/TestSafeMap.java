@@ -700,7 +700,7 @@ public class TestSafeMap {
         assertEquals(-1, Map.getMapSize());
     }
 
-//******** safeMap.generate tests ********\\
+//******** safeMap.generate()tests ********\\
 
     @Test
     public void testGenerate_TilesGenerated_FalseBeforeGenerate(){
@@ -735,5 +735,47 @@ public class TestSafeMap {
 
         //Assert
         assertTrue(safeMap.tilesGenerated);
+    }
+
+    @Test
+    public void testGenerate_PlayerMapsInitialised_Individual(){
+        //Exercise
+        safeMap.setMapSize(5);
+
+        //Assert
+        assertEquals(0, safeMap.playerMaps.size());
+
+        //Exercise
+        safeMap.generate(0);
+
+        //Assert
+        assertEquals(1, safeMap.playerMaps.size());
+
+        //Exercise
+        safeMap.generate(0);
+        assertEquals(2, safeMap.playerMaps.size());
+        assertEquals(0, safeMap.teamMaps.size());
+    }
+
+    @Test
+    public void testGenerate_PlayerMapsInitialised_Team(){
+        //Exercise
+        safeMap.setMapSize(5);
+
+        //Assert
+        assertEquals(0, safeMap.teamMaps.size());
+
+        //Exercise
+        safeMap.generate(5);
+
+        //Assert
+        assertEquals(1, safeMap.teamMaps.size());
+        assertEquals(5, safeMap.teamMaps.get(0).size());
+
+        //Exercise
+        safeMap.generate(6);
+        assertEquals(2, safeMap.teamMaps.size());
+        assertEquals(6, safeMap.teamMaps.get(1).size());
+        assertEquals(0, safeMap.playerMaps.size());
     }
 }

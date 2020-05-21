@@ -59,6 +59,9 @@ public abstract class Map {
     //stores a map representation for each player
     protected ArrayList<Tiles[][]> playerMaps = new ArrayList<>();
 
+    //stores a map representation for each player in each team
+    ArrayList<ArrayList<Tiles[][]>> teamMaps = new ArrayList<>();
+
     //stores x and y pairs for the players' initial tiles
     protected ArrayList<Pair<Integer,Integer>> initTiles = new ArrayList<>();
 
@@ -166,15 +169,18 @@ public abstract class Map {
 
         mapCount++;
         Tiles [][] playerMap = generateInitMap();
-        playerMaps.add(playerMap);
 
+        //collaborative
         if(numOfTeamPlayers > 0) {
-            //collaborative
+            teamMaps.add(new ArrayList<>());
             for (int i = 0; i < numOfTeamPlayers; i++) {
+                teamMaps.get(mapCount-1).add(playerMap);
                 util.generateMapHTML(mapCount, playerMap, i);
             }
-        }else{
-            //individual
+        }
+        //individual
+        else{
+            playerMaps.add(playerMap);
             util.generateMapHTML(mapCount, playerMap);
         }
     }
