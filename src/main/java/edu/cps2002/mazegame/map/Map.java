@@ -42,7 +42,7 @@ public abstract class Map {
     private Tiles[][] mapTiles;
 
     //flag to determine that tile types are generated only once
-//    protected boolean tilesGenerated = false;
+    protected boolean tilesGenerated = false;
 
     //stores percentage of water tiles in map
     protected double waterPercentage = -1;
@@ -149,8 +149,33 @@ public abstract class Map {
         }
         else{
             Map.size = size;
-            setUpMapTiles();
             return true;
+        }
+    }
+
+    //set percentage of water tiles which affects the percentage of grass tiles
+    abstract public boolean setWaterPercentage(double waterPercentage);
+
+    //generates player map and corresponding HTML file
+    public void generate(int numOfTeamPlayers){
+
+        //single set of tiles
+        if(!tilesGenerated) {
+            setUpMapTiles();
+        }
+
+        mapCount++;
+        Tiles [][] playerMap = generateInitMap();
+        playerMaps.add(playerMap);
+
+        if(numOfTeamPlayers > 0) {
+            //collaborative
+            for (int i = 0; i < numOfTeamPlayers; i++) {
+                util.generateMapHTML(mapCount, playerMap, i);
+            }
+        }else{
+            //individual
+            util.generateMapHTML(mapCount, playerMap);
         }
     }
 
@@ -170,25 +195,7 @@ public abstract class Map {
         }
 
         generateTileTypes();
-//        tilesGenerated = true;
-    }
-
-    //set percentage of water tiles which affects the percentage of grass tiles
-    abstract public boolean setWaterPercentage(double waterPercentage);
-
-    //generates player map and corresponding HTML file
-    public void generate(){
-
-        //single set of tiles
-//        if(!tilesGenerated) {
-//            setUpMapTiles();
-//        }
-
-        mapCount++;
-        Tiles [][] playerMap = generateInitMap();
-        playerMaps.add(playerMap);
-
-        util.generateMapHTML(mapCount, playerMap);
+        tilesGenerated = true;
     }
 
     //generates initial map for player with initial position on a random grass tile
@@ -312,7 +319,7 @@ public abstract class Map {
     //if the revealed tile is grass, then player moves on it,
     //else if it is water, the player is sent back to the initial tile,
     //else if it is treasure, the player moves on it.
-    public void updateMap(int xNew, int yNew, int playerNum){
+    public void updateMap(int xNew, int yNew, int playerNum, int teamPlayerNum){
 
         if(xNew < size && yNew < size && xNew >= 0 && yNew >= 0) {
 
@@ -338,7 +345,11 @@ public abstract class Map {
                     }
                 }
             }
-            util.generateMapHTML(playerNum, playerMap);
+            if(teamPlayerNum > 0){
+                util.generateMapHTML(playerNum, playerMap, teamPlayerNum);
+            }else{
+                util.generateMapHTML(playerNum, playerMap);
+            }
         }
     }
 
@@ -352,7 +363,7 @@ public abstract class Map {
 
         playerMaps.clear();
         initTiles.clear();
-//        tilesGenerated = false;
+        tilesGenerated = false;
 
         waterPercentage = -1;
         size = -1;

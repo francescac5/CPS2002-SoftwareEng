@@ -169,16 +169,6 @@ public class TestSafeMap {
         assertFalse(result);
     }
 
-//******** safeMap.generateMap() tests ********\\
-//
-//    public void testGenerateMap_NoTeams(){
-//        //Exercise
-//        int mapSize = 5;
-//        safeMap.setMapSize(mapSize);
-//
-//        safeMap.generateMap(false, 0);
-//    }
-
 //******** safeMap.calculateGrassPercentage() tests ********\\
 
     @Test
@@ -442,7 +432,7 @@ public class TestSafeMap {
         //Exercise
         int size = 5;
         safeMap.setMapSize(size);
-        safeMap.generate();
+        safeMap.generate(0);
 
         int playerNum = safeMap.getMapCount();
 
@@ -451,7 +441,7 @@ public class TestSafeMap {
         int x = size+3;
         int y = size-2;
 
-        safeMap.updateMap(x, y, playerNum);
+        safeMap.updateMap(x, y, playerNum, 0);
         Map.Tiles[][] postTiles = safeMap.getPlayerMap(playerNum);
 
         //Assert
@@ -463,7 +453,7 @@ public class TestSafeMap {
         //Exercise
         int size = 5;
         safeMap.setMapSize(size);
-        safeMap.generate();
+        safeMap.generate(0);
 
         int playerNum = safeMap.getMapCount();
 
@@ -472,7 +462,7 @@ public class TestSafeMap {
         int x = size-3;
         int y = size+2;
 
-        safeMap.updateMap(x, y, playerNum);
+        safeMap.updateMap(x, y, playerNum, 0);
         Map.Tiles[][] postTiles = safeMap.getPlayerMap(playerNum);
 
         //Assert
@@ -484,7 +474,7 @@ public class TestSafeMap {
         //Exercise
         int size = 5;
         safeMap.setMapSize(size);
-        safeMap.generate();
+        safeMap.generate(0);
 
         int playerNum = safeMap.getMapCount();
 
@@ -492,7 +482,7 @@ public class TestSafeMap {
 
         int y = size-2;
 
-        safeMap.updateMap(size, y, playerNum);
+        safeMap.updateMap(size, y, playerNum, 0);
         Map.Tiles[][] postTiles = safeMap.getPlayerMap(playerNum);
 
         //Assert
@@ -504,7 +494,7 @@ public class TestSafeMap {
         //Exercise
         int size = 5;
         safeMap.setMapSize(size);
-        safeMap.generate();
+        safeMap.generate(0);
 
         int playerNum = safeMap.getMapCount();
 
@@ -512,7 +502,7 @@ public class TestSafeMap {
 
         int x = size-3;
 
-        safeMap.updateMap(x, size, playerNum);
+        safeMap.updateMap(x, size, playerNum, 0);
         Map.Tiles[][] postTiles = safeMap.getPlayerMap(playerNum);
 
         //Assert
@@ -525,7 +515,7 @@ public class TestSafeMap {
         //Exercise
         int size = 5;
         safeMap.setMapSize(size);
-        safeMap.generate();
+        safeMap.generate(0);
 
         int playerNum = safeMap.getMapCount();
 
@@ -534,7 +524,7 @@ public class TestSafeMap {
         int x = -1;
         int y = size+2;
 
-        safeMap.updateMap(x, y, playerNum);
+        safeMap.updateMap(x, y, playerNum, 0);
         Map.Tiles[][] postTiles = safeMap.getPlayerMap(playerNum);
 
         //Assert
@@ -546,7 +536,7 @@ public class TestSafeMap {
         //Exercise
         int size = 5;
         safeMap.setMapSize(size);
-        safeMap.generate();
+        safeMap.generate(0);
 
         int playerNum = safeMap.getMapCount();
 
@@ -555,7 +545,7 @@ public class TestSafeMap {
         int x = size+3;
         int y = -1;
 
-        safeMap.updateMap(x, y, playerNum);
+        safeMap.updateMap(x, y, playerNum, 0);
         Map.Tiles[][] postTiles = safeMap.getPlayerMap(playerNum);
 
         //Assert
@@ -566,7 +556,7 @@ public class TestSafeMap {
     public void testUpdateMap_StayInSameTile(){
         //Exercise
         safeMap.setMapSize(5);
-        safeMap.generate();
+        safeMap.generate(0);
 
         int playerNum = safeMap.getMapCount();
 
@@ -575,7 +565,7 @@ public class TestSafeMap {
 
         Map.Tiles[][] prevTiles = safeMap.getPlayerMap(playerNum);
 
-        safeMap.updateMap(initX, initY, playerNum);
+        safeMap.updateMap(initX, initY, playerNum, 0);
         Map.Tiles[][] postTiles = safeMap.getPlayerMap(playerNum);
 
         //Assert
@@ -586,7 +576,7 @@ public class TestSafeMap {
     public void testUpdateMap_Grass(){
         //Exercise
         safeMap.setMapSize(5);
-        safeMap.generate();
+        safeMap.generate(0);
 
         int playerNum = safeMap.getMapCount();
 
@@ -615,7 +605,7 @@ public class TestSafeMap {
         assertEquals(Map.Tiles.GREY, prevTiles[x][y]);
 
         //Exercise
-        safeMap.updateMap(x, y, playerNum);
+        safeMap.updateMap(x, y, playerNum, 0);
         postTiles = safeMap.getPlayerMap(playerNum);
 
         //Assert
@@ -648,7 +638,7 @@ public class TestSafeMap {
         assertEquals(Map.Tiles.GREY, prevTiles[x][y]);
 
         //Exercise
-        safeMap.updateMap(x, y, playerNum);
+        safeMap.updateMap(x, y, playerNum, 0);
         Map.Tiles[][] postTiles = safeMap.getPlayerMap(playerNum);
 
         //Assert player returned to init position and water tile is revealed
@@ -660,7 +650,7 @@ public class TestSafeMap {
     public void testUpdateMap_Treasure(){
         //Exercise
         safeMap.setMapSize(5);
-        safeMap.generate();
+        safeMap.generate(0);
 
         int playerNum = safeMap.getMapCount();
         Pair<Integer, Integer> treasureTile = Map.getTreasureTile();
@@ -677,7 +667,7 @@ public class TestSafeMap {
         assertEquals(Map.Tiles.GREY, prevTiles[x][y]);
 
         //Exercise
-        safeMap.updateMap(x, y, playerNum);
+        safeMap.updateMap(x, y, playerNum, 0);
         Map.Tiles[][] postTiles = safeMap.getPlayerMap(playerNum);
 
         //Assert
@@ -691,7 +681,7 @@ public class TestSafeMap {
     public void testResetMap(){
         //Exercise
         safeMap.setMapSize(5);
-        safeMap.generate();
+        safeMap.generate(0);
 
         safeMap.resetMap();
 
@@ -704,7 +694,46 @@ public class TestSafeMap {
 
         assertEquals(0, safeMap.playerMaps.size());
         assertEquals(0, safeMap.initTiles.size());
-        
+
+        assertFalse(safeMap.tilesGenerated);
+
         assertEquals(-1, Map.getMapSize());
+    }
+
+//******** safeMap.generate tests ********\\
+
+    @Test
+    public void testGenerate_TilesGenerated_FalseBeforeGenerate(){
+        //Exercise
+        safeMap.setMapSize(5);
+
+        //Assert
+        assertFalse(safeMap.tilesGenerated);
+    }
+
+    @Test
+    public void testGenerate_TilesGenerated_TrueAfterGenerate(){
+        //Exercise
+        safeMap.setMapSize(5);
+        safeMap.generate(0);
+
+        //Assert
+        assertTrue(safeMap.tilesGenerated);
+    }
+
+    @Test
+    public void testGenerate_TilesGenerated_TrueAfterMultipleGenerate(){
+        //Exercise
+        safeMap.setMapSize(5);
+        safeMap.generate(0);
+
+        //Assert
+        assertTrue(safeMap.tilesGenerated);
+
+        //Exercise
+        safeMap.generate(0);
+
+        //Assert
+        assertTrue(safeMap.tilesGenerated);
     }
 }
