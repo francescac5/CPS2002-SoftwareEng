@@ -128,7 +128,7 @@ public abstract class Map {
             case TREASURE:
                 type = 'T';
                 break;
-            case GRASS_PLAYER:
+            case GRASS:
                 type = 'G';
                 break;
             case WATER:
@@ -254,7 +254,7 @@ public abstract class Map {
                     treasureTile = new Pair<>(x, y);
 
                 } else if (grass.contains(tileCount)) {
-                    mapTiles[x][y] = Tiles.GRASS_PLAYER;
+                    mapTiles[x][y] = Tiles.GRASS;
 
                     temp = new Pair<>(x, y);
                     grassTiles.add(temp);
@@ -353,7 +353,13 @@ public abstract class Map {
             for (int y = 0; y < size; y++) {
                 for (int x = 0; x < size; x++) {
                     if (xNew == x && yNew == y) {
-                        playerMap[x][y] = revealedTile;
+                        //if in collaborative mode tile already revealed or if revealed tile is grass
+                        if(playerMap[x][y] == Tiles.GRASS || revealedTile == Tiles.GRASS){
+                            playerMap[x][y] = Tiles.GRASS_PLAYER;
+                        }
+                        else{
+                            playerMap[x][y] = revealedTile;
+                        }
                     }
 
                     //if grass tile is revealed then remove character from prev tile
@@ -373,9 +379,26 @@ public abstract class Map {
     }
 
     //reveals tile for player map during collaborative play and updates player's html file accordingly
-    //without moving detective on map
+    //without moving detective on map except if treasure is found
     public void revealTile(int xNew, int yNew, int teamNum, int playerNum){
-        return;
+        Tiles[][] teamPlayerMap = getTeamPlayerMap(teamNum, playerNum);
+        Tiles revealedTile = this.mapTiles[xNew][yNew];
+
+        for (int y = 0; y < size; y++) {
+            for (int x = 0; x < size; x++) {
+                if (xNew == x && yNew == y) {
+                    if(teamPlayerMap[x][y] != Tiles.GRASS_PLAYER) {
+                        teamPlayerMap[x][y] = revealedTile;
+                    }
+                }
+
+                //if treasure tile is revealed then remove character from prev tile and move it to treasure tile
+                if (teamPlayerMap[x][y] == Tiles.GRASS_PLAYER && (xNew != x || yNew != y) && teamPlayerMap[xNew][yNew] == Tiles.TREASURE){
+                    teamPlayerMap[x][y] = Tiles.GRASS;
+                }
+            }
+        }
+        util.generateMapHTML(playerNum, teamPlayerMap, playerNum);
     }
 
     //resets all variables associated with the Map

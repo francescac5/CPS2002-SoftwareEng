@@ -787,7 +787,7 @@ public class TestSafeMap {
     @Test
     public void testRevealTileTeam__PlayerOnTile(){
         //Exercise
-        safeMap.setMapSize(5);
+        safeMap.setMapSize(8);
         safeMap.generate(1);
 
         //playerNum equivalent to teamNum in parameter
@@ -810,7 +810,7 @@ public class TestSafeMap {
     @Test
     public void testRevealTileTeam_GRASS(){
         //Exercise
-        safeMap.setMapSize(5);
+        safeMap.setMapSize(8);
         safeMap.generate(1);
 
         ArrayList<Pair<Integer, Integer>> tiles = safeMap.getGrassTiles();
@@ -835,13 +835,14 @@ public class TestSafeMap {
 
         //Assert
         playerMap = safeMap.getTeamPlayerMap(0, 0);
+        assertEquals(Map.Tiles.GRASS_PLAYER, playerMap[safeMap.getPlayerInitPositionX(1)][safeMap.getPlayerInitPositionY(1)]);
         assertEquals(Map.Tiles.GRASS, playerMap[x][y]);
     }
 
     @Test
     public void testRevealTileTeam_WATER(){
         //Exercise
-        safeMap.setMapSize(5);
+        safeMap.setMapSize(8);
         safeMap.generate(1);
 
         ArrayList<Pair<Integer, Integer>> tiles = safeMap.getWaterTiles();
@@ -859,13 +860,14 @@ public class TestSafeMap {
 
         //Assert
         playerMap = safeMap.getTeamPlayerMap(0, 0);
+        assertEquals(Map.Tiles.GRASS_PLAYER, playerMap[safeMap.getPlayerInitPositionX(1)][safeMap.getPlayerInitPositionY(1)]);
         assertEquals(Map.Tiles.WATER, playerMap[x][y]);
     }
 
     @Test
     public void testRevealTileTeam_TREASURE(){
         //Exercise
-        safeMap.setMapSize(5);
+        safeMap.setMapSize(8);
         safeMap.generate(1);
 
         Pair<Integer, Integer> tile = safeMap.getTreasureTile();
@@ -882,13 +884,14 @@ public class TestSafeMap {
 
         //Assert
         playerMap = safeMap.getTeamPlayerMap(0, 0);
+        assertEquals(Map.Tiles.GRASS, playerMap[safeMap.getPlayerInitPositionX(1)][safeMap.getPlayerInitPositionY(1)]);
         assertEquals(Map.Tiles.TREASURE, playerMap[x][y]);
     }
 
     @Test
     public void testRevealTileTeam_AlreadyRevealed_Grass(){
         //Exercise
-        safeMap.setMapSize(5);
+        safeMap.setMapSize(8);
         safeMap.generate(1);
 
         ArrayList<Pair<Integer, Integer>> tiles = safeMap.getGrassTiles();
@@ -902,21 +905,19 @@ public class TestSafeMap {
             count++;
         }
 
-        Map.Tiles[][] playerMap = safeMap.getTeamPlayerMap(0, 0);
-
         //Exercise
         safeMap.revealTile(x, y, 0, 0);
         safeMap.revealTile(x, y, 0, 0);
 
         //Assert
-        playerMap = safeMap.getTeamPlayerMap(0, 0);
+        Map.Tiles[][] playerMap = safeMap.getTeamPlayerMap(0, 0);
         assertEquals(Map.Tiles.GRASS, playerMap[x][y]);
     }
 
     @Test
     public void testRevealTileTeam_AlreadyRevealed_Water(){
         //Exercise
-        safeMap.setMapSize(5);
+        safeMap.setMapSize(8);
         safeMap.generate(1);
 
         ArrayList<Pair<Integer, Integer>> tiles = safeMap.getWaterTiles();
@@ -924,14 +925,12 @@ public class TestSafeMap {
         int x = waterTile.getKey();
         int y = waterTile.getValue();
 
-        Map.Tiles[][] playerMap = safeMap.getTeamPlayerMap(0, 0);
-
         //Exercise
         safeMap.revealTile(x, y, 0, 0);
         safeMap.revealTile(x, y, 0, 0);
 
         //Assert
-        playerMap = safeMap.getTeamPlayerMap(0, 0);
+        Map.Tiles[][] playerMap = safeMap.getTeamPlayerMap(0, 0);
         assertEquals(Map.Tiles.WATER, playerMap[x][y]);
     }
 }
