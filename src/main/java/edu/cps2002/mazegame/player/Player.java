@@ -4,6 +4,7 @@ import edu.cps2002.mazegame.map.Map;
 
 public class Player {
     private Position position;
+    int playerNum;
 
    //getter for the position
     public Position getPosition() {
@@ -15,6 +16,8 @@ public class Player {
         Position p = new Position(x, y);
         setPosition(p);
     }
+
+
 
     //enum for the direction
     public enum DIRECTION {
