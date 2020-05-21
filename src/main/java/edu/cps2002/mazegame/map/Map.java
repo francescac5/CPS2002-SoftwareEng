@@ -67,7 +67,7 @@ public abstract class Map {
 
     //returns map of a particular player in collaborative play
     protected Tiles[][] getTeamPlayerMap(int teamNum, int playerNum){
-        return teamMaps.get(teamNum).get(playerNum);
+        return teamMaps.get(teamNum-1).get(playerNum);
     }
 
     //returns x-coordinate of a particular player's initial tile
