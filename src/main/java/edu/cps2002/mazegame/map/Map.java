@@ -372,6 +372,12 @@ public abstract class Map {
         }
     }
 
+    //reveals tile for player map during collaborative play and updates player's html file accordingly
+    //without moving detective on map
+    public void revealTile(int xNew, int yNew, int teamNum, int playerNum){
+        return;
+    }
+
     //resets all variables associated with the Map
     public void resetMap() {
         initMapCount();
@@ -381,6 +387,7 @@ public abstract class Map {
         treasureTile = null;
 
         playerMaps.clear();
+        teamMaps.clear();
         initTiles.clear();
         tilesGenerated = false;
 

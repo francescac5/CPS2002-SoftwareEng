@@ -713,6 +713,7 @@ public class TestHazardousMap {
         assertNull(hazardousMap.treasureTile);
 
         assertEquals(0, hazardousMap.playerMaps.size());
+        assertEquals(0, hazardousMap.teamMaps.size());
         assertEquals(0, hazardousMap.initTiles.size());
 
         assertFalse(hazardousMap.tilesGenerated);

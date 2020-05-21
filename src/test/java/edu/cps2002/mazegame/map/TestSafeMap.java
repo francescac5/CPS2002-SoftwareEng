@@ -693,6 +693,7 @@ public class TestSafeMap {
         assertNull(safeMap.treasureTile);
 
         assertEquals(0, safeMap.playerMaps.size());
+        assertEquals(0, safeMap.teamMaps.size());
         assertEquals(0, safeMap.initTiles.size());
 
         assertFalse(safeMap.tilesGenerated);
@@ -779,5 +780,158 @@ public class TestSafeMap {
         assertEquals(6, safeMap.teamMaps.get(1).size());
 
         assertEquals(0, safeMap.playerMaps.size());
+    }
+
+//******** safeMap.revealTile()tests ********\\
+
+    @Test
+    public void testRevealTileTeam__PlayerOnTile(){
+        //Exercise
+        safeMap.setMapSize(5);
+        safeMap.generate(1);
+
+        //playerNum equivalent to teamNum in parameter
+        int x = safeMap.getPlayerInitPositionX(1);
+        int y = safeMap.getPlayerInitPositionY(1);
+
+        Map.Tiles[][] playerMap = safeMap.getTeamPlayerMap(0, 0);
+
+        //Assert
+        assertEquals(Map.Tiles.GRASS_PLAYER, playerMap[x][y]);
+
+        //Exercise
+        safeMap.revealTile(x, y, 0, 0);
+
+        //Assert
+        playerMap = safeMap.getTeamPlayerMap(0, 0);
+        assertEquals(Map.Tiles.GRASS_PLAYER, playerMap[x][y]);
+    }
+
+    @Test
+    public void testRevealTileTeam_GRASS(){
+        //Exercise
+        safeMap.setMapSize(5);
+        safeMap.generate(1);
+
+        ArrayList<Pair<Integer, Integer>> tiles = safeMap.getGrassTiles();
+        Pair<Integer, Integer> greenTile = tiles.get(0);
+        int x = 0, y = 0;
+        int count = 1;
+
+        while(x == safeMap.getPlayerInitPositionX(1) || y == safeMap.getPlayerInitPositionY(1)) {
+            x = greenTile.getKey();
+            y = greenTile.getValue();
+            greenTile = tiles.get(count);
+            count++;
+        }
+
+        Map.Tiles[][] playerMap = safeMap.getTeamPlayerMap(0, 0);
+
+        //Assert
+        assertEquals(Map.Tiles.GREY, playerMap[x][y]);
+
+        //Exercise
+        safeMap.revealTile(x, y, 0, 0);
+
+        //Assert
+        playerMap = safeMap.getTeamPlayerMap(0, 0);
+        assertEquals(Map.Tiles.GRASS, playerMap[x][y]);
+    }
+
+    @Test
+    public void testRevealTileTeam_WATER(){
+        //Exercise
+        safeMap.setMapSize(5);
+        safeMap.generate(1);
+
+        ArrayList<Pair<Integer, Integer>> tiles = safeMap.getWaterTiles();
+        Pair<Integer, Integer> waterTile = tiles.get(0);
+        int x = waterTile.getKey();
+        int y = waterTile.getValue();
+
+        Map.Tiles[][] playerMap = safeMap.getTeamPlayerMap(0, 0);
+
+        //Assert
+        assertEquals(Map.Tiles.GREY, playerMap[x][y]);
+
+        //Exercise
+        safeMap.revealTile(x, y, 0, 0);
+
+        //Assert
+        playerMap = safeMap.getTeamPlayerMap(0, 0);
+        assertEquals(Map.Tiles.WATER, playerMap[x][y]);
+    }
+
+    @Test
+    public void testRevealTileTeam_TREASURE(){
+        //Exercise
+        safeMap.setMapSize(5);
+        safeMap.generate(1);
+
+        Pair<Integer, Integer> tile = safeMap.getTreasureTile();
+        int x = tile.getKey();
+        int y = tile.getValue();
+
+        Map.Tiles[][] playerMap = safeMap.getTeamPlayerMap(0, 0);
+
+        //Assert
+        assertEquals(Map.Tiles.GREY, playerMap[x][y]);
+
+        //Exercise
+        safeMap.revealTile(x, y, 0, 0);
+
+        //Assert
+        playerMap = safeMap.getTeamPlayerMap(0, 0);
+        assertEquals(Map.Tiles.TREASURE, playerMap[x][y]);
+    }
+
+    @Test
+    public void testRevealTileTeam_AlreadyRevealed_Grass(){
+        //Exercise
+        safeMap.setMapSize(5);
+        safeMap.generate(1);
+
+        ArrayList<Pair<Integer, Integer>> tiles = safeMap.getGrassTiles();
+        Pair<Integer, Integer> greenTile = tiles.get(0);
+
+        int x = 0, y = 0, count = 1;
+        while(x == safeMap.getPlayerInitPositionX(1) || y == safeMap.getPlayerInitPositionY(1)) {
+            x = greenTile.getKey();
+            y = greenTile.getValue();
+            greenTile = tiles.get(count);
+            count++;
+        }
+
+        Map.Tiles[][] playerMap = safeMap.getTeamPlayerMap(0, 0);
+
+        //Exercise
+        safeMap.revealTile(x, y, 0, 0);
+        safeMap.revealTile(x, y, 0, 0);
+
+        //Assert
+        playerMap = safeMap.getTeamPlayerMap(0, 0);
+        assertEquals(Map.Tiles.GRASS, playerMap[x][y]);
+    }
+
+    @Test
+    public void testRevealTileTeam_AlreadyRevealed_Water(){
+        //Exercise
+        safeMap.setMapSize(5);
+        safeMap.generate(1);
+
+        ArrayList<Pair<Integer, Integer>> tiles = safeMap.getWaterTiles();
+        Pair<Integer, Integer> waterTile = tiles.get(0);
+        int x = waterTile.getKey();
+        int y = waterTile.getValue();
+
+        Map.Tiles[][] playerMap = safeMap.getTeamPlayerMap(0, 0);
+
+        //Exercise
+        safeMap.revealTile(x, y, 0, 0);
+        safeMap.revealTile(x, y, 0, 0);
+
+        //Assert
+        playerMap = safeMap.getTeamPlayerMap(0, 0);
+        assertEquals(Map.Tiles.WATER, playerMap[x][y]);
     }
 }
