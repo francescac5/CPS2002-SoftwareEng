@@ -169,6 +169,16 @@ public class TestSafeMap {
         assertFalse(result);
     }
 
+//******** safeMap.generateMap() tests ********\\
+//
+//    public void testGenerateMap_NoTeams(){
+//        //Exercise
+//        int mapSize = 5;
+//        safeMap.setMapSize(mapSize);
+//
+//        safeMap.generateMap(false, 0);
+//    }
+
 //******** safeMap.calculateGrassPercentage() tests ********\\
 
     @Test

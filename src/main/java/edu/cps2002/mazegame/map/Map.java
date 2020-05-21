@@ -149,35 +149,40 @@ public abstract class Map {
         }
         else{
             Map.size = size;
+            setUpMapTiles();
             return true;
         }
+    }
+
+    //generates tiles for Map once in map's lifetime
+    private void setUpMapTiles(){
+        util.generateGameMapsFolder();
+
+        // create instance of Random class
+        Random rand = new Random();
+        double randomValue;
+
+        //set water percentage randomly
+        boolean success = false;
+        while(!success){
+            randomValue = 100 * rand.nextDouble();
+            success = this.setWaterPercentage(randomValue);
+        }
+
+        generateTileTypes();
+        tilesGenerated = true;
     }
 
     //set percentage of water tiles which affects the percentage of grass tiles
     abstract public boolean setWaterPercentage(double waterPercentage);
 
-    //generates tiles for Map once in map's lifetime
     //generates player map and corresponding HTML file
     public void generate(){
 
         //single set of tiles
-        if(!tilesGenerated){
-            util.generateGameMapsFolder();
-
-            // create instance of Random class
-            Random rand = new Random();
-            double randomValue;
-
-            //set water percentage randomly
-            boolean success = false;
-            while(!success){
-                randomValue = 100 * rand.nextDouble();
-                success = this.setWaterPercentage(randomValue);
-            }
-
-            generateTileTypes();
-            tilesGenerated = true;
-        }
+//        if(!tilesGenerated) {
+//            setUpMapTiles();
+//        }
 
         mapCount++;
         Tiles [][] playerMap = generateInitMap();
