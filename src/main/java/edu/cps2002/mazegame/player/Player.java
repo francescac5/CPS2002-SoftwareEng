@@ -1,10 +1,14 @@
 package edu.cps2002.mazegame.player;
 
+import edu.cps2002.mazegame.game.Observer;
+import edu.cps2002.mazegame.game.Subject;
+import edu.cps2002.mazegame.game.TeamManager;
 import edu.cps2002.mazegame.map.Map;
 
-public class Player {
+public class Player implements Observer {
     private Position position;
     int playerNum;
+    Subject teamManager;
 
    //getter for the position
     public Position getPosition() {
@@ -17,6 +21,17 @@ public class Player {
         setPosition(p);
     }
 
+    Player(){
+
+    }
+    Player(TeamManager m){
+        this.teamManager= m;
+        m.register(this);
+    }
+    @Override
+    public void update(int x, int y) {
+
+    }
 
 
     //enum for the direction
