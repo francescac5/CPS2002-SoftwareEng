@@ -247,7 +247,7 @@ static void initialiseTeams(int players, int teams) {
             int players = getNumPlayers();
             int teams = getNumTeams(players);
             map.setMapSize(chooseMapSize(players));
-            do {
+//            do {
                 playerList.clear();
                 playerChoice.clear();
                 initialiseTeams(players, teams);
@@ -255,15 +255,15 @@ static void initialiseTeams(int players, int teams) {
 
                 utils.openMapsInBrowser();
                 //for loop that gives 20 turns to each team
-                for (int i = 0; i < 20; i++) {
-                    giveoneturntoeachPlayer();
-                    boolean check = checkWinner();
-                    checkGameend(check);
-                }
-                utils.deleteHTMLFiles();
-                map.resetMap();
+//                for (int i = 0; i < 20; i++) {
+//                    giveoneturntoeachPlayer();
+//                    boolean check = checkWinner();
+//                    checkGameend(check);
+//                }
+//                utils.deleteHTMLFiles();
+//                map.resetMap();
 
-            } while (!gameend);
+//            } while (!gameend);
         }
     }
 
