@@ -60,7 +60,7 @@ public abstract class Map {
     protected ArrayList<Tiles[][]> playerMaps = new ArrayList<>();
 
     //stores a map representation for each player in each team
-    ArrayList<ArrayList<Tiles[][]>> teamMaps = new ArrayList<>();
+    protected ArrayList<ArrayList<Tiles[][]>> teamMaps = new ArrayList<>();
 
     //stores x and y pairs for the players' initial tiles
     protected ArrayList<Pair<Integer,Integer>> initTiles = new ArrayList<>();
@@ -71,9 +71,14 @@ public abstract class Map {
         return size;
     }
 
-    //returns map of a particular player
+    //returns map of a particular player in individual play
     protected Tiles[][] getPlayerMap(int playerNum){
         return playerMaps.get(playerNum-1);
+    }
+
+    //returns map of a particular player in collaborative play
+    protected Tiles[][] getTeamPlayerMap(int teamNum, int playerNum){
+        return teamMaps.get(teamNum).get(playerNum);
     }
 
     //returns x-coordinate of a particular player's initial tile
@@ -320,16 +325,29 @@ public abstract class Map {
         return waterTiles;
     }
 
+    //gets player map for individual play and updates player's map contents
+    public void updateMap(int xNew, int yNew, int playerNum){
+        Tiles[][] playerMap = getPlayerMap(playerNum);
+        updateMapContents(xNew, yNew, playerNum, playerMap);
+        util.generateMapHTML(playerNum, playerMap);
+    }
+
+    //gets player map for collaborative play and updates player's map contents
+    public void updateMap(int xNew, int yNew, int teamNum, int playerNum){
+        Tiles[][] playerMap = getTeamPlayerMap(teamNum, playerNum);
+        updateMapContents(xNew, yNew, teamNum, playerMap);
+        util.generateMapHTML(playerNum, playerMap, playerNum);
+    }
+
     //if the given x and y coordinates are within the map size limit, the map of the given player is
     //updated to reveal the tile indicated by those coordinates.
     //if the revealed tile is grass, then player moves on it,
     //else if it is water, the player is sent back to the initial tile,
     //else if it is treasure, the player moves on it.
-    public void updateMap(int xNew, int yNew, int playerNum, int teamPlayerNum){
+    private void updateMapContents(int xNew, int yNew, int playerNum, Tiles[][] playerMap){
 
         if(xNew < size && yNew < size && xNew >= 0 && yNew >= 0) {
 
-            Tiles[][] playerMap = getPlayerMap(playerNum);
             Tiles revealedTile = this.mapTiles[xNew][yNew];
 
             for (int y = 0; y < size; y++) {
@@ -350,11 +368,6 @@ public abstract class Map {
                         playerMap[initX][initY] = Tiles.GRASS_PLAYER;
                     }
                 }
-            }
-            if(teamPlayerNum > 0){
-                util.generateMapHTML(playerNum, playerMap, teamPlayerNum);
-            }else{
-                util.generateMapHTML(playerNum, playerMap);
             }
         }
     }

@@ -464,7 +464,7 @@ public class TestHazardousMap {
         int x = size+3;
         int y = size-2;
 
-        hazardousMap.updateMap(x, y, playerNum, 0);
+        hazardousMap.updateMap(x, y, playerNum);
         Map.Tiles[][] postTiles = hazardousMap.getPlayerMap(playerNum);
 
         //Assert
@@ -485,7 +485,7 @@ public class TestHazardousMap {
         int x = size-3;
         int y = size+2;
 
-        hazardousMap.updateMap(x, y, playerNum, 0);
+        hazardousMap.updateMap(x, y, playerNum);
         Map.Tiles[][] postTiles = hazardousMap.getPlayerMap(playerNum);
 
         //Assert
@@ -505,7 +505,7 @@ public class TestHazardousMap {
 
         int y = size-2;
 
-        hazardousMap.updateMap(size, y, playerNum, 0);
+        hazardousMap.updateMap(size, y, playerNum);
         Map.Tiles[][] postTiles = hazardousMap.getPlayerMap(playerNum);
 
         //Assert
@@ -525,7 +525,7 @@ public class TestHazardousMap {
 
         int x = size-3;
 
-        hazardousMap.updateMap(x, size, playerNum, 0);
+        hazardousMap.updateMap(x, size, playerNum);
         Map.Tiles[][] postTiles = hazardousMap.getPlayerMap(playerNum);
 
         //Assert
@@ -547,7 +547,7 @@ public class TestHazardousMap {
         int x = -1;
         int y = size+2;
 
-        hazardousMap.updateMap(x, y, playerNum, 0);
+        hazardousMap.updateMap(x, y, playerNum);
         Map.Tiles[][] postTiles = hazardousMap.getPlayerMap(playerNum);
 
         //Assert
@@ -568,7 +568,7 @@ public class TestHazardousMap {
         int x = size+3;
         int y = -1;
 
-        hazardousMap.updateMap(x, y, playerNum, 0);
+        hazardousMap.updateMap(x, y, playerNum);
         Map.Tiles[][] postTiles = hazardousMap.getPlayerMap(playerNum);
 
         //Assert
@@ -588,7 +588,7 @@ public class TestHazardousMap {
 
         Map.Tiles[][] prevTiles = hazardousMap.getPlayerMap(playerNum);
 
-        hazardousMap.updateMap(initX, initY, playerNum, 0);
+        hazardousMap.updateMap(initX, initY, playerNum);
         Map.Tiles[][] postTiles = hazardousMap.getPlayerMap(playerNum);
 
         //Assert
@@ -628,7 +628,7 @@ public class TestHazardousMap {
         assertEquals(Map.Tiles.GREY, prevTiles[x][y]);
 
         //Exercise
-        hazardousMap.updateMap(x, y, playerNum, 0);
+        hazardousMap.updateMap(x, y, playerNum);
         postTiles = hazardousMap.getPlayerMap(playerNum);
 
         //Assert
@@ -658,7 +658,7 @@ public class TestHazardousMap {
         assertEquals(Map.Tiles.GREY, prevTiles[x][y]);
 
         //Exercise
-        hazardousMap.updateMap(x, y, playerNum, 0);
+        hazardousMap.updateMap(x, y, playerNum);
         Map.Tiles[][] postTiles = hazardousMap.getPlayerMap(playerNum);
 
         //Assert player returned to init position and water tile is revealed
@@ -687,7 +687,7 @@ public class TestHazardousMap {
         assertEquals(Map.Tiles.GREY, prevTiles[x][y]);
 
         //Exercise
-        hazardousMap.updateMap(x, y, playerNum, 0);
+        hazardousMap.updateMap(x, y, playerNum);
         Map.Tiles[][] postTiles = hazardousMap.getPlayerMap(playerNum);
 
         //Assert
@@ -755,5 +755,49 @@ public class TestHazardousMap {
 
         //Assert
         assertTrue(hazardousMap.tilesGenerated);
+    }
+
+    @Test
+    public void testGenerate_PlayerMapsInitialised_Individual(){
+        //Exercise
+        hazardousMap.setMapSize(5);
+
+        //Assert
+        assertEquals(0, hazardousMap.playerMaps.size());
+
+        //Exercise
+        hazardousMap.generate(0);
+
+        //Assert
+        assertEquals(1, hazardousMap.playerMaps.size());
+
+        //Exercise
+        hazardousMap.generate(0);
+        assertEquals(2, hazardousMap.playerMaps.size());
+
+        assertEquals(0, hazardousMap.teamMaps.size());
+    }
+
+    @Test
+    public void testGenerate_PlayerMapsInitialised_Team(){
+        //Exercise
+        hazardousMap.setMapSize(5);
+
+        //Assert
+        assertEquals(0, hazardousMap.teamMaps.size());
+
+        //Exercise
+        hazardousMap.generate(5);
+
+        //Assert
+        assertEquals(1, hazardousMap.teamMaps.size());
+        assertEquals(5, hazardousMap.teamMaps.get(0).size());
+
+        //Exercise
+        hazardousMap.generate(6);
+        assertEquals(2, hazardousMap.teamMaps.size());
+        assertEquals(6, hazardousMap.teamMaps.get(1).size());
+
+        assertEquals(0, hazardousMap.playerMaps.size());
     }
 }

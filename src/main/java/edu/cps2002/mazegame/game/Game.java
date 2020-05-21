@@ -281,7 +281,7 @@ static void initialiseTeams(int players, int teams) {
             playerChoice.add(x);
         }
         for( int i = 0; i < players.size(); i++) {
-            map.updateMap(players.get(i).getPosition().getX(), players.get(i).getPosition().getY(), i + 1, 0);
+            map.updateMap(players.get(i).getPosition().getX(), players.get(i).getPosition().getY(), i + 1);
         }
         playerchoice.clear();
     }
