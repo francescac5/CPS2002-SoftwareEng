@@ -14,11 +14,10 @@ public class Game {
     //arraylist to store the players and their choice
     protected static ArrayList<Player> playerList = new ArrayList<Player>();
     protected static ArrayList<Player.DIRECTION> playerChoice = new ArrayList<>();
-    protected static ArrayList<Player.DIRECTION> teamChoice = new ArrayList<>();
+    protected static ArrayList<TeamManager> Managers = new ArrayList<>();
     protected static ArrayList<ArrayList<Player>> teamList = new ArrayList<ArrayList<Player>>();
     protected static int[] TeamPlayers;
     protected static int[] TeamPlayersCount;
-    protected static ArrayList<Player> extraArray = new ArrayList<Player>();
     private static MapUtils utils = new MapUtils();
     protected static Map map;
 
@@ -185,12 +184,15 @@ static void initialiseTeams(int[] playersPerTeam, int teams) {
     for(int i =0; i<teams; i++){
         int initXTeam = map.getPlayerInitPositionX(i+1);
         int initYTeam = map.getPlayerInitPositionY(i+1);
+        ArrayList<Player> players = new ArrayList<>();
+        TeamManager Manager = new TeamManager(i+1);
+        Managers.add(Manager);
         for (int j =0; j<playersPerTeam[i]; j++){
-            Player p1 = new Player(initXTeam,initYTeam,map);
-            playerList.add(p1);
+            Player p1 = new Player(initXTeam,initYTeam,map,j,Manager);
+            players.add(p1);
         }
-        teamList.add(playerList);
-        playerList.clear();
+
+        teamList.add(players);
     }
 }
 static void calculatePlayersPerTeam(int players, int teams){
@@ -246,7 +248,7 @@ static void calculatePlayersPerTeam(int players, int teams){
                 utils.openMapsInBrowser();
                 //for loop that gives 20 turns to each player
                 for (int i = 0; i < 20; i++) {
-                    giveoneturntoeachPlayer();
+                    giveOneTurnToEachPlayer();
                     boolean check = checkWinner();
                     checkGameend(check);
                 }
@@ -273,23 +275,20 @@ static void calculatePlayersPerTeam(int players, int teams){
             generateHTMLFiles(TeamPlayers, teams);
             initialiseTeams(TeamPlayers, teams);
             utils.openMapsInBrowser();
-
 //            //for loop that gives 20 turns to each team
-//            for (int i = 0; i < 20; i++) {
-//                giveoneturntoeachTeam();
-//                    boolean check = checkWinner();
-//                    checkGameend(check);
-//                }
-//                utils.deleteHTMLFiles();
-//                map.resetMap();
-//
-//            } while (!gameend);
+           for (int i = 0; i < 5; i++) {
+                giveOneTurnToEachTeam();
+                boolean check = checkWinner();
+                checkGameend(check);
+           }
+                utils.deleteHTMLFiles();
+                map.resetMap();
+        } while (!gameend);
         }
-    }
 
 
     //method to give every player one turn to choose the direction and then move everyone accordingly
-    static void giveoneturntoeachPlayer() {
+    static void giveOneTurnToEachPlayer() {
         for(int j=0; j<playerList.size();j++) {
             boolean flag;
             Player.DIRECTION x;
@@ -308,25 +307,27 @@ static void calculatePlayersPerTeam(int players, int teams){
     }
 
     //method to give every team
-    static void giveoneturntoeachTeam() {
-
+    static void giveOneTurnToEachTeam() {
         for(int j=0; j<teamList.size();j++) {
             boolean flag;
             Player.DIRECTION x;
-            System.out.println("Team " + (j + 1) + "'s turn");
+            System.out.println("Team " + (j + 1) + "'s turn \nPlayer " + TeamPlayersCount[j] + " plays.");
             do {
                 x = chooseMove();
                 char tile = map.getTileType(teamList.get(j).get(TeamPlayersCount[j]).getPosition().getX(), teamList.get(j).get(TeamPlayersCount[j]).getPosition().getY());
                 flag = checkwatertile(tile,j,teamList.get(j),x);
             }while(!flag);
-            playerChoice.add(x);
-            if((TeamPlayersCount[j]++)== TeamPlayers[j]){
-              TeamPlayersCount[j] = 0;
-            }
+            playerChoice.add(x);  //TeamChoice
         }
         for( int i = 0; i < teamList.size(); i++) {
 
-            map.updateMap(playerList.get(i).getPosition().getX(), playerList.get(i).getPosition().getY(), i + 1);
+            map.updateMap(teamList.get(i).get(TeamPlayersCount[i]).getPosition().getX(), teamList.get(i).get(TeamPlayersCount[i]).getPosition().getY(), i + 1,TeamPlayersCount[i]);
+          Managers.get(i).setRevealedTile(teamList.get(i).get(TeamPlayersCount[i]).getPosition().getX(), teamList.get(i).get(TeamPlayersCount[i]).getPosition().getY());
+
+            TeamPlayersCount[i]++;
+            if((TeamPlayersCount[i])== TeamPlayers[i]){
+                TeamPlayersCount[i] = 0;
+            }
         }
         playerChoice.clear();
     }
