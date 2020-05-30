@@ -15,9 +15,9 @@ public class Game {
     protected static ArrayList<Player> playerList = new ArrayList<Player>();
     protected static ArrayList<Player.DIRECTION> playerChoice = new ArrayList<>();
     protected static ArrayList<Player.DIRECTION> teamChoice = new ArrayList<>();
-    protected static ArrayList<Player> teamList = new ArrayList<>();
-    protected static ArrayList<ArrayList<Player>> teamList1 = new ArrayList<ArrayList<Player>>();
+    protected static ArrayList<ArrayList<Player>> teamList = new ArrayList<ArrayList<Player>>();
     protected static int[] TeamPlayers;
+    protected static int[] TeamPlayersCount;
     protected static ArrayList<Player> extraArray = new ArrayList<Player>();
     private static MapUtils utils = new MapUtils();
     protected static Map map;
@@ -181,25 +181,33 @@ public class Game {
         } while (true);
     }
 
-static void initialiseTeams(int players, int teams) {
-    for (int i =0; i<players; i++){
-        Player p1 = new Player(map.getPlayerInitPositionX(i+1),map.getPlayerInitPositionY(i+1));
-        playerList.add(p1);
-       // Arrays.fill(teamList1.toArray(),playerList);
-    }
-    TeamPlayers = new int[teams];
-    int remainder = players % teams;
-    int playersPerTeam = playerList.size() / teams;
-
-    //playerlist divided by playersPerTeam
-    Arrays.fill(teamList1.toArray(),playersPerTeam);
-
-   // Arrays.fill(teamList1, extraArray);
-    if (remainder != 0) {
-        for (int i = 0; i < remainder; i++) {
-            TeamPlayers[i] = TeamPlayers[i] + 1;
+static void initialiseTeams(int[] playersPerTeam, int teams) {
+    for(int i =0; i<teams; i++){
+        int initXTeam = map.getPlayerInitPositionX(i+1);
+        int initYTeam = map.getPlayerInitPositionY(i+1);
+        for (int j =0; j<playersPerTeam[i]; j++){
+            Player p1 = new Player(initXTeam,initYTeam);
+            playerList.add(p1);
         }
+        teamList.add(playerList);
+        playerList.clear();
     }
+}
+static void calculatePlayersPerTeam(int players, int teams){
+        TeamPlayers = new int[teams];
+        int remainder = players % teams;
+        int playersPerTeam = players / teams;
+
+        Arrays.fill(TeamPlayers, playersPerTeam);
+
+        if (remainder != 0) {
+            for (int i = 0; i < remainder; i++) {
+                TeamPlayers[i] = TeamPlayers[i] + 1;
+            }
+        }
+        TeamPlayersCount = new int[teams];
+        Arrays.fill(TeamPlayersCount,0);
+
 }
     //method to generate HTML files for every player
     static void generateHTMLFiles(int[] playersPerTeam, int teams){
@@ -260,9 +268,10 @@ static void initialiseTeams(int players, int teams) {
 //            do {
             playerList.clear();
             playerChoice.clear();
-            initialiseTeams(players, teams);
-            generateHTMLFiles(TeamPlayers, teams);
+            calculatePlayersPerTeam(players,teams);
 
+            generateHTMLFiles(TeamPlayers, teams);
+            initialiseTeams(TeamPlayers, teams);
             utils.openMapsInBrowser();
 
 //            //for loop that gives 20 turns to each team
@@ -300,18 +309,23 @@ static void initialiseTeams(int players, int teams) {
 
     //method to give every team
     static void giveoneturntoeachTeam() {
-        for(int j=0; j<TeamPlayers.length;j++) {
+
+        for(int j=0; j<teamList.size();j++) {
             boolean flag;
             Player.DIRECTION x;
             System.out.println("Team " + (j + 1) + "'s turn");
             do {
                 x = chooseMove();
-                char tile = map.getTileType(playerList.get(j).getPosition().getX(), playerList.get(j).getPosition().getY());
-                flag = checkwatertile(tile,j,playerList,x);
+                char tile = map.getTileType(teamList.get(j).get(TeamPlayersCount[j]).getPosition().getX(), teamList.get(j).get(TeamPlayersCount[j]).getPosition().getY());
+                flag = checkwatertile(tile,j,teamList.get(j),x);
             }while(!flag);
             playerChoice.add(x);
+            if((TeamPlayersCount[j]++)== TeamPlayers[j]){
+              TeamPlayersCount[j] = 0;
+            }
         }
-        for( int i = 0; i < playerList.size(); i++) {
+        for( int i = 0; i < teamList.size(); i++) {
+
             map.updateMap(playerList.get(i).getPosition().getX(), playerList.get(i).getPosition().getY(), i + 1);
         }
         playerChoice.clear();
