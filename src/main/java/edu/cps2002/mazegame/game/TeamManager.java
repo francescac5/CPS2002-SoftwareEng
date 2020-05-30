@@ -5,14 +5,22 @@ import edu.cps2002.mazegame.player.Player;
 import java.util.ArrayList;
 
 public class TeamManager implements Subject {
-    int teamNum;
-    int x;
-    int y;
-     static ArrayList<Observer> observers = new ArrayList<>();;
+    private int teamNo;
+    private int x;
+    private int y;
+    static ArrayList<Observer> observers;
+
+    public TeamManager(int teamNo){
+        this.teamNo = teamNo;
+        observers = new ArrayList<>();
+    }
+
+    public int getTeamNo() {
+        return teamNo;
+    }
 
     @Override
     public void register(Observer newObserver) {
-
         observers.add(newObserver);
     }
 
@@ -31,6 +39,9 @@ public class TeamManager implements Subject {
         for(Observer observer : observers){
             observer.update(x,y);
         }
+    }
+
+    public void setRevealedTile(int x, int y){
 
     }
 }

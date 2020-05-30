@@ -56,7 +56,7 @@ public abstract class Map {
 
     //getters
     //returns size of map set by user
-    public static int getMapSize() {
+    public int getMapSize() {
         return size;
     }
 

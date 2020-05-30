@@ -4,11 +4,13 @@ import edu.cps2002.mazegame.game.Observer;
 import edu.cps2002.mazegame.game.Subject;
 import edu.cps2002.mazegame.game.TeamManager;
 import edu.cps2002.mazegame.map.Map;
+import edu.cps2002.mazegame.map.SafeMap;
 
 public class Player implements Observer {
     private Position position;
     int playerNum;
-    Subject teamManager;
+    private Map m;
+    private TeamManager teamManager;
 
    //getter for the position
     public Position getPosition() {
@@ -16,24 +18,25 @@ public class Player implements Observer {
     }
 
     //constructor for the player
-    public Player(int x, int y) {
+    public Player(int x, int y, Map m) {
+        this.m = m;
         Position p = new Position(x, y);
         setPosition(p);
     }
 
-    public Player(){
+    public Player(int x, int y, Map m, TeamManager t){
+        Position p = new Position(x, y);
+        setPosition(p);
+        this.m = m;
 
+        this.teamManager = t;
+        t.register(this);
     }
 
-    public Player(TeamManager m){
-        this.teamManager= m;
-        m.register(this);
-    }
     @Override
     public void update(int x, int y) {
-
+        m.revealTile(x, y, teamManager.getTeamNo(), playerNum);
     }
-
 
     //enum for the direction
     public enum DIRECTION {
@@ -65,8 +68,8 @@ public class Player implements Observer {
         }
 
     //checking the x and y axis in order to ensure that the user does not try to move outside the map
-        if (newX < 0 || newX >= Map.getMapSize()
-                || newY < 0 || newY >= Map.getMapSize()){
+        if (newX < 0 || newX >= m.getMapSize()
+                || newY < 0 || newY >= m.getMapSize()){
             System.out.println("You cannot move out of the map");
             return false;
         }
