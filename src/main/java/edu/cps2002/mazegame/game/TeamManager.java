@@ -17,14 +17,6 @@ public class TeamManager implements Subject {
         return teamNo;
     }
 
-    protected int getX() {
-        return x;
-    }
-
-    protected int getY() {
-        return y;
-    }
-
     @Override
     public void register(Observer newObserver) {
         this.observers.add(newObserver);
@@ -47,6 +39,8 @@ public class TeamManager implements Subject {
     }
 
     public void setRevealedTile(int x, int y){
-
+        this.x = x;
+        this.y = y;
+        notifyObserver();
     }
 }

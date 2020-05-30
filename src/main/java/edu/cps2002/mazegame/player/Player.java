@@ -17,8 +17,6 @@ public class Player implements Observer {
         return position;
     }
 
-    public Map getPlayerMap(){ return  m; }
-
     //constructor for the player
     public Player(int x, int y, Map map) {
         this.m = map;
