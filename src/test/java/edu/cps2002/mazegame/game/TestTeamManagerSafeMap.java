@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class TestTeamManager  {
+public class TestTeamManagerSafeMap {
     private TeamManager teamManager;
     private Map safeMap;
     private int teamNo;
@@ -28,7 +28,7 @@ public class TestTeamManager  {
     }
 
     @Test
-    public void testRegister() {
+    public void testRegister_1Player() {
        int sizeBefore = teamManager.observers.size();
        new Player(3,4,safeMap, 0, teamManager); //player is registering to team manager
        int sizeAfter = teamManager.observers.size();
@@ -38,7 +38,18 @@ public class TestTeamManager  {
     }
 
     @Test
-    public void testUnregister() {
+    public void testRegister_2Players() {
+        int sizeBefore = teamManager.observers.size();
+        new Player(3,4,safeMap, 0, teamManager); //player is registering to team manager
+        new Player(3,4,safeMap, 1, teamManager); //player is registering to team manager
+        int sizeAfter = teamManager.observers.size();
+
+        assertEquals(0, sizeBefore);
+        assertEquals(2, sizeAfter);
+    }
+
+    @Test
+    public void testUnregister_1Player() {
         //player registers
         Player p = new Player(3, 4, safeMap, 0, teamManager);
         int sizeBefore = teamManager.observers.size();
@@ -46,6 +57,29 @@ public class TestTeamManager  {
         //unregister player
         teamManager.unregister(p);
         int sizeAfter = teamManager.observers.size();
+
+        assertEquals(1, sizeBefore);
+        assertEquals(0, sizeAfter);
+    }
+
+    @Test
+    public void testUnregister_2Players() {
+        //player registers
+        Player p = new Player(3, 4, safeMap, 0, teamManager);
+        Player p2 = new Player(3, 4, safeMap, 1, teamManager);
+        int sizeBefore = teamManager.observers.size();
+
+        //unregister player 0
+        teamManager.unregister(p);
+        int sizeAfter = teamManager.observers.size();
+
+        assertEquals(2, sizeBefore);
+        assertEquals(1, sizeAfter);
+        sizeBefore = sizeAfter;
+
+        //unregister player 0
+        teamManager.unregister(p2);
+        sizeAfter = teamManager.observers.size();
 
         assertEquals(1, sizeBefore);
         assertEquals(0, sizeAfter);
