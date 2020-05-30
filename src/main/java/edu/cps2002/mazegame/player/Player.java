@@ -21,10 +21,11 @@ public class Player implements Observer {
         setPosition(p);
     }
 
-    Player(){
+    public Player(){
 
     }
-    Player(TeamManager m){
+
+    public Player(TeamManager m){
         this.teamManager= m;
         m.register(this);
     }
