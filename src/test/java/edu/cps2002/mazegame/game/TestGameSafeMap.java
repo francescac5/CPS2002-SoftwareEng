@@ -49,6 +49,7 @@ public class TestGameSafeMap {
         assertEquals(sizeBefore+3, sizeAfter);
 
         utils.deleteHTMLFiles();
+        Game.playerList.clear();
     }
 
     @Test
@@ -63,6 +64,8 @@ public class TestGameSafeMap {
         int sizeAfter = Game.playerList.size();
 
         assertEquals(sizeBefore+10, sizeAfter);
+
+        Game.playerList.clear();
 
     }
 
@@ -91,7 +94,7 @@ public class TestGameSafeMap {
         Game.generateHTMLFiles(10);
         Player p1 = new Player(4,5, Game.map);
         Game.playerList.add(p1);
-        edu.cps2002.mazegame.map.Pair<Integer, Integer> treasureTile= Map.getTreasureTile();
+        edu.cps2002.mazegame.map.Pair<Integer, Integer> treasureTile = Map.getTreasureTile();
         int x = treasureTile.getKey();
         int y = treasureTile.getValue();
 
@@ -139,14 +142,13 @@ public class TestGameSafeMap {
 
     @Test
     public void testSafeMap_checkwatertile3() {
-        Game.generateHTMLFiles(1);
-        ArrayList<Player> players = new ArrayList<>();
-        Player p1 = new Player(4, 6, Game.map);
-        Player p2 = new Player(5, 6, Game.map);
-        players.add(p1);
-        players.add(p2);
-        boolean x = Game.checkwatertile('W', 0, players, Player.DIRECTION.RIGHT);
-        assertFalse(x);
-        players.clear();
+        Game.map.generate(0);
+        Player p1 = new Player(2, 3, Game.map);
+        Player p2 = new Player(3, 2, Game.map);
+        Game.playerList.add(p1);
+        Game.playerList.add(p2);
+        boolean x = Game.checkwatertile('W', 0, Game.playerList, Player.DIRECTION.RIGHT);
+        assertTrue(x);
+        Game.playerList.clear();
     }
 }
