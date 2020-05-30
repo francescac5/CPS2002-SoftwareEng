@@ -37,7 +37,7 @@ public class TestHazardousMap {
 
         //Assert
         assertTrue(result);
-        assertEquals(size, Map.getMapSize());
+        assertEquals(size, hazardousMap.getMapSize());
     }
 
     @Test
@@ -48,7 +48,7 @@ public class TestHazardousMap {
 
         //Assert
         assertTrue(result);
-        assertEquals(size, Map.getMapSize());
+        assertEquals(size, hazardousMap.getMapSize());
     }
 
     @Test
@@ -59,7 +59,7 @@ public class TestHazardousMap {
 
         //Assert
         assertFalse(result);
-        assertEquals(-1, Map.getMapSize());
+        assertEquals(-1, hazardousMap.getMapSize());
     }
 
     @Test
@@ -70,7 +70,7 @@ public class TestHazardousMap {
 
         //Assert
         assertTrue(result);
-        assertEquals(size, Map.getMapSize());
+        assertEquals(size, hazardousMap.getMapSize());
     }
 
     @Test
@@ -81,7 +81,7 @@ public class TestHazardousMap {
 
         //Assert
         assertFalse(result);
-        assertEquals(-1, Map.getMapSize());
+        assertEquals(-1, hazardousMap.getMapSize());
     }
 
     @Test
@@ -92,7 +92,7 @@ public class TestHazardousMap {
 
         //Assert
         assertFalse(result);
-        assertEquals(-1, Map.getMapSize());
+        assertEquals(-1, hazardousMap.getMapSize());
     }
 
     @Test
@@ -103,7 +103,7 @@ public class TestHazardousMap {
 
         //Assert
         assertFalse(result);
-        assertEquals(-1, Map.getMapSize());
+        assertEquals(-1, hazardousMap.getMapSize());
     }
 
 //******** hazardousMap.setWaterPercentage() tests ********\\
@@ -967,7 +967,7 @@ public class TestHazardousMap {
 
         assertFalse(hazardousMap.tilesGenerated);
 
-        assertEquals(-1, Map.getMapSize());
+        assertEquals(-1, hazardousMap.getMapSize());
     }
 
 //******** hazardousMap.generate tests ********\\

@@ -84,7 +84,7 @@ public class TestGameHazardMap {
         Game.map.setWaterPercentage(30);
 
         Game.generateHTMLFiles(10);
-        Player p1 = new Player(4,5);
+        Player p1 = new Player(4,5, Game.map);
         Game.playerList.add(p1);
         Pair<Integer, Integer> x= Map.getTreasureTile();
         Position p = new Position(x.getKey(),x.getValue());
@@ -103,7 +103,7 @@ public class TestGameHazardMap {
         Game.map.setWaterPercentage(30);
 
         Game.generateHTMLFiles(10);
-        Player p1 = new Player(4,5);
+        Player p1 = new Player(4,5, Game.map);
         Game.playerList.add(p1);
         edu.cps2002.mazegame.map.Pair<Integer, Integer> x= Map.getTreasureTile();
         Position p = new Position(x.getKey()+1,x.getValue()+1);
@@ -121,7 +121,7 @@ public class TestGameHazardMap {
         Game.map.setMapSize(5);
         Game.generateHTMLFiles(1);
         ArrayList<Player> players = new ArrayList<Player>();
-        Player p1= new Player(4,6);
+        Player p1= new Player(4,6, Game.map);
         players.add(p1);
         char tile = Game.map.getTileType(players.get(0).getPosition().getX(), players.get(0).getPosition().getY());
         boolean x =Game.checkwatertile(tile,0,players, Player.DIRECTION.DOWN);
@@ -137,7 +137,7 @@ public class TestGameHazardMap {
         Game.map.setMapSize(5);
         Game.generateHTMLFiles(1);
         ArrayList<Player> players = new ArrayList<Player>();
-        Player p1= new Player(4,6);
+        Player p1= new Player(4,6, Game.map);
         players.add(p1);
         char tile = Game.map.getTileType(players.get(0).getPosition().getX(), players.get(0).getPosition().getY());
         boolean x =Game.checkwatertile(tile,0,players, Player.DIRECTION.UP);
@@ -152,8 +152,8 @@ public class TestGameHazardMap {
         Game.map.setMapSize(6);
         Game.generateHTMLFiles(1);
         ArrayList<Player> players = new ArrayList<Player>();
-        Player p1= new Player(4,6);
-        Player p2= new Player(5,6);
+        Player p1= new Player(4,6, Game.map);
+        Player p2= new Player(5,6, Game.map);
         players.add(p1);
         players.add(p2);
         boolean x =Game.checkwatertile('W' ,0,players, Player.DIRECTION.RIGHT);

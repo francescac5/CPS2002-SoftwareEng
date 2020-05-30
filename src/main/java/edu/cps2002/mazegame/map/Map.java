@@ -56,7 +56,7 @@ public abstract class Map {
 
     //getters
     //returns size of map set by user
-    public static int getMapSize() {
+    public int getMapSize() {
         return size;
     }
 
@@ -66,7 +66,7 @@ public abstract class Map {
     }
 
     //returns map of a particular player in collaborative play
-    protected Tiles[][] getTeamPlayerMap(int teamNum, int playerNum){
+    public Tiles[][] getTeamPlayerMap(int teamNum, int playerNum){
         return teamMaps.get(teamNum-1).get(playerNum);
     }
 
