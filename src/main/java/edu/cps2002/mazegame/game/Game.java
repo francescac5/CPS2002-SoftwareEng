@@ -15,7 +15,7 @@ public class Game {
     protected static ArrayList<Player> playerList = new ArrayList<Player>();
     protected static ArrayList<Player.DIRECTION> playerChoice = new ArrayList<>();
     protected static ArrayList<TeamManager> Managers = new ArrayList<>();
-    protected static ArrayList<ArrayList<Player>> teamList = new ArrayList<ArrayList<Player>>();
+    protected static ArrayList<ArrayList<Player>> teamList = new ArrayList<>();
     protected static int[] TeamPlayers;
     protected static int[] TeamPlayersCount;
     private static MapUtils utils = new MapUtils();
