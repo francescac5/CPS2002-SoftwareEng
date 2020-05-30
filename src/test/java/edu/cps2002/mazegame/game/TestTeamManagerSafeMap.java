@@ -18,6 +18,7 @@ public class TestTeamManagerSafeMap {
     public void setup() {
         this.teamManager = new TeamManager(teamNo);
         this.safeMap = MapFactory.getInstance("S");
+        this.safeMap.setMapSize(5);
         teamNo = 0;
     }
 
@@ -27,6 +28,28 @@ public class TestTeamManagerSafeMap {
         this.safeMap = null;
     }
 
+//******** teamManager.getTeamNo() tests ********\\
+
+    @Test
+    public void testGetTeamNo_1Team(){
+        int num = teamManager.getTeamNo();
+
+        assertEquals(0, num);
+    }
+
+    @Test
+    public void testGetTeamNo_2Teams(){
+        int num = teamManager.getTeamNo();
+
+        //creating second team manager
+        TeamManager teamManager1 = new TeamManager(1);
+        int num1 = teamManager1.getTeamNo();
+
+        assertEquals(0, num);
+        assertEquals(1, num1);
+    }
+
+//******** teamManager.register() tests ********\\
     @Test
     public void testRegister_1Player() {
        int sizeBefore = teamManager.observers.size();
@@ -47,6 +70,8 @@ public class TestTeamManagerSafeMap {
         assertEquals(0, sizeBefore);
         assertEquals(2, sizeAfter);
     }
+
+//******** teamManager.unregister() tests ********\\
 
     @Test
     public void testUnregister_1Player() {
@@ -84,4 +109,25 @@ public class TestTeamManagerSafeMap {
         assertEquals(1, sizeBefore);
         assertEquals(0, sizeAfter);
     }
+
+//******** teamManager.setRevealedTile() tests ********\\
+
+    @Test
+    public void testSetRevealedTile(){
+        //player registers
+        int playerNum = 0;
+        Player p = new Player(3, 4, safeMap, playerNum, teamManager);
+        Map.Tiles[][] mapBefore = safeMap.getTeamPlayerMap(teamNo, playerNum);
+
+        teamManager.setRevealedTile(2,1);
+
+        assertEquals(2, teamManager.getX());
+        assertEquals(1, teamManager.getY());
+
+        Map.Tiles[][] mapAfter = safeMap.getTeamPlayerMap(teamNo, playerNum);
+
+        assertEquals(Map.Tiles.GREY, mapBefore[2][1]);
+        assertNotEquals(Map.Tiles.GREY, mapAfter[2][1]);
+    }
+
 }

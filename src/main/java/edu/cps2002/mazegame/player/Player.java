@@ -8,7 +8,7 @@ import edu.cps2002.mazegame.map.SafeMap;
 
 public class Player implements Observer {
     private Position position;
-    int playerNum;
+    private int playerNum;
     private Map m;
     private TeamManager teamManager;
 
@@ -17,9 +17,11 @@ public class Player implements Observer {
         return position;
     }
 
+    public Map getPlayerMap(){ return  m; }
+
     //constructor for the player
-    public Player(int x, int y, Map m) {
-        this.m = m;
+    public Player(int x, int y, Map map) {
+        this.m = map;
         Position p = new Position(x, y);
         setPosition(p);
     }
@@ -27,7 +29,7 @@ public class Player implements Observer {
     public Player(int x, int y, Map map, int playerNum, TeamManager teamManager){
         Position p = new Position(x, y);
         setPosition(p);
-        this.m = m;
+        this.m = map;
 
         this.playerNum = playerNum;
 
