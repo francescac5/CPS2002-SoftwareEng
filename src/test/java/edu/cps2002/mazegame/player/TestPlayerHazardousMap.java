@@ -15,7 +15,7 @@ public class TestPlayerHazardousMap {
 
     @Before
     public void setup() {
-        p1 = new Player(4,5);
+        p1 = new Player(4,5, hazardousMap);
         hazardousMap.setMapSize(5);
     }
     @After
@@ -71,28 +71,28 @@ public class TestPlayerHazardousMap {
 
     @Test
     public void testDirectionLEFTINVALID(){
-        p1 = new Player(4,5);
+        p1 = new Player(4,5, hazardousMap);
         boolean x=p1.move(Player.DIRECTION.LEFT);
         assertFalse(x);
     }
 
     @Test
     public void testDirectionLEFTINVALID2(){
-        p1 = new Player(5,5);
+        p1 = new Player(5,5, hazardousMap);
         boolean x=p1.move(Player.DIRECTION.RIGHT);
         assertFalse(x);
     }
 
     @Test
     public void testDirectionLEFTINVALID3(){
-        p1 = new Player(0,0);
+        p1 = new Player(0,0, hazardousMap);
         boolean x=p1.move(Player.DIRECTION.LEFT);
         assertFalse(x);
     }
 
     @Test
     public void testDirectionLEFTINVALID4(){
-        p1 = new Player(0,5);
+        p1 = new Player(0,5, hazardousMap);
         boolean x=p1.move(Player.DIRECTION.LEFT);
         assertFalse(x);
     }

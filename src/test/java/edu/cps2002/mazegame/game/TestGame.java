@@ -1,7 +1,6 @@
 package edu.cps2002.mazegame.game;
 
 import edu.cps2002.mazegame.player.Player;
-import edu.cps2002.mazegame.player.Position;
 import edu.cps2002.mazegame.utils.MapUtils;
 import org.junit.After;
 import org.junit.Assert;
@@ -13,20 +12,15 @@ import static edu.cps2002.mazegame.game.Game.gameend;
 import static org.junit.Assert.*;
 
 public class TestGame {
-    public Player p1;
-    Position pos = new Position(4, 5);
-    MapUtils utils = new MapUtils();
+     MapUtils utils = new MapUtils();
 
     @Before
     public void setup() {
-        Position pos = new Position(4, 5);
-        p1 = new Player(4, 5);
+
     }
 
     @After
     public void tearDown() {
-        p1 = null;
-        pos = null;
         utils.deleteHTMLFiles();
         TeamPlayers=null;
     }

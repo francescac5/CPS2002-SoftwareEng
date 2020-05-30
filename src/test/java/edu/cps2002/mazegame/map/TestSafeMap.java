@@ -38,7 +38,7 @@ public class TestSafeMap {
 
         //Assert
         assertTrue(result);
-        assertEquals(size, Map.getMapSize());
+        assertEquals(size, safeMap.getMapSize());
     }
 
     @Test
@@ -49,7 +49,7 @@ public class TestSafeMap {
 
         //Assert
         assertTrue(result);
-        assertEquals(size, Map.getMapSize());
+        assertEquals(size, safeMap.getMapSize());
     }
 
     @Test
@@ -60,7 +60,7 @@ public class TestSafeMap {
 
         //Assert
         assertFalse(result);
-        assertEquals(-1, Map.getMapSize());
+        assertEquals(-1, safeMap.getMapSize());
     }
 
     @Test
@@ -71,7 +71,7 @@ public class TestSafeMap {
 
         //Assert
         assertTrue(result);
-        assertEquals(size, Map.getMapSize());
+        assertEquals(size, safeMap.getMapSize());
     }
 
     @Test
@@ -82,7 +82,7 @@ public class TestSafeMap {
 
         //Assert
         assertFalse(result);
-        assertEquals(-1, Map.getMapSize());
+        assertEquals(-1, safeMap.getMapSize());
     }
 
     @Test
@@ -93,7 +93,7 @@ public class TestSafeMap {
 
         //Assert
         assertFalse(result);
-        assertEquals(-1, Map.getMapSize());
+        assertEquals(-1, safeMap.getMapSize());
     }
 
     @Test
@@ -104,7 +104,7 @@ public class TestSafeMap {
 
         //Assert
         assertFalse(result);
-        assertEquals(-1, Map.getMapSize());
+        assertEquals(-1, safeMap.getMapSize());
     }
 
 //******** safeMap.setWaterPercentage() tests ********\\
@@ -947,7 +947,7 @@ public class TestSafeMap {
 
         assertFalse(safeMap.tilesGenerated);
 
-        assertEquals(-1, Map.getMapSize());
+        assertEquals(-1, safeMap.getMapSize());
     }
 
 //******** safeMap.generate()tests ********\\

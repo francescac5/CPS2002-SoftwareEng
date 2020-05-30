@@ -24,13 +24,15 @@ public class Player implements Observer {
         setPosition(p);
     }
 
-    public Player(int x, int y, Map m, TeamManager t){
+    public Player(int x, int y, Map map, int playerNum, TeamManager teamManager){
         Position p = new Position(x, y);
         setPosition(p);
         this.m = m;
 
-        this.teamManager = t;
-        t.register(this);
+        this.playerNum = playerNum;
+
+        this.teamManager = teamManager;
+        teamManager.register(this);
     }
 
     @Override

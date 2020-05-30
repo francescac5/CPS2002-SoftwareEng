@@ -322,7 +322,7 @@ static void initialiseTeams(int players, int teams) {
     //method to create an instance for every player and add it to the array of the players
     static void initialisePlayers(int players){
         for (int i =0; i<players; i++){
-            Player p1 = new Player(map.getPlayerInitPositionX(i+1),map.getPlayerInitPositionY(i+1));
+            Player p1 = new Player(map.getPlayerInitPositionX(i+1),map.getPlayerInitPositionY(i+1), map);
             playerList.add(p1);
         }
     }
