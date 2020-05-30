@@ -27,6 +27,7 @@ public class TestGameSafeMap {
 
     @After
     public void tearDown() {
+        Game.map.resetMap();
         utils.deleteHTMLFiles();
     }
 
@@ -70,7 +71,6 @@ public class TestGameSafeMap {
 
         assertEquals(sizeBefore+10, sizeAfter);
 
-        utils.deleteHTMLFiles();
     }
 
     //******** Game.checkWinner() tests ********\\
@@ -125,7 +125,6 @@ public class TestGameSafeMap {
         assertFalse(x);
         players.clear();
         //  hazardousMap.resetMap();
-        utils.deleteHTMLFiles();
     }
 
     @Test
@@ -140,7 +139,6 @@ public class TestGameSafeMap {
         boolean x =Game.checkwatertile(tile,0,players, Player.DIRECTION.UP);
         assertFalse(x);
         players.clear();
-        utils.deleteHTMLFiles();
     }
 
     @Test
@@ -156,6 +154,5 @@ public class TestGameSafeMap {
         boolean x = Game.checkwatertile('W', 0, players, Player.DIRECTION.RIGHT);
         assertFalse(x);
         players.clear();
-        utils.deleteHTMLFiles();
     }
 }
