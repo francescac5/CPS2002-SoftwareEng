@@ -23,7 +23,7 @@ public class TestTeamManagerHazardousMap {
     public void setup() {
         teamNo = 1;
         this.teamManager = new TeamManager(teamNo);
-        this.hazardousMap = MapFactory.getInstance("S");
+        this.hazardousMap = MapFactory.getInstance("H");
         this.hazardousMap.setMapSize(5);
         this.initOrGrey.add(Map.Tiles.GREY);
         this.initOrGrey.add(Map.Tiles.GRASS_PLAYER);
