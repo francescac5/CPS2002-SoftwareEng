@@ -1,9 +1,7 @@
 package edu.cps2002.mazegame.game;
 
-import edu.cps2002.mazegame.map.HazardousMap;
 import edu.cps2002.mazegame.map.Map;
 import edu.cps2002.mazegame.map.MapFactory;
-import edu.cps2002.mazegame.map.SafeMap;
 import edu.cps2002.mazegame.player.Player;
 import edu.cps2002.mazegame.player.Position;
 import edu.cps2002.mazegame.utils.MapUtils;
@@ -14,9 +12,9 @@ import java.util.Scanner;
 public class Game {
 
     //arraylist to store the players and their choice
-    static ArrayList<Player> playerList = new ArrayList<Player>();
-    static ArrayList<Player.DIRECTION> playerChoice = new ArrayList<>();
-    static int[] TeamPlayers;
+    protected static ArrayList<Player> playerList = new ArrayList<>();
+    protected static ArrayList<Player.DIRECTION> playerChoice = new ArrayList<>();
+    protected static int[] TeamPlayers;
     private static MapUtils utils = new MapUtils();
     protected static Map map;
 
@@ -181,10 +179,12 @@ public class Game {
     }
 
 static void initialiseTeams(int players, int teams) {
-        TeamPlayers = new int[teams];
+    TeamPlayers = new int[teams];
     int remainder = players % teams;
     int playersPerTeam = players / teams;
+
     Arrays.fill(TeamPlayers, playersPerTeam);
+
     if (remainder != 0) {
         for (int i = 0; i < remainder; i++) {
             TeamPlayers[i] = TeamPlayers[i] + 1;
@@ -228,7 +228,7 @@ static void initialiseTeams(int players, int teams) {
                 utils.openMapsInBrowser();
                 //for loop that gives 20 turns to each player
                 for (int i = 0; i < 20; i++) {
-                    giveoneturntoeachPlayer(playerList, playerChoice);
+                    giveoneturntoeachPlayer();
                     boolean check = checkWinner();
                     checkGameend(check);
                 }
@@ -247,43 +247,43 @@ static void initialiseTeams(int players, int teams) {
             int players = getNumPlayers();
             int teams = getNumTeams(players);
             map.setMapSize(chooseMapSize(players));
-           // do {
+//            do {
                 playerList.clear();
                 playerChoice.clear();
                 initialiseTeams(players, teams);
                 generateHTMLFiles(TeamPlayers,teams);
 
                 utils.openMapsInBrowser();
-//                //for loop that gives 20 turns to each player
+                //for loop that gives 20 turns to each team
 //                for (int i = 0; i < 20; i++) {
-//                    giveoneturntoeachPlayer(playerList, playerChoice);
+//                    giveoneturntoeachPlayer();
 //                    boolean check = checkWinner();
 //                    checkGameend(check);
 //                }
 //                utils.deleteHTMLFiles();
 //                map.resetMap();
 
-        //    } while (!gameend);
+//            } while (!gameend);
         }
     }
 
     //method to give every player one turn to choose the direction and then move everyone accordingly
-    static void giveoneturntoeachPlayer(ArrayList<Player> players, ArrayList<Player.DIRECTION> playerchoice) {
-        for(int j=0; j<players.size();j++) {
-            boolean flag = false;
+    static void giveoneturntoeachPlayer() {
+        for(int j=0; j<playerList.size();j++) {
+            boolean flag;
             Player.DIRECTION x;
             System.out.println("Player " + (j + 1) + "'s turn");
             do {
                 x = chooseMove();
-                char tile = map.getTileType(players.get(j).getPosition().getX(), players.get(j).getPosition().getY());
-                flag = checkwatertile(tile,j,players,x);
+                char tile = map.getTileType(playerList.get(j).getPosition().getX(), playerList.get(j).getPosition().getY());
+                flag = checkwatertile(tile,j,playerList,x);
             }while(!flag);
             playerChoice.add(x);
         }
-        for( int i = 0; i < players.size(); i++) {
-            map.updateMap(players.get(i).getPosition().getX(), players.get(i).getPosition().getY(), i + 1, 0);
+        for( int i = 0; i < playerList.size(); i++) {
+            map.updateMap(playerList.get(i).getPosition().getX(), playerList.get(i).getPosition().getY(), i + 1);
         }
-        playerchoice.clear();
+        playerChoice.clear();
     }
 
     //method that checks if a player went on a water tile if so he is sent back to his/her original position
@@ -343,7 +343,6 @@ static void initialiseTeams(int players, int teams) {
 
     //asks user what type of map he/she would like
     private static void chooseMapType() {
-        MapFactory mapFactory;
 
         Scanner sc= new Scanner(System.in);
         String mapType;
