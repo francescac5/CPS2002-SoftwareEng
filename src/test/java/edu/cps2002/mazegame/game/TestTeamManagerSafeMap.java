@@ -57,7 +57,7 @@ public class TestTeamManagerSafeMap {
         assertEquals(2, num1);
     }
 
-//******** teamManager.register() tests ********\\
+    //******** teamManager.register() tests ********\\
     @Test
     public void testRegister_1Player() {
         int sizeBefore = teamManager.observers.size();
@@ -206,7 +206,6 @@ public class TestTeamManagerSafeMap {
         assertEquals(Map.Tiles.GREY, mapBefore[x][y]);
 
         //players register
-        playerNum = 0;
         int newTeamNo = teamNo + 1;
         TeamManager teamManager2 = new TeamManager(newTeamNo);
         Player p2 = new Player(3, 4, safeMap, playerNum, teamManager2);
@@ -224,7 +223,7 @@ public class TestTeamManagerSafeMap {
             x2-=1;
         }
 
-        Map.Tiles[][] mapBefore2 = safeMap.getTeamPlayerMap(teamNo, playerNum);
+        Map.Tiles[][] mapBefore2 = safeMap.getTeamPlayerMap(newTeamNo, playerNum);
         assertEquals(Map.Tiles.GREY, mapBefore2[x2][y2]);
 
         teamManager.setRevealedTile(x, y);
@@ -294,8 +293,8 @@ public class TestTeamManagerSafeMap {
             x2-=1;
         }
 
-        Map.Tiles[][] mapBefore2 = safeMap.getTeamPlayerMap(teamNo, playerNum);
-        Map.Tiles[][] mapBefore3 = safeMap.getTeamPlayerMap(teamNo, playerNum+1);
+        Map.Tiles[][] mapBefore2 = safeMap.getTeamPlayerMap(newTeamNo, playerNum);
+        Map.Tiles[][] mapBefore3 = safeMap.getTeamPlayerMap(newTeamNo, playerNum+1);
         assertEquals(Map.Tiles.GREY, mapBefore2[x2][y2]);
         assertEquals(Map.Tiles.GREY, mapBefore3[x2][y2]);
 
