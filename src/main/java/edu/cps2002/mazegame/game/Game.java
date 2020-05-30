@@ -12,9 +12,13 @@ import java.util.Scanner;
 public class Game {
 
     //arraylist to store the players and their choice
-    protected static ArrayList<Player> playerList = new ArrayList<>();
+    protected static ArrayList<Player> playerList = new ArrayList<Player>();
     protected static ArrayList<Player.DIRECTION> playerChoice = new ArrayList<>();
+    protected static ArrayList<Player.DIRECTION> teamChoice = new ArrayList<>();
+    protected static ArrayList<Player> teamList = new ArrayList<>();
+    protected static ArrayList<ArrayList<Player>> teamList1 = new ArrayList<ArrayList<Player>>();
     protected static int[] TeamPlayers;
+    protected static ArrayList<Player> extraArray = new ArrayList<Player>();
     private static MapUtils utils = new MapUtils();
     protected static Map map;
 
@@ -86,7 +90,6 @@ public class Game {
         }
         return false;
     }
-
 
     //method to check that the Map Size inputted is between 5 and 50 (depending also on the number of players inputted)
     public static boolean validityofMapSize(int numPlayers,int size){
@@ -179,12 +182,19 @@ public class Game {
     }
 
 static void initialiseTeams(int players, int teams) {
+    for (int i =0; i<players; i++){
+        Player p1 = new Player(map.getPlayerInitPositionX(i+1),map.getPlayerInitPositionY(i+1));
+        playerList.add(p1);
+       // Arrays.fill(teamList1.toArray(),playerList);
+    }
     TeamPlayers = new int[teams];
     int remainder = players % teams;
-    int playersPerTeam = players / teams;
+    int playersPerTeam = playerList.size() / teams;
 
-    Arrays.fill(TeamPlayers, playersPerTeam);
+    //playerlist divided by playersPerTeam
+    Arrays.fill(teamList1.toArray(),playersPerTeam);
 
+   // Arrays.fill(teamList1, extraArray);
     if (remainder != 0) {
         for (int i = 0; i < remainder; i++) {
             TeamPlayers[i] = TeamPlayers[i] + 1;
@@ -208,9 +218,9 @@ static void initialiseTeams(int players, int teams) {
     //main method of the game
     static void startGame() {
         boolean gameend = false;
-       String mode= choosegameMode();
+        String mode = choosegameMode();
         //Outputting the rules of the game
-        if(mode.equalsIgnoreCase("I")) {
+        if (mode.equalsIgnoreCase("I")) {
             System.out.println("Welcome to our Maze game. " +
                     "The following are the rules of the game:" +
                     "\n" + "1) Each player must use the U(p), D(down), L(eft), and R(ight) keys to move along the map." +
@@ -236,7 +246,7 @@ static void initialiseTeams(int players, int teams) {
                 map.resetMap();
 
             } while (!gameend);
-        }else if(mode.equalsIgnoreCase("C")){
+        } else if (mode.equalsIgnoreCase("C")) {
             System.out.println("Welcome to our Maze game. " +
                     "The following are the rules of the game:" +
                     "\n" + "1) Each player must use the U(p), D(down), L(eft), and R(ight) keys to move along the map." +
@@ -248,24 +258,26 @@ static void initialiseTeams(int players, int teams) {
             int teams = getNumTeams(players);
             map.setMapSize(chooseMapSize(players));
 //            do {
-                playerList.clear();
-                playerChoice.clear();
-                initialiseTeams(players, teams);
-                generateHTMLFiles(TeamPlayers,teams);
+            playerList.clear();
+            playerChoice.clear();
+            initialiseTeams(players, teams);
+            generateHTMLFiles(TeamPlayers, teams);
 
-                utils.openMapsInBrowser();
-                //for loop that gives 20 turns to each team
-//                for (int i = 0; i < 20; i++) {
-//                    giveoneturntoeachPlayer();
+            utils.openMapsInBrowser();
+
+//            //for loop that gives 20 turns to each team
+//            for (int i = 0; i < 20; i++) {
+//                giveoneturntoeachTeam();
 //                    boolean check = checkWinner();
 //                    checkGameend(check);
 //                }
 //                utils.deleteHTMLFiles();
 //                map.resetMap();
-
+//
 //            } while (!gameend);
         }
     }
+
 
     //method to give every player one turn to choose the direction and then move everyone accordingly
     static void giveoneturntoeachPlayer() {
@@ -273,6 +285,25 @@ static void initialiseTeams(int players, int teams) {
             boolean flag;
             Player.DIRECTION x;
             System.out.println("Player " + (j + 1) + "'s turn");
+            do {
+                x = chooseMove();
+                char tile = map.getTileType(playerList.get(j).getPosition().getX(), playerList.get(j).getPosition().getY());
+                flag = checkwatertile(tile,j,playerList,x);
+            }while(!flag);
+            playerChoice.add(x);
+        }
+        for( int i = 0; i < playerList.size(); i++) {
+            map.updateMap(playerList.get(i).getPosition().getX(), playerList.get(i).getPosition().getY(), i + 1);
+        }
+        playerChoice.clear();
+    }
+
+    //method to give every team
+    static void giveoneturntoeachTeam() {
+        for(int j=0; j<TeamPlayers.length;j++) {
+            boolean flag;
+            Player.DIRECTION x;
+            System.out.println("Team " + (j + 1) + "'s turn");
             do {
                 x = chooseMove();
                 char tile = map.getTileType(playerList.get(j).getPosition().getX(), playerList.get(j).getPosition().getY());
