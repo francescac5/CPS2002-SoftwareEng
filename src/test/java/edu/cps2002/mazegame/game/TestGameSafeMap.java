@@ -111,6 +111,52 @@ public class TestGameSafeMap {
         Game.playerList.clear();
     }
 
+    //******** Game.checkWinnerTeam() tests ********\\
+
+    @Test
+    public void test1SafeMap_WinnerTeam(){
+        boolean flag;
+
+        Game.generateHTMLFiles(10);
+        Player p1 = new Player(4,5, Game.map);
+        Game.teamList.add(new ArrayList<>());
+        Game.teamList.get(0).add(p1);
+
+        Pair<Integer, Integer> x= Map.getTreasureTile();
+        Position p = new Position(x.getKey(),x.getValue());
+
+        p1.setPosition(p);
+        flag = Game.checkWinnerTeam();
+        assertTrue(flag);
+        Game.teamList.clear();
+    }
+
+    @Test
+    public void test2SafeMap_WinnerTeam(){
+        boolean flag;
+
+        Game.generateHTMLFiles(10);
+        Player p1 = new Player(4,5, Game.map);
+        Game.teamList.add(new ArrayList<>());
+        Game.teamList.get(0).add(p1);
+
+        Pair<Integer, Integer> treasureTile = Map.getTreasureTile();
+        int x = treasureTile.getKey();
+        int y = treasureTile.getValue();
+
+        if(x < Game.map.getMapSize()-1){
+            x+=1;
+        }else{
+            x-=1;
+        }
+
+        Position p = new Position(x,y);
+        p1.setPosition(p);
+        flag = Game.checkWinnerTeam();
+        assertFalse(flag);
+        Game.teamList.clear();
+    }
+
     //******** Game.checkwatertile() tests ********\\
 
     @Test

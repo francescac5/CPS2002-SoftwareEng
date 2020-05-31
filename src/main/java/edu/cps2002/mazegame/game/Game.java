@@ -404,6 +404,13 @@ static void calculatePlayersPerTeam(int players, int teams){
         return winnerFlag;
     }
 
+    //method that checks if a player is on the treasure tile (winner)
+    static boolean checkWinnerTeam(){
+        boolean winnerFlag = false;
+
+        return winnerFlag;
+    }
+
     //asks user what type of map he/she would like
     private static void chooseMapType() {
 
