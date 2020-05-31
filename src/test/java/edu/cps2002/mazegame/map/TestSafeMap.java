@@ -1110,7 +1110,8 @@ public class TestSafeMap {
 
         ArrayList<Pair<Integer, Integer>> tiles = safeMap.getGrassTiles();
         Pair<Integer, Integer> greenTile = tiles.get(0);
-        int x = 0, y = 0;
+        int x = greenTile.getKey();
+        int y = greenTile.getValue();
         int count = 1;
 
         while(x == safeMap.getPlayerInitPositionX(1) || y == safeMap.getPlayerInitPositionY(1)) {
@@ -1137,7 +1138,7 @@ public class TestSafeMap {
     @Test
     public void testRevealTileTeam_WATER(){
         //Exercise
-        safeMap.setMapSize(10);
+        safeMap.setMapSize(20);
         safeMap.generate(1);
 
         ArrayList<Pair<Integer, Integer>> tiles = safeMap.getWaterTiles();
@@ -1192,7 +1193,10 @@ public class TestSafeMap {
         ArrayList<Pair<Integer, Integer>> tiles = safeMap.getGrassTiles();
         Pair<Integer, Integer> greenTile = tiles.get(0);
 
-        int x = 0, y = 0, count = 1;
+        int x = greenTile.getKey();
+        int y = greenTile.getValue();
+        int count = 1;
+
         while(x == safeMap.getPlayerInitPositionX(1) || y == safeMap.getPlayerInitPositionY(1)) {
             x = greenTile.getKey();
             y = greenTile.getValue();

@@ -245,7 +245,6 @@ public class TestTeamManagerSafeMap {
         mapAfter2 = safeMap.getTeamPlayerMap(newTeamNo, playerNum);
 
         assertNotEquals(Map.Tiles.GREY, mapAfter2[x2][y2]);
-        assertTrue(initOrGrey.contains(mapAfter[x2][y2]));
     }
 
     @Test
@@ -326,7 +325,9 @@ public class TestTeamManagerSafeMap {
         assertNotEquals(Map.Tiles.GREY, mapAfter2[x2][y2]);
         assertNotEquals(Map.Tiles.GREY, mapAfter3[x2][y2]);
 
-        assertTrue(initOrGrey.contains(mapAfter[x2][y2]));
-        assertTrue(initOrGrey.contains(mapAfter1[x2][y2]));
+        if(!(x == x2 && y == y2)) {
+            assertTrue(initOrGrey.contains(mapAfter[x2][y2]));
+            assertTrue(initOrGrey.contains(mapAfter1[x2][y2]));
+        }
     }
 }
