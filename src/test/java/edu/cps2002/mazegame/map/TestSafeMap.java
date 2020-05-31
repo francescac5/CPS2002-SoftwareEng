@@ -1025,10 +1025,57 @@ public class TestSafeMap {
 
         //Exercise
         safeMap.generate(6);
+
+        //Assert
         assertEquals(2, safeMap.teamMaps.size());
         assertEquals(6, safeMap.teamMaps.get(1).size());
 
         assertEquals(0, safeMap.playerMaps.size());
+    }
+
+//******** safeMap.generateInitMapDeepCopy()tests ********\\
+
+    @Test
+    public void testGenerateInitMapDeepCopy_1Copy(){
+        //Exercise
+        safeMap.setMapSize(5);
+        safeMap.setUpMapTiles();
+
+        Map.Tiles[][] initMap = safeMap.generateInitMap();
+        Map.Tiles[][] initMapCopy = safeMap.generateInitMapDeepCopy(initMap);
+
+        //Assert
+        assertNotEquals(initMapCopy, initMap);
+
+        initMap[0][1] = Map.Tiles.WATER;
+        initMapCopy[0][1] = Map.Tiles.GRASS_PLAYER;
+
+        assertEquals(Map.Tiles.WATER, initMap[0][1]);
+        assertEquals(Map.Tiles.GRASS_PLAYER, initMapCopy[0][1]);
+    }
+
+    @Test
+    public void testGenerateInitMapDeepCopy_2Copies(){
+        //Exercise
+        safeMap.setMapSize(5);
+        safeMap.setUpMapTiles();
+
+        Map.Tiles[][] initMap = safeMap.generateInitMap();
+        Map.Tiles[][] initMapCopy = safeMap.generateInitMapDeepCopy(initMap);
+        Map.Tiles[][] initMapCopy2 = safeMap.generateInitMapDeepCopy(initMap);
+
+        //Assert
+        assertNotEquals(initMapCopy, initMap);
+        assertNotEquals(initMapCopy2, initMap);
+        assertNotEquals(initMapCopy, initMapCopy2);
+
+        initMap[0][1] = Map.Tiles.WATER;
+        initMapCopy[0][1] = Map.Tiles.GRASS_PLAYER;
+        initMapCopy2[0][1] = Map.Tiles.TREASURE;
+
+        assertEquals(Map.Tiles.WATER, initMap[0][1]);
+        assertEquals(Map.Tiles.GRASS_PLAYER, initMapCopy[0][1]);
+        assertEquals(Map.Tiles.TREASURE, initMapCopy2[0][1]);
     }
 
 //******** safeMap.revealTile()tests ********\\
@@ -1063,7 +1110,8 @@ public class TestSafeMap {
 
         ArrayList<Pair<Integer, Integer>> tiles = safeMap.getGrassTiles();
         Pair<Integer, Integer> greenTile = tiles.get(0);
-        int x = 0, y = 0;
+        int x = greenTile.getKey();
+        int y = greenTile.getValue();
         int count = 1;
 
         while(x == safeMap.getPlayerInitPositionX(1) || y == safeMap.getPlayerInitPositionY(1)) {
@@ -1090,7 +1138,7 @@ public class TestSafeMap {
     @Test
     public void testRevealTileTeam_WATER(){
         //Exercise
-        safeMap.setMapSize(10);
+        safeMap.setMapSize(20);
         safeMap.generate(1);
 
         ArrayList<Pair<Integer, Integer>> tiles = safeMap.getWaterTiles();
@@ -1145,7 +1193,10 @@ public class TestSafeMap {
         ArrayList<Pair<Integer, Integer>> tiles = safeMap.getGrassTiles();
         Pair<Integer, Integer> greenTile = tiles.get(0);
 
-        int x = 0, y = 0, count = 1;
+        int x = greenTile.getKey();
+        int y = greenTile.getValue();
+        int count = 1;
+
         while(x == safeMap.getPlayerInitPositionX(1) || y == safeMap.getPlayerInitPositionY(1)) {
             x = greenTile.getKey();
             y = greenTile.getValue();
