@@ -11,10 +11,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static edu.cps2002.mazegame.game.Game.*;
+import static edu.cps2002.mazegame.game.Game.teamList;
+import static org.junit.Assert.*;
 
 public class TestGameSafeMap {
 
@@ -69,6 +70,43 @@ public class TestGameSafeMap {
 
     }
 
+    //******** Game.initialiseTeams() tests ********\\
+    public Map safeMap;
+    @Test
+    public void test_initialiseTeams1() {
+        playerList.clear();
+        playerChoice.clear();
+        safeMap = MapFactory.getInstance("S");
+        int players = 5;
+        int teams = 2;
+        safeMap.setMapSize(8);
+        calculatePlayersPerTeam(players,teams);
+        TeamPlayers[0] =3;
+        TeamPlayers[1] =2;
+        Game.generateHTMLFiles(TeamPlayers,teams);
+        Game.initialiseTeams(TeamPlayers, teams);
+        int sizeAfter = teamList.size();
+        assertNotEquals(3,sizeAfter);
+    }
+
+    @Test
+    public void test_initialiseTeams2() {
+        playerList.clear();
+        playerChoice.clear();
+        safeMap = MapFactory.getInstance("S");
+        int players = 5;
+        int teams = 3;
+        safeMap.setMapSize(8);
+        calculatePlayersPerTeam(players,teams);
+        TeamPlayers[0] =3;
+        TeamPlayers[1] =2;
+        TeamPlayers[2] =2;
+        Game.generateHTMLFiles(TeamPlayers,teams);
+        Game.initialiseTeams(TeamPlayers, teams);
+        int sizeAfter = teamList.size();
+        assertNotEquals(2,sizeAfter);
+    }
+
     //******** Game.checkWinner() tests ********\\
 
     @Test
@@ -120,7 +158,7 @@ public class TestGameSafeMap {
         Player p1= new Player(4,6, Game.map);
         players.add(p1);
         char tile = Game.map.getTileType(players.get(0).getPosition().getX(), players.get(0).getPosition().getY());
-        boolean x = Game.checkwatertile(tile,0,players, Player.DIRECTION.DOWN);
+        boolean x = Game.moveToNewTile(tile,0,players, Player.DIRECTION.DOWN);
         assertFalse(x);
         players.clear();
         //  hazardousMap.resetMap();
@@ -135,7 +173,7 @@ public class TestGameSafeMap {
         Player p1= new Player(4,6, Game.map);
         players.add(p1);
         char tile = Game.map.getTileType(players.get(0).getPosition().getX(), players.get(0).getPosition().getY());
-        boolean x =Game.checkwatertile(tile,0,players, Player.DIRECTION.UP);
+        boolean x =Game.moveToNewTile(tile,0,players, Player.DIRECTION.UP);
         assertFalse(x);
         players.clear();
     }
@@ -147,7 +185,7 @@ public class TestGameSafeMap {
         Player p2 = new Player(3, 2, Game.map);
         Game.playerList.add(p1);
         Game.playerList.add(p2);
-        boolean x = Game.checkwatertile('W', 0, Game.playerList, Player.DIRECTION.RIGHT);
+        boolean x = Game.moveToNewTile('W', 0, Game.playerList, Player.DIRECTION.RIGHT);
         assertTrue(x);
         Game.playerList.clear();
     }

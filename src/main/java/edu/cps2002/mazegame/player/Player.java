@@ -23,6 +23,11 @@ public class Player implements Observer {
         Position p = new Position(x, y);
         setPosition(p);
     }
+    //for testing purposes
+    public Player(int x, int y) {
+        Position p = new Position(x, y);
+        setPosition(p);
+    }
 
     public Player(int x, int y, Map map, int playerNum, TeamManager teamManager){
         Position p = new Position(x, y);
