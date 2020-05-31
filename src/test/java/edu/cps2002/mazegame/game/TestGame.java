@@ -94,7 +94,7 @@ public class TestGame {
 
     //******** Game.validityofPlayers() tests ********\\
     @Test
-    public void validityofPlayersTest1() {
+    public void validityof2PlayersInAGame() {
         boolean result = Game.validityofPlayers(2);
         boolean actual = true;
         assertEquals(result, actual);
@@ -102,7 +102,7 @@ public class TestGame {
     }
 
     @Test
-    public void validityofPlayersTest2() {
+    public void validityof4PlayersInAGame() {
         boolean result = Game.validityofPlayers(4);
         boolean actual = true;
         assertEquals(result, actual);
@@ -110,7 +110,7 @@ public class TestGame {
     }
 
     @Test
-    public void validityofPlayersTest3() {
+    public void validityof5PlayersInAGame() {
         boolean result = Game.validityofPlayers(5);
         boolean actual = true;
         assertEquals(result, actual);
@@ -118,7 +118,7 @@ public class TestGame {
     }
 
     @Test
-    public void validityofPlayersTest4() {
+    public void validityofPlayers8InAGame() {
         boolean result = Game.validityofPlayers(8);
         boolean actual = true;
         assertEquals(result, actual);
@@ -126,7 +126,7 @@ public class TestGame {
     }
 
     @Test
-    public void validityofPlayersTest5() {
+    public void validityof1PlayerInAGame() {
         boolean result = Game.validityofPlayers(1);
         boolean actual = false;
         assertEquals(result, actual);
@@ -134,7 +134,7 @@ public class TestGame {
     }
 
     @Test
-    public void validityofPlayersTest6() {
+    public void validityof9PlayersInAGame() {
         boolean result = Game.validityofPlayers(9);
         boolean actual = false;
         assertEquals(result, actual);
@@ -143,7 +143,7 @@ public class TestGame {
 
     //******** Game.validityofMapSize() tests ********\\
     @Test
-    public void validityofMapSizeTest1() {
+    public void validityofMapSize5for2Players() {
         boolean result = Game.validityofMapSize(2, 5);
         boolean actual = true;
         assertEquals(result, actual);
@@ -151,7 +151,7 @@ public class TestGame {
     }
 
     @Test
-    public void validityofMapSizeTest2() {
+    public void validityofMapSize4for2Players() {
         boolean result = Game.validityofMapSize(2, 4);
         boolean actual = false;
         assertEquals(result, actual);
@@ -159,7 +159,7 @@ public class TestGame {
     }
 
     @Test
-    public void validityofMapSizeTest3() {
+    public void validityofMapSize8for2Players() {
         boolean result = Game.validityofMapSize(2, 8);
         boolean actual = true;
         assertEquals(result, actual);
@@ -167,7 +167,7 @@ public class TestGame {
     }
 
     @Test
-    public void validityofMapSizeTest4() {
+    public void validityofMapSize5for5Players() {
         boolean result = Game.validityofMapSize(5, 5);
         boolean actual = false;
         assertEquals(result, actual);
@@ -175,7 +175,7 @@ public class TestGame {
     }
 
     @Test
-    public void validityofMapSizeTest5() {
+    public void validityofMapSize5for8Players() {
         boolean result = Game.validityofMapSize(8, 5);
         boolean actual = false;
         assertEquals(result, actual);
@@ -183,7 +183,7 @@ public class TestGame {
     }
 
     @Test
-    public void validityofMapSizeTest6() {
+    public void validityofMapSize50for8Players() {
         boolean result = Game.validityofMapSize(8, 50);
         boolean actual = true;
         assertEquals(result, actual);
@@ -191,7 +191,7 @@ public class TestGame {
     }
 
     @Test
-    public void validityofMapSizeTest7() {
+    public void validityofMapSize55for8Players() {
         boolean result = Game.validityofMapSize(8, 55);
         boolean actual = false;
         assertEquals(result, actual);
@@ -200,85 +200,84 @@ public class TestGame {
 
     //******** Game.validityofMode() tests ********\\
     @Test
-    public void testmodeC() {
+    public void testingCollaborativeModeChoiceWithCapitalLetter() {
         assertTrue(Game.validityofMode("C"));
 
     }
 
     @Test
-    public void testmodec() {
+    public void testingCollaborativeModeChoiceWithSmallLetter() {
         assertTrue(Game.validityofMode("c"));
 
     }
 
     @Test
-    public void testmodeI() {
+    public void testingIndividualModeChoiceWithCapitalLetter() {
         assertTrue(Game.validityofMode("I"));
 
     }
 
     @Test
-    public void testmodei() {
+    public void testingIndividualModeChoiceWithSmallLetter() {
         assertTrue(Game.validityofMode("i"));
 
     }
 
     @Test
-    public void testmodewrong() {
+    public void testingAWrongInputForMode() {
         assertFalse(Game.validityofMode("r"));
 
     }
 
     //******** Game.checkGameend() tests ********\\
     @Test
-    public void test_addplayerchoice2() {
+    public void checkIfTheGameEnded() {
         Game.checkGameend(false);
         assertFalse(gameend);
     }
 
     //******** Game.validateuserinput() tests ********\\
     @Test
-    public void test_validateuserinput1() {
+    public void testingWrongUserInputofMove() {
         assertFalse(Game.validateUserInput("k"));
     }
 
     @Test
-    public void test_validateuserinput2() {
+    public void testingChoiceRAsUserInput() {
         assertTrue(Game.validateUserInput("R"));
     }
 
     @Test
-    public void test_validateuserinput3() {
+    public void testingChoiceDAsUserInput() {
         assertTrue(Game.validateUserInput("D"));
     }
 
     @Test
-    public void test_validateuserinput4() {
+    public void testingChoiceLAsUserInput() {
         assertTrue(Game.validateUserInput("L"));
     }
 
     @Test
-    public void test_validateuserinput5() {
+    public void testingChoiceUAsUserInput() {
         assertTrue(Game.validateUserInput("U"));
     }
-
 
     //******** Game.validityofTeams() tests ********\\
 
     @Test
-    public void test_validityofteams1() {
+    public void testingValidityOf3Teamsfor8Players() {
        boolean flag=  Game.validityofTeams(8, 3);
         assertTrue(flag);
     }
 
     @Test
-    public void test_validityofteams2() {
+    public void testingValidityof3Teamsfor2Players() {
         boolean flag=  Game.validityofTeams(2, 3);
         assertFalse(flag);
     }
     //******** Game.calculatePlayersPerTeam() tests ********\\
     @Test
-    public void test_calculatePlayersperTeam1(){
+    public void testingTheCalculationofPlayersPerTeamFor5PlayersAnd5Teams(){
         int sizeBefore1 = 0;
         int sizeBefore2 = 0;
         Game.calculatePlayersPerTeam(5,5);
@@ -289,7 +288,7 @@ public class TestGame {
     }
 
     @Test
-    public void test_calculatePlayersperTeam2(){
+    public void testingTheCalculationOfPlayersPerTeamfor3PlayersAnd2Teams(){
         int sizeBefore1 = 0;
         int sizeBefore2 = 0;
         Game.calculatePlayersPerTeam(3,2);
