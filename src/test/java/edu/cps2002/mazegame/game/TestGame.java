@@ -239,27 +239,27 @@ public class TestGame {
     //******** Game.validateuserinput() tests ********\\
     @Test
     public void test_validateuserinput1() {
-        assertFalse(Game.validateuserinput("k"));
+        assertFalse(Game.validateUserInput("k"));
     }
 
     @Test
     public void test_validateuserinput2() {
-        assertTrue(Game.validateuserinput("R"));
+        assertTrue(Game.validateUserInput("R"));
     }
 
     @Test
     public void test_validateuserinput3() {
-        assertTrue(Game.validateuserinput("D"));
+        assertTrue(Game.validateUserInput("D"));
     }
 
     @Test
     public void test_validateuserinput4() {
-        assertTrue(Game.validateuserinput("L"));
+        assertTrue(Game.validateUserInput("L"));
     }
 
     @Test
     public void test_validateuserinput5() {
-        assertTrue(Game.validateuserinput("U"));
+        assertTrue(Game.validateUserInput("U"));
     }
 
 

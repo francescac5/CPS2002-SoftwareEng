@@ -54,7 +54,7 @@ public class Game {
             } catch (Exception e) {
                 sc.next();
             }finally{
-                if(validateuserinput(answer)){
+                if(validateUserInput(answer)){
                     Player.DIRECTION x =chooseDirection(answer);
                     return x;
                 }else{
@@ -65,7 +65,7 @@ public class Game {
     }
 
     //method to check that the input that the user gives is either l,d,u or r
-    public static boolean validateuserinput(String answer) {
+    public static boolean validateUserInput(String answer) {
         return answer.equalsIgnoreCase("L") || answer.equalsIgnoreCase("R") ||
                 answer.equalsIgnoreCase("D") || answer.equalsIgnoreCase("U");
     }
