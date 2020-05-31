@@ -1,5 +1,8 @@
 package edu.cps2002.mazegame.game;
 
+import edu.cps2002.mazegame.map.Map;
+import edu.cps2002.mazegame.map.MapFactory;
+import edu.cps2002.mazegame.map.SafeMap;
 import edu.cps2002.mazegame.player.Player;
 import edu.cps2002.mazegame.player.Position;
 import edu.cps2002.mazegame.utils.MapUtils;
@@ -8,7 +11,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Map;
+import java.util.ArrayList;
 
 import static edu.cps2002.mazegame.game.Game.*;
 import static org.junit.Assert.*;
@@ -29,7 +32,6 @@ public class TestGame {
         p1 = null;
         pos = null;
         utils.deleteHTMLFiles();
-        TeamPlayers=null;
     }
 
 
@@ -261,42 +263,6 @@ public class TestGame {
     }
 
 
-    //******** Game.initialiseTeams() tests ********\\
-
-//    @Test
-//    public void test_initialiseTeams1() {
-//        int sizeBefore = teamList.size();
-//        TeamPlayers=null;
-//        assertNotNull(TeamPlayers);
-//        assertNotNull(teamList);
-//        TeamPlayers[0]= 1;
-//        TeamPlayers[1]= 1;
-//        Game.initialiseTeams(TeamPlayers, 2);
-//        int sizeAfter = teamList.size();
-//        assertNotEquals(sizeBefore,sizeAfter);
-//    }
-//
-//    @Test
-//    public void test_initialiseTeams2() {
-//        assertNull(teamList);
-//        int sizeBefore = teamList.size();
-//        int[] playersPerTeam ={2};
-//        Game.initialiseTeams(playersPerTeam, 1);
-//        int sizeAfter = teamList.size();
-//        assertEquals(sizeBefore,sizeAfter);
-//    }
-//
-//    @Test
-//    public void test_initialiseTeams3() {
-//        int[] playersPerTeam = {2};
-//        assertNull(teamList);
-//        Game.initialiseTeams(playersPerTeam, 3);
-//        assertEquals(TeamPlayers[0],3);
-//        assertEquals(TeamPlayers[1],3);
-//        assertEquals(TeamPlayers[2],2);
-//
-//    }
-
     //******** Game.validityofTeams() tests ********\\
 
     @Test
@@ -310,19 +276,26 @@ public class TestGame {
         boolean flag=  Game.validityofTeams(2, 3);
         assertFalse(flag);
     }
-//    //******** Game.calculatePlayersPerTeam() tests ********\\
-//    @Test
-//    public void test_calculatePlayersperTeam(){
-//        assertNull(TeamPlayers);
-//        assertNull(TeamPlayersCount);
-//        assert TeamPlayers != null;
-//        int sizeBefore1 =TeamPlayers.length;
-//        assert TeamPlayersCount != null;
-//        int sizeBefore2 = TeamPlayersCount.length;
-//        Game.calculatePlayersPerTeam(5,5);
-//     int sizeAfter1 =TeamPlayers.length;
-//     int sizeAfter2 = TeamPlayersCount.length;
-//     assertEquals(sizeBefore1,sizeAfter1);
-//        assertEquals(sizeBefore2,sizeAfter2);
-//    }
+    //******** Game.calculatePlayersPerTeam() tests ********\\
+    @Test
+    public void test_calculatePlayersperTeam1(){
+        int sizeBefore1 = 0;
+        int sizeBefore2 = 0;
+        Game.calculatePlayersPerTeam(5,5);
+     int sizeAfter1 =TeamPlayers.length;
+     int sizeAfter2 = TeamPlayersCount.length;
+        assertEquals(sizeBefore1+5,sizeAfter1);
+        assertEquals(sizeBefore2+5,sizeAfter2);
+    }
+
+    @Test
+    public void test_calculatePlayersperTeam2(){
+        int sizeBefore1 = 0;
+        int sizeBefore2 = 0;
+        Game.calculatePlayersPerTeam(3,2);
+        int sizeAfter1 =TeamPlayers.length;
+        int sizeAfter2 = TeamPlayersCount.length;
+        assertEquals(sizeBefore1+2,sizeAfter1);
+        assertEquals(sizeBefore2+2,sizeAfter2);
+    }
 }

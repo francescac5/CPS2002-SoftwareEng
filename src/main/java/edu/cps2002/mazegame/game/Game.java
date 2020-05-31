@@ -16,8 +16,8 @@ public class Game {
     protected static ArrayList<Player.DIRECTION> playerChoice = new ArrayList<>();
     protected static ArrayList<TeamManager> Managers = new ArrayList<>();
     protected static ArrayList<ArrayList<Player>> teamList = new ArrayList<>();
-    protected static int[] TeamPlayers;
-    protected static int[] TeamPlayersCount;
+    protected static int[] TeamPlayers =null;
+    protected static int[] TeamPlayersCount = null;
     private static MapUtils utils = new MapUtils();
     protected static Map map;
 
@@ -211,7 +211,7 @@ static void calculatePlayersPerTeam(int players, int teams){
         Arrays.fill(TeamPlayersCount,0);
 
 }
-    //method to generate HTML files for every player
+    //method to generate HTML files for every player in every team
     static void generateHTMLFiles(int[] playersPerTeam, int teams){
             for (int i = 0; i < teams; i++) {
                 map.generate(playersPerTeam[i]);
@@ -296,7 +296,7 @@ static void calculatePlayersPerTeam(int players, int teams){
             do {
                 x = chooseMove();
                 char tile = map.getTileType(playerList.get(j).getPosition().getX(), playerList.get(j).getPosition().getY());
-                flag = checkwatertile(tile,j,playerList,x);
+                flag = moveToNewTile(tile,j,playerList,x);
             }while(!flag);
             playerChoice.add(x);
         }
@@ -315,7 +315,7 @@ static void calculatePlayersPerTeam(int players, int teams){
             do {
                 x = chooseMove();
                 char tile = map.getTileType(teamList.get(j).get(TeamPlayersCount[j]).getPosition().getX(), teamList.get(j).get(TeamPlayersCount[j]).getPosition().getY());
-                flag = checkwatertile(tile,j,teamList.get(j),x);
+                flag = moveToNewTile(tile,j,teamList.get(j),x);
             }while(!flag);
             playerChoice.add(x);  //TeamChoice
         }
@@ -332,8 +332,8 @@ static void calculatePlayersPerTeam(int players, int teams){
         playerChoice.clear();
     }
 
-    //method that checks if a player went on a water tile if so he is sent back to his/her original position
-    static boolean checkwatertile(char tile, int j,ArrayList<Player> players, Player.DIRECTION x){
+    //method to move to a new tile
+    static boolean moveToNewTile(char tile, int j,ArrayList<Player> players, Player.DIRECTION x){
         boolean flag; 
         if (tile == 'W') {
             Position p1 = new Position(map.getPlayerInitPositionX(j + 1), map.getPlayerInitPositionY(j + 1));
