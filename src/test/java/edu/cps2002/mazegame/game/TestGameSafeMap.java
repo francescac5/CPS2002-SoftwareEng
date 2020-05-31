@@ -26,6 +26,7 @@ public class TestGameSafeMap {
 
     @After
     public void tearDown() {
+        teamList.clear();
         utils.deleteHTMLFiles();
         Game.map.resetMap();
     }

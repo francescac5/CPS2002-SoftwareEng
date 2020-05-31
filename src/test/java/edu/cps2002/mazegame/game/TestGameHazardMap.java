@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static edu.cps2002.mazegame.game.Game.*;
 import static org.junit.Assert.*;
@@ -28,6 +29,8 @@ public class TestGameHazardMap {
     public void tearDown() {
         utils.deleteHTMLFiles();
         Game.map.resetMap();
+        TeamPlayers=null;
+        teamList.clear();
     }
 
     //******** Game.initialisePlayers() tests ********\\
