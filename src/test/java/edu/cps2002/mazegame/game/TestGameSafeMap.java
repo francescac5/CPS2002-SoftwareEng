@@ -12,9 +12,8 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static edu.cps2002.mazegame.game.Game.*;
+import static org.junit.Assert.*;
 
 public class TestGameSafeMap {
 
@@ -67,6 +66,42 @@ public class TestGameSafeMap {
         int sizeAfter = Game.playerList.size();
 
         assertEquals(sizeBefore+10, sizeAfter);
+    }
+    //******** Game.initialiseTeams() tests ********\\
+    public Map safeMap;
+    @Test
+    public void test_initialiseTeams1() {
+        playerList.clear();
+        playerChoice.clear();
+        safeMap = MapFactory.getInstance("S");
+        int players = 5;
+        int teams = 2;
+        safeMap.setMapSize(8);
+        calculatePlayersPerTeam(players,teams);
+        TeamPlayers[0] =3;
+        TeamPlayers[1] =2;
+        Game.generateHTMLFiles(TeamPlayers,teams);
+        Game.initialiseTeams(TeamPlayers, teams);
+        int sizeAfter = teamList.size();
+        assertEquals(2,sizeAfter);
+    }
+
+    @Test
+    public void test_initialiseTeams2() {
+        playerList.clear();
+        playerChoice.clear();
+        safeMap = MapFactory.getInstance("S");
+        int players = 5;
+        int teams = 3;
+        safeMap.setMapSize(8);
+        calculatePlayersPerTeam(players,teams);
+        TeamPlayers[0] =3;
+        TeamPlayers[1] =2;
+        TeamPlayers[2] =2;
+        Game.generateHTMLFiles(TeamPlayers,teams);
+        Game.initialiseTeams(TeamPlayers, teams);
+        int sizeAfter = teamList.size();
+        assertNotEquals(2,sizeAfter);
     }
 
     //******** Game.checkWinner() tests ********\\
