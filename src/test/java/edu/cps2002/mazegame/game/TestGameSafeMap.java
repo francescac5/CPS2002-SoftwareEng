@@ -33,7 +33,7 @@ public class TestGameSafeMap {
     //******** Game.initialisePlayers() tests ********\\
 
     @Test
-    public void initialisePlayersTest1_SafeMap(){
+    public void testingTheInitialisationOfPlayersFor3Players_SafeMap(){
         int players = 3;
 
         Game.map.setMapSize(5);
@@ -51,7 +51,7 @@ public class TestGameSafeMap {
     }
 
     @Test
-    public void initialisePlayersTest2_SafeMap(){
+    public void testingTheInitialisationOfPlayersFor10Players_SafeMap(){
         int players = 10;
 
         Game.map.setMapSize(10);
@@ -70,7 +70,7 @@ public class TestGameSafeMap {
     //******** Game.initialiseTeams() tests ********\\
     public Map safeMap;
     @Test
-    public void test_initialiseTeams1() {
+    public void testingTheInitialisationOfTeamsfor2Teams_HazardMap() {
         playerList.clear();
         playerChoice.clear();
         safeMap = MapFactory.getInstance("S");
@@ -87,7 +87,7 @@ public class TestGameSafeMap {
     }
 
     @Test
-    public void test_initialiseTeams2() {
+    public void testingTheInitialisationOfTeamsfor3Teams_HazardMap() {
         playerList.clear();
         playerChoice.clear();
         safeMap = MapFactory.getInstance("S");
@@ -107,7 +107,7 @@ public class TestGameSafeMap {
     //******** Game.checkWinner() tests ********\\
 
     @Test
-    public void test1SafeMap_Winner(){
+    public void testingtheWinnerWhenPlayerIsOnTreasureTile(){
         boolean flag;
 
         Game.map.setMapSize(10);
@@ -126,7 +126,7 @@ public class TestGameSafeMap {
     }
 
     @Test
-    public void test2SafeMap_Winner(){
+    public void testingtheWinnerWhenPlayerIsNotOnTreasureTile(){
         boolean flag;
 
         Game.map.setMapSize(10);
@@ -157,7 +157,7 @@ public class TestGameSafeMap {
 //******** Game.checkWinnerTeam() tests ********\\
 
     @Test
-    public void test1SafeMap_WinnerTeam(){
+    public void checkWinnerWhenOneOfThePlayersInATeamIsOnTreasure(){
         boolean flag;
 
         Game.map.setMapSize(10);
@@ -178,7 +178,7 @@ public class TestGameSafeMap {
     }
 
     @Test
-    public void test2SafeMap_WinnerTeam(){
+    public void checkWinnerWhenOneOfThePlayersInATeamIsNotOnTreasure1(){
         boolean flag;
 
         Game.map.setMapSize(10);
@@ -207,7 +207,7 @@ public class TestGameSafeMap {
     }
 
     @Test
-    public void test3SafeMap_WinnerTeam(){
+    public void checkWinnerWhenOneOfThePlayersInATeamIsNotOnTreasure2(){
         boolean flag;
 
         Game.map.setMapSize(10);
@@ -239,7 +239,7 @@ public class TestGameSafeMap {
     //******** Game.moveToNewTile() tests ********\\
 
     @Test
-    public void testSafeMap_moveToNewTile1(){
+    public void test1ForMoveToANewTile(){
         Game.map.setMapSize(5);
         Game.map.setWaterPercentage(30);
         Game.generateHTMLFiles(1);
@@ -254,7 +254,7 @@ public class TestGameSafeMap {
     }
 
     @Test
-    public void testSafeMap_moveToNewTile2(){
+    public void test2ForMoveToANewTile(){
         Game.map.setMapSize(5);
         Game.map.setWaterPercentage(30);
         Game.generateHTMLFiles(1);
@@ -269,7 +269,7 @@ public class TestGameSafeMap {
     }
 
     @Test
-    public void testSafeMap_moveToNewTile3(){
+    public void testingMovetoWaterTile(){
         Game.map.setMapSize(6);
         Game.map.setWaterPercentage(30);
         Game.generateHTMLFiles(1);

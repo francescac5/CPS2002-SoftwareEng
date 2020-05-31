@@ -33,7 +33,7 @@ public class TestGameHazardMap {
     //******** Game.initialisePlayers() tests ********\\
 
     @Test
-    public void initialisePlayersTest1_HazardMap(){
+    public void testingTheInitialisationOfPlayersFor3Players_HazardMap(){
         int players = 3;
 
         Game.map.setMapSize(5);
@@ -51,7 +51,7 @@ public class TestGameHazardMap {
     }
 
     @Test
-    public void initialisePlayersTest2_HazardMap(){
+    public void testingTheInitialisationOfPlayersFor10Players_HazardMap(){
         int players = 10;
 
         Game.map.setMapSize(10);
@@ -70,7 +70,7 @@ public class TestGameHazardMap {
     //******** Game.initialiseTeams() tests ********\\
     public Map hazardousMap;
     @Test
-    public void test_initialiseTeams1() {
+    public void testingTheInitialisationOfTeamsfor2Teams_HazardMap() {
         playerList.clear();
         playerChoice.clear();
         hazardousMap= MapFactory.getInstance("H");
@@ -87,10 +87,10 @@ public class TestGameHazardMap {
     }
 
     @Test
-    public void test_initialiseTeams2() {
+    public void testingTheInitialisationOfTeamsfor3Teams_HazardMap() {
         playerList.clear();
         playerChoice.clear();
-        hazardousMap = MapFactory.getInstance("S");
+        hazardousMap = MapFactory.getInstance("H");
         int players = 5;
         int teams = 3;
         hazardousMap.setMapSize(8);
@@ -107,7 +107,7 @@ public class TestGameHazardMap {
     //******** Game.checkWinner() tests ********\\
 
     @Test
-    public void test1HazardMap_Winner(){
+    public void testingtheWinnerWhenPlayerIsOnTreasureTile(){
         boolean flag;
 
         Game.map.setMapSize(10);
@@ -126,7 +126,7 @@ public class TestGameHazardMap {
     }
 
     @Test
-    public void test2HazardMap_Winner(){
+    public void testingtheWinnerWhenPlayerIsNotOnTreasureTile(){
         boolean flag;
 
         Game.map.setMapSize(10);
@@ -157,7 +157,7 @@ public class TestGameHazardMap {
 //******** Game.checkWinnerTeam() tests ********\\
 
     @Test
-    public void test1HazardMap_WinnerTeam(){
+    public void checkWinnerWhenOneOfThePlayersInATeamIsOnTreasure(){
         boolean flag;
 
         Game.map.setMapSize(10);
@@ -178,7 +178,7 @@ public class TestGameHazardMap {
     }
 
     @Test
-    public void test2HazardMap_WinnerTeam(){
+    public void checkWinnerWhenOneOfThePlayersInATeamIsNotOnTreasure1(){
         boolean flag;
 
         Game.map.setMapSize(10);
@@ -207,7 +207,7 @@ public class TestGameHazardMap {
     }
 
     @Test
-    public void test3HazardMap_WinnerTeam(){
+    public void checkWinnerWhenOneOfThePlayersInATeamIsNotOnTreasure2(){
         boolean flag;
 
         Game.map.setMapSize(10);
@@ -239,7 +239,7 @@ public class TestGameHazardMap {
     //******** Game.moveToNewTile() tests ********\\
 
     @Test
-    public void testHazardMap_moveToNewTile1(){
+    public void test1ForMoveToANewTile(){
         Game.map.setMapSize(5);
         Game.map.setWaterPercentage(30);
         Game.generateHTMLFiles(1);
@@ -254,7 +254,7 @@ public class TestGameHazardMap {
     }
 
     @Test
-    public void testHazardMap_moveToNewTile2(){
+    public void test2ForMoveToANewTile(){
         Game.map.setMapSize(5);
         Game.map.setWaterPercentage(30);
         Game.generateHTMLFiles(1);
@@ -269,7 +269,7 @@ public class TestGameHazardMap {
     }
 
     @Test
-    public void testHazardMap_moveToNewTile3(){
+    public void testingMovetoWaterTile(){
         Game.map.setMapSize(6);
         Game.map.setWaterPercentage(30);
         Game.generateHTMLFiles(1);
