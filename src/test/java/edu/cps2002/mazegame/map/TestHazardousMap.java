@@ -1051,6 +1051,52 @@ public class TestHazardousMap {
         assertEquals(0, hazardousMap.playerMaps.size());
     }
 
+//******** hazardousMap.generateInitMapDeepCopy()tests ********\\
+
+    @Test
+    public void testGenerateInitMapDeepCopy_1Copy(){
+        //Exercise
+        hazardousMap.setMapSize(5);
+        hazardousMap.setUpMapTiles();
+
+        Map.Tiles[][] initMap = hazardousMap.generateInitMap();
+        Map.Tiles[][] initMapCopy = hazardousMap.generateInitMapDeepCopy(initMap);
+
+        //Assert
+        assertNotEquals(initMapCopy, initMap);
+
+        initMap[0][1] = Map.Tiles.WATER;
+        initMapCopy[0][1] = Map.Tiles.GRASS_PLAYER;
+
+        assertEquals(Map.Tiles.WATER, initMap[0][1]);
+        assertEquals(Map.Tiles.GRASS_PLAYER, initMapCopy[0][1]);
+    }
+
+    @Test
+    public void testGenerateInitMapDeepCopy_2Copies(){
+        //Exercise
+        hazardousMap.setMapSize(5);
+        hazardousMap.setUpMapTiles();
+
+        Map.Tiles[][] initMap = hazardousMap.generateInitMap();
+        Map.Tiles[][] initMapCopy = hazardousMap.generateInitMapDeepCopy(initMap);
+        Map.Tiles[][] initMapCopy2 = hazardousMap.generateInitMapDeepCopy(initMap);
+
+        //Assert
+        assertNotEquals(initMapCopy, initMap);
+        assertNotEquals(initMapCopy2, initMap);
+        assertNotEquals(initMapCopy, initMapCopy2);
+
+        initMap[0][1] = Map.Tiles.WATER;
+        initMapCopy[0][1] = Map.Tiles.GRASS_PLAYER;
+        initMapCopy2[0][1] = Map.Tiles.TREASURE;
+
+        assertEquals(Map.Tiles.WATER, initMap[0][1]);
+        assertEquals(Map.Tiles.GRASS_PLAYER, initMapCopy[0][1]);
+        assertEquals(Map.Tiles.TREASURE, initMapCopy2[0][1]);
+    }
+
+    
 //******** hazardousMap.revealTile()tests ********\\
 
     @Test

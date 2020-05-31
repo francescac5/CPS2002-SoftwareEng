@@ -168,8 +168,9 @@ public abstract class Map {
         if(numOfTeamPlayers > 0) {
             teamMaps.add(new ArrayList<>());
             for (int i = 0; i < numOfTeamPlayers; i++) {
-                teamMaps.get(mapCount-1).add(playerMap);
-                util.generateMapHTML(mapCount, playerMap, i);
+                Tiles [][] playerMapCopy = generateInitMapDeepCopy(playerMap);
+                teamMaps.get(mapCount-1).add(playerMapCopy);
+                util.generateMapHTML(mapCount, playerMapCopy, i);
             }
         }
         //individual
@@ -179,8 +180,19 @@ public abstract class Map {
         }
     }
 
+    protected Tiles[][] generateInitMapDeepCopy(Tiles[][] initMap){
+        Tiles[][] initMapCopy = new Tiles[initMap.length][initMap.length];
+
+        for (int i = 0; i < initMap.length; i++) {
+            for (int j = 0; j < initMap.length; j++) {
+                initMapCopy[j][i] = initMap[j][i];
+            }
+        }
+        return initMapCopy;
+    }
+
     //generates tiles for Map once in map's lifetime
-    private void setUpMapTiles(){
+    protected void setUpMapTiles(){
         util.generateGameMapsFolder();
 
         // create instance of Random class
@@ -325,7 +337,7 @@ public abstract class Map {
     public void updateMap(int xNew, int yNew, int teamNum, int playerNum){
         Tiles[][] playerMap = getTeamPlayerMap(teamNum, playerNum);
         updateMapContents(xNew, yNew, teamNum, playerMap);
-        util.generateMapHTML(playerNum, playerMap, playerNum);
+        util.generateMapHTML(teamNum, playerMap, playerNum);
     }
 
     //if the given x and y coordinates are within the map size limit, the map of the given player is
@@ -373,21 +385,24 @@ public abstract class Map {
         Tiles[][] teamPlayerMap = getTeamPlayerMap(teamNum, playerNum);
         Tiles revealedTile = this.mapTiles[xNew][yNew];
 
-        for (int y = 0; y < size; y++) {
-            for (int x = 0; x < size; x++) {
-                if (xNew == x && yNew == y) {
-                    if(teamPlayerMap[x][y] != Tiles.GRASS_PLAYER) {
-                        teamPlayerMap[x][y] = revealedTile;
+        if(teamPlayerMap[xNew][yNew] != Tiles.GRASS_PLAYER) {
+
+            for (int y = 0; y < size; y++) {
+                for (int x = 0; x < size; x++) {
+                    if (xNew == x && yNew == y) {
+                        if (teamPlayerMap[x][y] != Tiles.GRASS_PLAYER) {
+                            teamPlayerMap[x][y] = revealedTile;
+                        }
+                    }
+
+                    //if treasure tile is revealed then remove character from prev tile and move it to treasure tile
+                    if (teamPlayerMap[x][y] == Tiles.GRASS_PLAYER && revealedTile == Tiles.TREASURE) {
+                        teamPlayerMap[x][y] = Tiles.GRASS;
                     }
                 }
-
-                //if treasure tile is revealed then remove character from prev tile and move it to treasure tile
-                if (teamPlayerMap[x][y] == Tiles.GRASS_PLAYER && (xNew != x || yNew != y) && revealedTile == Tiles.TREASURE){
-                    teamPlayerMap[x][y] = Tiles.GRASS;
-                }
             }
+            util.generateMapHTML(teamNum, teamPlayerMap, playerNum);
         }
-        util.generateMapHTML(playerNum, teamPlayerMap, playerNum);
     }
 
     //resets all variables associated with the Map
