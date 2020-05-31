@@ -254,7 +254,6 @@ static void calculatePlayersPerTeam(int players, int teams){
                 }
                 utils.deleteHTMLFiles();
                 map.resetMap();
-
             } while (!gameend);
         } else if (mode.equalsIgnoreCase("C")) {
             System.out.println("Welcome to our Maze game. " +
@@ -284,7 +283,8 @@ static void calculatePlayersPerTeam(int players, int teams){
                 utils.deleteHTMLFiles();
                 map.resetMap();
         } while (!gameend);
-        }
+        System.exit(0);
+    }
 
 
     //method to give every player one turn to choose the direction and then move everyone accordingly
@@ -329,6 +329,8 @@ static void calculatePlayersPerTeam(int players, int teams){
             }while(!flag);
             playerChoice.add(move);  //TeamChoice
         }
+
+        //updating maps for each player in each team
         for( int i = 0; i < teamList.size(); i++) {
             playerX = teamList.get(i).get(TeamPlayersCount[i]).getPosition().getX();
             playerY = teamList.get(i).get(TeamPlayersCount[i]).getPosition().getY();

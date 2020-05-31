@@ -1025,10 +1025,43 @@ public class TestSafeMap {
 
         //Exercise
         safeMap.generate(6);
+
+        //Assert
         assertEquals(2, safeMap.teamMaps.size());
         assertEquals(6, safeMap.teamMaps.get(1).size());
 
         assertEquals(0, safeMap.playerMaps.size());
+    }
+
+//******** safeMap.generateInitMapDeepCopy()tests ********\\
+
+    @Test
+    public void testGenerateInitMapDeepCopy_1Copy(){
+        //Exercise
+        safeMap.setMapSize(5);
+        safeMap.setUpMapTiles();
+
+        Map.Tiles[][] initMap = safeMap.generateInitMap();
+        Map.Tiles[][] initMapCopy = safeMap.generateInitMapDeepCopy(initMap);
+
+        //Assert
+        assertNotEquals(initMapCopy, initMap);
+    }
+
+    @Test
+    public void testGenerateInitMapDeepCopy_2Copies(){
+        //Exercise
+        safeMap.setMapSize(5);
+        safeMap.setUpMapTiles();
+
+        Map.Tiles[][] initMap = safeMap.generateInitMap();
+        Map.Tiles[][] initMapCopy = safeMap.generateInitMapDeepCopy(initMap);
+        Map.Tiles[][] initMapCopy2 = safeMap.generateInitMapDeepCopy(initMap);
+
+        //Assert
+        assertNotEquals(initMapCopy, initMap);
+        assertNotEquals(initMapCopy2, initMap);
+        assertNotEquals(initMapCopy, initMapCopy2);
     }
 
 //******** safeMap.revealTile()tests ********\\
