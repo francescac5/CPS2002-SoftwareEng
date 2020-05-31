@@ -21,7 +21,6 @@ public class TestGameHazardMap {
 
     @Before
     public void setup() {
-     //   Game.map = MapFactory.getInstance("H");
 
     }
 
