@@ -168,9 +168,9 @@ public abstract class Map {
         if(numOfTeamPlayers > 0) {
             teamMaps.add(new ArrayList<>());
             for (int i = 0; i < numOfTeamPlayers; i++) {
-                Tiles [][] playerMapClone = playerMap.clone();
-                teamMaps.get(mapCount-1).add(playerMapClone);
-                util.generateMapHTML(mapCount, playerMapClone, i);
+                Tiles [][] playerMapCopy = generateInitMapDeepCopy(playerMap);
+                teamMaps.get(mapCount-1).add(playerMapCopy);
+                util.generateMapHTML(mapCount, playerMapCopy, i);
             }
         }
         //individual
@@ -180,9 +180,15 @@ public abstract class Map {
         }
     }
 
-    protected Tiles[][] generateInitMapDeepCopy(Tiles[][] playerMap){
+    protected Tiles[][] generateInitMapDeepCopy(Tiles[][] initMap){
+        Tiles[][] initMapCopy = new Tiles[initMap.length][initMap.length];
 
-        return playerMap;
+        for (int i = 0; i < initMap.length; i++) {
+            for (int j = 0; j < initMap.length; j++) {
+                initMapCopy[j][i] = initMap[j][i];
+            }
+        }
+        return initMapCopy;
     }
 
     //generates tiles for Map once in map's lifetime
@@ -330,7 +336,7 @@ public abstract class Map {
     //gets player map for collaborative play and updates player's map contents
     public void updateMap(int xNew, int yNew, int teamNum, int playerNum){
         Tiles[][] playerMap = getTeamPlayerMap(teamNum, playerNum);
-        updateMapContents(xNew, yNew, playerNum, playerMap);
+        updateMapContents(xNew, yNew, teamNum, playerMap);
         util.generateMapHTML(teamNum, playerMap, playerNum);
     }
 
