@@ -120,7 +120,7 @@ public class TestGameSafeMap {
         Player p1= new Player(4,6, Game.map);
         players.add(p1);
         char tile = Game.map.getTileType(players.get(0).getPosition().getX(), players.get(0).getPosition().getY());
-        boolean x = Game.checkwatertile(tile,0,players, Player.DIRECTION.DOWN);
+        boolean x = Game.checkwatertile(tile,1,players.get(0), Player.DIRECTION.DOWN);
         assertFalse(x);
         players.clear();
         //  hazardousMap.resetMap();
@@ -135,7 +135,7 @@ public class TestGameSafeMap {
         Player p1= new Player(4,6, Game.map);
         players.add(p1);
         char tile = Game.map.getTileType(players.get(0).getPosition().getX(), players.get(0).getPosition().getY());
-        boolean x =Game.checkwatertile(tile,0,players, Player.DIRECTION.UP);
+        boolean x =Game.checkwatertile(tile,1,players.get(0), Player.DIRECTION.UP);
         assertFalse(x);
         players.clear();
     }
@@ -147,7 +147,7 @@ public class TestGameSafeMap {
         Player p2 = new Player(3, 2, Game.map);
         Game.playerList.add(p1);
         Game.playerList.add(p2);
-        boolean x = Game.checkwatertile('W', 0, Game.playerList, Player.DIRECTION.RIGHT);
+        boolean x = Game.checkwatertile('W', 1, Game.playerList.get(0), Player.DIRECTION.RIGHT);
         assertTrue(x);
         Game.playerList.clear();
     }

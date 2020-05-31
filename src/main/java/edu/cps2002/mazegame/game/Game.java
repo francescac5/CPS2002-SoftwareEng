@@ -296,7 +296,7 @@ static void calculatePlayersPerTeam(int players, int teams){
             do {
                 x = chooseMove();
                 char tile = map.getTileType(playerList.get(j).getPosition().getX(), playerList.get(j).getPosition().getY());
-                flag = checkwatertile(tile,j,playerList,x);
+                flag = checkwatertile(tile, j+1, playerList.get(j), x);
             }while(!flag);
             playerChoice.add(x);
         }
@@ -308,23 +308,37 @@ static void calculatePlayersPerTeam(int players, int teams){
 
     //method to give every team
     static void giveOneTurnToEachTeam() {
+        //player's x & y co-ordinates
+        int playerX;
+        int playerY;
+
+        //iterate over all the teams
         for(int j=0; j<teamList.size();j++) {
             boolean flag;
-            Player.DIRECTION x;
+            Player.DIRECTION move;
             System.out.println("Team " + (j + 1) + "'s turn \nPlayer " + TeamPlayersCount[j] + " plays.");
+            //move one player from the team
             do {
-                x = chooseMove();
-                char tile = map.getTileType(teamList.get(j).get(TeamPlayersCount[j]).getPosition().getX(), teamList.get(j).get(TeamPlayersCount[j]).getPosition().getY());
-                flag = checkwatertile(tile,j,teamList.get(j),x);
+                move = chooseMove();
+
+                playerX = teamList.get(j).get(TeamPlayersCount[j]).getPosition().getX();
+                playerY = teamList.get(j).get(TeamPlayersCount[j]).getPosition().getY();
+
+                char tile = map.getTileType(playerX, playerY);
+                flag = checkwatertile(tile, TeamPlayersCount[j], teamList.get(j).get(TeamPlayersCount[j]),move);
             }while(!flag);
-            playerChoice.add(x);  //TeamChoice
+            playerChoice.add(move);  //TeamChoice
         }
         for( int i = 0; i < teamList.size(); i++) {
+            playerX = teamList.get(i).get(TeamPlayersCount[i]).getPosition().getX();
+            playerY = teamList.get(i).get(TeamPlayersCount[i]).getPosition().getY();
 
-            map.updateMap(teamList.get(i).get(TeamPlayersCount[i]).getPosition().getX(), teamList.get(i).get(TeamPlayersCount[i]).getPosition().getY(), i + 1,TeamPlayersCount[i]);
-          Managers.get(i).setRevealedTile(teamList.get(i).get(TeamPlayersCount[i]).getPosition().getX(), teamList.get(i).get(TeamPlayersCount[i]).getPosition().getY());
+            map.updateMap(playerX, playerY, i + 1, TeamPlayersCount[i]);
+            Managers.get(i).setRevealedTile(playerX, playerY);
 
+            //updating counter to move to next player in the team for next round
             TeamPlayersCount[i]++;
+            //start again from zero if all players have played
             if((TeamPlayersCount[i])== TeamPlayers[i]){
                 TeamPlayersCount[i] = 0;
             }
@@ -332,15 +346,16 @@ static void calculatePlayersPerTeam(int players, int teams){
         playerChoice.clear();
     }
 
+
     //method that checks if a player went on a water tile if so he is sent back to his/her original position
-    static boolean checkwatertile(char tile, int j,ArrayList<Player> players, Player.DIRECTION x){
+    static boolean checkwatertile(char tile, int playerNum, Player player, Player.DIRECTION x){
         boolean flag; 
         if (tile == 'W') {
-            Position p1 = new Position(map.getPlayerInitPositionX(j + 1), map.getPlayerInitPositionY(j + 1));
-            playerList.get(j).setPosition(p1);
-            flag= players.get(j).move(x);
+            Position p1 = new Position(map.getPlayerInitPositionX(playerNum), map.getPlayerInitPositionY(playerNum));
+            player.setPosition(p1);
+            flag = player.move(x);
         } else {
-            flag=players.get(j).move(x);
+            flag = player.move(x);
         }
         return flag;
     }
