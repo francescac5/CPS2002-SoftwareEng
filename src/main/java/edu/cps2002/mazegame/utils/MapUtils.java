@@ -44,18 +44,21 @@ public class MapUtils {
         }
     }
 
+    //generate html file for individual play
     public void generateMapHTML(int mapCount, Map.Tiles[][] playerMap){
         String path = "src"+ret+"main"+ret+"java"+ret+"edu"+ret+"cps2002"+ret+"mazegame"+ret+"gameMaps"+ret+"map_player_"+mapCount+".html";
         StringBuilder mapTitle = generateMapHTMLTitle(mapCount, playerMap.length);
         generateMapHTMLContents(path, playerMap, mapTitle);
     }
 
+    //generate html file for collaborative play
     public void generateMapHTML(int mapCount, Map.Tiles[][] teamMap, int teamPlayerNum){
         String path = "src"+ret+"main"+ret+"java"+ret+"edu"+ret+"cps2002"+ret+"mazegame"+ret+"gameMaps"+ret+"map_team_"+mapCount+"_player_"+teamPlayerNum+".html";
         StringBuilder mapTitle = generateMapHTMLTitle(mapCount, teamMap.length, teamPlayerNum);
         generateMapHTMLContents(path, teamMap, mapTitle);
     }
 
+    //generate html map title for individual play
     public StringBuilder generateMapHTMLTitle(int mapCount, int playerMapLength){
         StringBuilder mapHTML = new StringBuilder();
 
@@ -70,6 +73,7 @@ public class MapUtils {
         return mapHTML;
     }
 
+    //generate html map title for collaborative play
     public StringBuilder generateMapHTMLTitle(int mapCount, int playerMapLength, int teamPlayerNum){
         StringBuilder mapHTML = new StringBuilder();
 
@@ -87,7 +91,6 @@ public class MapUtils {
     }
 
     //generates html file for map according to given array playerMap
-    //name of generated file contains given mapCount in the form "map_player_"+mapCount if no teams
     public void generateMapHTMLContents(String path, Map.Tiles[][] playerMap, StringBuilder mapTitle) {
         StringBuilder mapHTML = new StringBuilder();
 
@@ -108,7 +111,7 @@ public class MapUtils {
         mapHTML.append(mapTitle);
 
         mapHTML.append("<tbody>\n");
-    //    file:///Users/francescachircop/Desktop/CPS2002-SoftwareEng/src/main/java/edu/cps2002/mazegame/gameMaps/map_player_4.html
+
         //inputting grid according to map size
         for (int y = 0; y < playerMap.length; y++) {
             mapHTML.append("<tr>");

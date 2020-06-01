@@ -2,10 +2,13 @@ package edu.cps2002.mazegame.map;
 
 public class HazardousMap extends Map{
 
-    //Access modifier set to protected to be accessible by MapFactory and not by Game
+    //access modifier set to protected to be
+    //accessible by MapFactory and not by Game
     protected HazardousMap(){
 
     }
+
+    //set water percentage between 25% and 35%
     @Override
     public boolean setWaterPercentage(double waterPercentage) {
         //if percentage is not between 25% and 35%

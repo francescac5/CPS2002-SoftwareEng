@@ -7,9 +7,16 @@ import edu.cps2002.mazegame.map.Map;
 import edu.cps2002.mazegame.map.SafeMap;
 
 public class Player implements Observer {
+    //player's position on the map
     private Position position;
+
+    //used in collaborative play to be identified in a team
     private int playerNum;
+
+    //map which player is playing on
     private Map m;
+
+    //used in collaborative by player to receive updates
     private TeamManager teamManager;
 
    //getter for the position
@@ -29,6 +36,8 @@ public class Player implements Observer {
         setPosition(p);
     }
 
+    //constructor used during collaborative play
+    //player registers itself to the given TeamManager to receive updates of revealed tiles
     public Player(int x, int y, Map map, int playerNum, TeamManager teamManager){
         Position p = new Position(x, y);
         setPosition(p);
@@ -40,6 +49,8 @@ public class Player implements Observer {
         teamManager.register(this);
     }
 
+    //Updates the player's map by revealing a newly discovered tile
+    //by any member of the team
     @Override
     public void update(int x, int y) {
         m.revealTile(x, y, teamManager.getTeamNo(), playerNum);
@@ -50,7 +61,7 @@ public class Player implements Observer {
         UP, DOWN, RIGHT, LEFT, UNKNOWN
     }
 
-     //setter for the position
+    //setter for the position
     public void setPosition(Position position) {
         this.position = position;
     }

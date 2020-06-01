@@ -7,7 +7,8 @@ import java.util.Random;
 
 public abstract class Map {
 
-     public Map(){
+    //constructor
+    public Map(){
     }
 
     //Enum representing types of tiles
@@ -19,6 +20,7 @@ public abstract class Map {
         GRASS_PLAYER
     }
 
+    //give access to html generation functions
     private MapUtils util = new MapUtils();
 
     //map size
@@ -180,6 +182,7 @@ public abstract class Map {
         }
     }
 
+    //generate a deep copy of the initial map
     protected Tiles[][] generateInitMapDeepCopy(Tiles[][] initMap){
         Tiles[][] initMapCopy = new Tiles[initMap.length][initMap.length];
 
@@ -336,7 +339,12 @@ public abstract class Map {
     //gets player map for collaborative play and updates player's map contents
     public void updateMap(int xNew, int yNew, int teamNum, int playerNum){
         Tiles[][] playerMap = getTeamPlayerMap(teamNum, playerNum);
+
+        //teamNum is passed as playerNum for the third arg
+        //since it is only used to get the initial positions
+        //and a team has the same initial position
         updateMapContents(xNew, yNew, teamNum, playerMap);
+
         util.generateMapHTML(teamNum, playerMap, playerNum);
     }
 
@@ -385,6 +393,7 @@ public abstract class Map {
         Tiles[][] teamPlayerMap = getTeamPlayerMap(teamNum, playerNum);
         Tiles revealedTile = this.mapTiles[xNew][yNew];
 
+        //if grass player then player caused the update therefore he/she already revealed the new tile
         if(teamPlayerMap[xNew][yNew] != Tiles.GRASS_PLAYER) {
 
             for (int y = 0; y < size; y++) {

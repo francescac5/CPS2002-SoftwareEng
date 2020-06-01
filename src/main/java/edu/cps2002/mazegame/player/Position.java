@@ -2,6 +2,7 @@ package edu.cps2002.mazegame.player;
 
 public class Position {
 
+    //x and y-coordinates of position
     public int x;
     public int y;
 
