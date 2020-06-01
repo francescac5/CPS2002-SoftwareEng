@@ -14,8 +14,10 @@ public class Game {
     //arraylist to store the players and their choice
     protected static ArrayList<Player> playerList = new ArrayList<Player>();
     protected static ArrayList<Player.DIRECTION> playerChoice = new ArrayList<>();
+    //arraylist of managers and to store the teams having the players
     protected static ArrayList<TeamManager> Managers = new ArrayList<>();
     protected static ArrayList<ArrayList<Player>> teamList = new ArrayList<ArrayList<Player>>();
+    //arrays to store the team players and their respective count
     protected static int[] TeamPlayers;
     protected static int[] TeamPlayersCount;
     private static MapUtils utils = new MapUtils();
@@ -64,7 +66,7 @@ public class Game {
         }
     }
 
-    //method to check that the input that the user gives is either l,d,u or r
+    //method to check that the input that the user enters is either l,d,u or r
     public static boolean validateUserInput(String answer) {
         return answer.equalsIgnoreCase("L") || answer.equalsIgnoreCase("R") ||
                 answer.equalsIgnoreCase("D") || answer.equalsIgnoreCase("U");
@@ -120,7 +122,7 @@ public class Game {
         } while(true);
     }
 
-    //method to get the number of players from the user
+    //method to get the number of teams from the user
     public static int getNumTeams(int numPlayers){
         int numTeams = 0;
         Scanner sc = new Scanner(System.in);
@@ -180,6 +182,8 @@ public class Game {
         } while (true);
     }
 
+    //method to create an instance of TeamManager for every team and add it to an arraylist of Managers
+    // and also an instance of player for every player and add it to an arraylist of players
 static void initialiseTeams(int[] playersPerTeam, int teams) {
     for(int i =0; i<teams; i++){
         int initXTeam = map.getPlayerInitPositionX(i+1);
@@ -195,6 +199,8 @@ static void initialiseTeams(int[] playersPerTeam, int teams) {
         teamList.add(players);
     }
 }
+
+//method to calculate the players per team
 static void calculatePlayersPerTeam(int players, int teams){
         TeamPlayers = new int[teams];
         int remainder = players % teams;
@@ -211,7 +217,7 @@ static void calculatePlayersPerTeam(int players, int teams){
         Arrays.fill(TeamPlayersCount,0);
 
 }
-    //method to generate HTML files for every player
+    //method to generate HTML files for every player in a team
     static void generateHTMLFiles(int[] playersPerTeam, int teams){
             for (int i = 0; i < teams; i++) {
                 map.generate(playersPerTeam[i]);
@@ -261,7 +267,7 @@ static void calculatePlayersPerTeam(int players, int teams){
                     checkGameend(check);
                 }
                 utils.deleteHTMLFiles();
-                map.resetMap();
+                map.clearPlayerMaps();
                 System.out.println("\n!Try again!\n");
             } while (!gameend);
         } else if (mode.equalsIgnoreCase("C")) {
@@ -290,13 +296,13 @@ static void calculatePlayersPerTeam(int players, int teams){
                 }
 
                 //for loop that gives 20 turns to each team
-                for (int i = 0; i < 20; i++) {
+                for (int i = 0; i < 1; i++) {
                     giveOneTurnToEachTeam();
                     boolean check = checkWinnerTeam();
                     checkGameend(check);
                 }
                 utils.deleteHTMLFiles();
-                map.resetMap();
+                map.clearPlayerMaps();
                 System.out.println("\n!Try again!\n");
             } while (!gameend);
         }
@@ -321,7 +327,7 @@ static void calculatePlayersPerTeam(int players, int teams){
         playerChoice.clear();
     }
 
-    //method to give every team
+    //method to give every player in a team one turn to move on the map
     static void giveOneTurnToEachTeam() {
         //player's x & y co-ordinates
         int playerX;
@@ -364,7 +370,7 @@ static void calculatePlayersPerTeam(int players, int teams){
     }
 
 
-    //method that checks if a player went on a water tile if so he is sent back to his/her original position
+    //method that checks if a player went on a water tile if so he is sent back to his/her initial position
     static boolean moveToNewTile(char tile, int playerNum, Player player, Player.DIRECTION x){
         boolean flag = true;
         if (tile == 'W') {
@@ -396,7 +402,7 @@ static void calculatePlayersPerTeam(int players, int teams){
         }
     }
 
-    //method to create an instance for every player and add it to the array of the players
+    //method to create an instance for every player and add it to the array of players
     static void initialisePlayers(int players){
         for (int i =0; i<players; i++){
             Player p1 = new Player(map.getPlayerInitPositionX(i+1),map.getPlayerInitPositionY(i+1), map);
@@ -418,7 +424,7 @@ static void calculatePlayersPerTeam(int players, int teams){
         return winnerFlag;
     }
 
-    //method that checks if a player is on the treasure tile (winner)
+    //method that checks if one of the players in a team is on the treasure tile (winner)
     static boolean checkWinnerTeam(){
         boolean winnerFlag = false;
         for(int i = 0; i < teamList.size(); i++){
@@ -434,7 +440,7 @@ static void calculatePlayersPerTeam(int players, int teams){
         return winnerFlag;
     }
 
-    //asks user what type of map he/she would like
+    //asks user what type of map he/she would like to choose
     private static void chooseMapType() {
 
         Scanner sc= new Scanner(System.in);
