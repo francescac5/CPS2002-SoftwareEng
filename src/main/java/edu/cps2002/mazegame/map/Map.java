@@ -393,6 +393,7 @@ public abstract class Map {
         Tiles[][] teamPlayerMap = getTeamPlayerMap(teamNum, playerNum);
         Tiles revealedTile = this.mapTiles[xNew][yNew];
 
+        //if grass player then player caused the update therefore he/she already revealed the new tile
         if(teamPlayerMap[xNew][yNew] != Tiles.GRASS_PLAYER) {
 
             for (int y = 0; y < size; y++) {
