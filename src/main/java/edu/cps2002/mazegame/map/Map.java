@@ -405,20 +405,25 @@ public abstract class Map {
         }
     }
 
+    //for testing purposes only
     //resets all variables associated with the Map
     public void resetMap() {
-        initMapCount();
 
         grassTiles.clear();
         waterTiles.clear();
         treasureTile = null;
 
-        playerMaps.clear();
-        teamMaps.clear();
+        clearPlayerMaps();
         initTiles.clear();
         tilesGenerated = false;
 
         waterPercentage = -1;
+    }
+
+    public void clearPlayerMaps() {
+        initMapCount();
+        playerMaps.clear();
+        teamMaps.clear();
         size = -1;
     }
 
