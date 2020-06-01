@@ -429,6 +429,7 @@ public abstract class Map {
         waterPercentage = -1;
     }
 
+    //to reset for next game
     public void clearPlayerMaps() {
         initMapCount();
         playerMaps.clear();
