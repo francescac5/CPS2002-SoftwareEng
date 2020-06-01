@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-public class Map {
+public abstract class Map {
+
+     public Map(){
+    }
 
     //Enum representing types of tiles
     public enum Tiles{
@@ -30,6 +33,9 @@ public class Map {
     //flag to determine that tile types are generated only once
     protected boolean tilesGenerated = false;
 
+    //stores percentage of water tiles in map
+    protected double waterPercentage = -1;
+
     //stores x and y pairs for all grass tiles
     protected ArrayList<Pair<Integer,Integer>> grassTiles = new ArrayList<>();
 
@@ -42,18 +48,26 @@ public class Map {
     //stores a map representation for each player
     protected ArrayList<Tiles[][]> playerMaps = new ArrayList<>();
 
+    //stores a map representation for each player in each team
+    protected ArrayList<ArrayList<Tiles[][]>> teamMaps = new ArrayList<>();
+
     //stores x and y pairs for the players' initial tiles
     protected ArrayList<Pair<Integer,Integer>> initTiles = new ArrayList<>();
 
     //getters
     //returns size of map set by user
-    public static int getMapSize() {
+    public int getMapSize() {
         return size;
     }
 
-    //returns map of a particular player
+    //returns map of a particular player in individual play
     protected Tiles[][] getPlayerMap(int playerNum){
         return playerMaps.get(playerNum-1);
+    }
+
+    //returns map of a particular player in collaborative play
+    public Tiles[][] getTeamPlayerMap(int teamNum, int playerNum){
+        return teamMaps.get(teamNum-1).get(playerNum);
     }
 
     //returns x-coordinate of a particular player's initial tile
@@ -82,7 +96,7 @@ public class Map {
     }
 
     //returns array list of coordinates for all water tiles in the map
-    public static ArrayList<Pair<Integer, Integer>> getWaterTiles() {
+    public ArrayList<Pair<Integer, Integer>> getWaterTiles() {
         return waterTiles;
     }
 
@@ -103,7 +117,7 @@ public class Map {
             case TREASURE:
                 type = 'T';
                 break;
-            case GRASS_PLAYER:
+            case GRASS:
                 type = 'G';
                 break;
             case WATER:
@@ -119,6 +133,11 @@ public class Map {
         mapCount = 0;
     }
 
+    //set number of maps for testing
+    protected void setMapCount(int newMapCount){
+        mapCount = newMapCount;
+    }
+
     //set map size to a number from 5 to 50
     public boolean setMapSize(int size) {
         //if inputted size is less than minimum of 5
@@ -131,27 +150,68 @@ public class Map {
         }
     }
 
-    //generates tiles for Map once in map's lifetime
+    //set percentage of water tiles which affects the percentage of grass tiles
+    abstract public boolean setWaterPercentage(double waterPercentage);
+
     //generates player map and corresponding HTML file
-    public void generate(){
+    public void generate(int numOfTeamPlayers){
 
         //single set of tiles
-        if(!tilesGenerated){
-            util.generateGameMapsFolder();
-
-            generateTileTypes();
-            tilesGenerated = true;
+        if(!tilesGenerated) {
+            setUpMapTiles();
         }
 
         mapCount++;
         Tiles [][] playerMap = generateInitMap();
-        playerMaps.add(playerMap);
 
-        util.generateMapHTML(mapCount, playerMap);
+        //collaborative
+        if(numOfTeamPlayers > 0) {
+            teamMaps.add(new ArrayList<>());
+            for (int i = 0; i < numOfTeamPlayers; i++) {
+                Tiles [][] playerMapCopy = generateInitMapDeepCopy(playerMap);
+                teamMaps.get(mapCount-1).add(playerMapCopy);
+                util.generateMapHTML(mapCount, playerMapCopy, i);
+            }
+        }
+        //individual
+        else{
+            playerMaps.add(playerMap);
+            util.generateMapHTML(mapCount, playerMap);
+        }
+    }
+
+    protected Tiles[][] generateInitMapDeepCopy(Tiles[][] initMap){
+        Tiles[][] initMapCopy = new Tiles[initMap.length][initMap.length];
+
+        for (int i = 0; i < initMap.length; i++) {
+            for (int j = 0; j < initMap.length; j++) {
+                initMapCopy[j][i] = initMap[j][i];
+            }
+        }
+        return initMapCopy;
+    }
+
+    //generates tiles for Map once in map's lifetime
+    protected void setUpMapTiles(){
+        util.generateGameMapsFolder();
+
+        // create instance of Random class
+        Random rand = new Random();
+        double randomValue;
+
+        //set water percentage randomly
+        boolean success = false;
+        while(!success){
+            randomValue = 100 * rand.nextDouble();
+            success = this.setWaterPercentage(randomValue);
+        }
+
+        generateTileTypes();
+        tilesGenerated = true;
     }
 
     //generates initial map for player with initial position on a random grass tile
-    private Tiles[][] generateInitMap() {
+    protected Tiles[][] generateInitMap() {
         Tiles[][] initMap = new Tiles[size][size];
 
         Collections.shuffle(grassTiles);
@@ -195,7 +255,7 @@ public class Map {
                     treasureTile = new Pair<>(x, y);
 
                 } else if (grass.contains(tileCount)) {
-                    mapTiles[x][y] = Tiles.GRASS_PLAYER;
+                    mapTiles[x][y] = Tiles.GRASS;
 
                     temp = new Pair<>(x, y);
                     grassTiles.add(temp);
@@ -211,13 +271,22 @@ public class Map {
         }
     }
 
+    //calculates percentage of grass tiles from percentage of water tiles
+    protected double calculateGrassPercentage(){
+        double mapSize = (double)size;
+        double tilePercentage = (1/(mapSize*mapSize))*100;
+
+        return (100 - waterPercentage - tilePercentage);
+    }
+
     //generates 85% of the map size as grass tiles
     private ArrayList<Integer> generateGrassTiles(int amountTiles) {
         ArrayList<Integer> grassTiles = new ArrayList<Integer>();
 
         Random r = new Random();
         int randNum;
-        int amountGrass = (int)Math.ceil(0.85*amountTiles);
+        double grassPercentage = calculateGrassPercentage();
+        int amountGrass = (int)Math.ceil((grassPercentage/100)*amountTiles);
 
         randNum = r.nextInt(amountGrass) + 1;
         grassTiles.add(randNum);
@@ -246,12 +315,29 @@ public class Map {
     private ArrayList<Integer> generateWaterTiles(int amountTiles, int treasure, ArrayList<Integer> grassTiles) {
         ArrayList<Integer> waterTiles = new ArrayList<>();
 
-        for (int i = 1; i < amountTiles+1; i++) {
-            if(!grassTiles.contains(i) && i != treasure){
-                waterTiles.add(i);
+        //if water tile percentage = 0%
+        if(waterPercentage > 0) {
+            for (int i = 1; i < amountTiles + 1; i++) {
+                if (!grassTiles.contains(i) && i != treasure) {
+                    waterTiles.add(i);
+                }
             }
         }
         return waterTiles;
+    }
+
+    //gets player map for individual play and updates player's map contents
+    public void updateMap(int xNew, int yNew, int playerNum){
+        Tiles[][] playerMap = getPlayerMap(playerNum);
+        updateMapContents(xNew, yNew, playerNum, playerMap);
+        util.generateMapHTML(playerNum, playerMap);
+    }
+
+    //gets player map for collaborative play and updates player's map contents
+    public void updateMap(int xNew, int yNew, int teamNum, int playerNum){
+        Tiles[][] playerMap = getTeamPlayerMap(teamNum, playerNum);
+        updateMapContents(xNew, yNew, teamNum, playerMap);
+        util.generateMapHTML(teamNum, playerMap, playerNum);
     }
 
     //if the given x and y coordinates are within the map size limit, the map of the given player is
@@ -259,17 +345,22 @@ public class Map {
     //if the revealed tile is grass, then player moves on it,
     //else if it is water, the player is sent back to the initial tile,
     //else if it is treasure, the player moves on it.
-    public void updateMap(int xNew, int yNew, int playerNum){
+    private void updateMapContents(int xNew, int yNew, int playerNum, Tiles[][] playerMap){
 
         if(xNew < size && yNew < size && xNew >= 0 && yNew >= 0) {
 
-            Tiles[][] playerMap = getPlayerMap(playerNum);
             Tiles revealedTile = this.mapTiles[xNew][yNew];
 
             for (int y = 0; y < size; y++) {
                 for (int x = 0; x < size; x++) {
                     if (xNew == x && yNew == y) {
-                        playerMap[x][y] = revealedTile;
+                        //if in collaborative mode tile already revealed or if revealed tile is grass
+                        if(playerMap[x][y] == Tiles.GRASS || revealedTile == Tiles.GRASS){
+                            playerMap[x][y] = Tiles.GRASS_PLAYER;
+                        }
+                        else{
+                            playerMap[x][y] = revealedTile;
+                        }
                     }
 
                     //if grass tile is revealed then remove character from prev tile
@@ -285,7 +376,32 @@ public class Map {
                     }
                 }
             }
-            util.generateMapHTML(playerNum, playerMap);
+        }
+    }
+
+    //reveals tile for player map during collaborative play and updates player's html file accordingly
+    //without moving detective on map except if treasure is found
+    public void revealTile(int xNew, int yNew, int teamNum, int playerNum){
+        Tiles[][] teamPlayerMap = getTeamPlayerMap(teamNum, playerNum);
+        Tiles revealedTile = this.mapTiles[xNew][yNew];
+
+        if(teamPlayerMap[xNew][yNew] != Tiles.GRASS_PLAYER) {
+
+            for (int y = 0; y < size; y++) {
+                for (int x = 0; x < size; x++) {
+                    if (xNew == x && yNew == y) {
+                        if (teamPlayerMap[x][y] != Tiles.GRASS_PLAYER) {
+                            teamPlayerMap[x][y] = revealedTile;
+                        }
+                    }
+
+                    //if treasure tile is revealed then remove character from prev tile and move it to treasure tile
+                    if (teamPlayerMap[x][y] == Tiles.GRASS_PLAYER && revealedTile == Tiles.TREASURE) {
+                        teamPlayerMap[x][y] = Tiles.GRASS;
+                    }
+                }
+            }
+            util.generateMapHTML(teamNum, teamPlayerMap, playerNum);
         }
     }
 
@@ -298,9 +414,11 @@ public class Map {
         treasureTile = null;
 
         playerMaps.clear();
+        teamMaps.clear();
         initTiles.clear();
         tilesGenerated = false;
 
+        waterPercentage = -1;
         size = -1;
     }
 
