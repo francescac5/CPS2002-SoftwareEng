@@ -50,7 +50,7 @@ public class Player implements Observer {
         UP, DOWN, RIGHT, LEFT, UNKNOWN
     }
 
-     //setter for the position
+    //setter for the position
     public void setPosition(Position position) {
         this.position = position;
     }
